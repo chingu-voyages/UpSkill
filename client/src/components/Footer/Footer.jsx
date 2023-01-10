@@ -56,21 +56,6 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {/* <div className="content w-full md:order-1 text-center pb-8">
-        <p className="mt-3 text-sm  text-center max-w-3xl mx-auto dark:text-ivory-400">
-          Copyright &copy; 2023{" "}
-          <a
-            className="footer-link"
-            href="https://github.com/orgs/chingu-voyages/teams/v41-bears-team-27/members"
-          >
-            v42-bears-team-29 team
-          </a>{" "}
-          at{" "}
-          <a className="footer-link " href="https://www.chingu.io/">
-            Chingu
-          </a>
-        </p>
-      </div> */}
     </footer>
   );
 };
