@@ -5,9 +5,13 @@ module.exports = {
     extend: {
       colors: {
         primary: "#265B8B",
-        ivory: "#ECECEB",
+        ivory: {
+          100: "#ECECEB",
+          200: "#656567",
+          300: "#B0B0AF",
+        },
         baby: "#84C7F2",
-        grotto: "#1181C8",
+        grotto: { 100: "#1181C8", 200: "#1d4ed8" },
         winkle: "#BFC7F2",
       },
       fontFamily: {
