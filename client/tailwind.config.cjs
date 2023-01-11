@@ -9,10 +9,19 @@ module.exports = {
         baby: "#84C7F2",
         grotto: "#1181C8",
         winkle: "#BFC7F2",
+        tokebgColor: "#F27457",
       },
       fontFamily: {
         title: ["Quicksand", "Open Sans"],
         body: ["Open Sans", "Avenir"],
+      },
+      width: {
+        dashSKillsSection: "24.625rem",
+        dashScheduleSection: "46.125rem",
+        smalldashsch: "22.125rem",
+      },
+      gap: {
+        spaceBtwbioXScheduledLssn: "4.875rem",
       },
     },
   },

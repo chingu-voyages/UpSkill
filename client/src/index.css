@@ -20,3 +20,33 @@ body {
   margin: 0;
   padding: 0;
 }
+
+table {
+  width: 100%;
+}
+
+tr {
+  border-bottom: 2px solid grey;
+}
+
+td,
+th {
+  text-align: center;
+}
+
+td {
+  height: 80px;
+  color: #1181c8;
+}
+
+th {
+  height: 50px;
+  color: #265b8b;
+}
+
+@media only screen and (max-width: 395px) {
+  td,
+  th {
+    font-size: 14px;
+  }
+}
