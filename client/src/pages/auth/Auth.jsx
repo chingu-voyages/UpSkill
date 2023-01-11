@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { BsGoogle, BsLinkedin } from "react-icons/bs";
 import { TfiFacebook } from "react-icons/tfi";
 import loginImg from "../../assets/signup/girl_at_computer.jpg";
@@ -19,6 +19,9 @@ function Auth() {
     confirmPassword: "",
   };
   const [isSignUp, setIsSignUp] = useState(false);
+  /**
+   * here we'll get the state from redux,
+   */
   const [dataForm, setDataForm] = useState(initialData);
   const dataRef = {
     firstName: useRef(null),
@@ -27,6 +30,13 @@ function Auth() {
     password: useRef(null),
     confirmPassword: useRef(null),
   };
+
+  useEffect(() => {
+    /**
+     * we'll make a condition that if state is true
+     * then setIsSignUp(true)
+     */
+  }, []);
   const googleAuth = () => {
     //google authentification
   };
@@ -169,20 +179,20 @@ function Auth() {
                   <BsGoogle
                     color="grotto-100"
                     size={50}
-                    className="p-2 fill-grotto-100 border border-ivory-200 rounded 
+                    className="p-2 fill-grotto-100 border border-ivory-300 rounded 
               drop-shadow-lg hover:fill-white hover:bg-grotto-100"
                     onClick={googleAuth}
                   />
                   <TfiFacebook
                     color="grotto-100"
                     size={50}
-                    className="p-2 fill-grotto-100 border border-ivory-200 rounded 
+                    className="p-2 fill-grotto-100 border border-ivory-300 rounded 
               drop-shadow-lg hover:fill-white hover:bg-grotto-100"
                     onClick={facebookAuth}
                   />
                   <BsLinkedin
                     size={50}
-                    className="p-2 fill-grotto-100 border border-ivory-200 rounded 
+                    className="p-2 fill-grotto-100 border border-ivory-300 rounded 
               drop-shadow-lg hover:fill-white hover:bg-grotto-100"
                     onClick={linkedInAuth}
                   />
