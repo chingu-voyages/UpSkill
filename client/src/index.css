@@ -20,3 +20,11 @@ body {
   margin: 0;
   padding: 0;
 }
+@layer components {
+  .social-link {
+    @apply hover:text-baby duration-75;
+  }
+  .social-link-btn {
+    @apply hover:text-baby hover:border-baby duration-75;
+  }
+}

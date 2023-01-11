@@ -17,13 +17,13 @@ const Footer = () => {
         <div className="ml-auto flex flex-col items-end gap-6">
           <h4 className="sm:text-2xl font-semibold">Info</h4>
           <div className="flex gap-2 text-sm">
-            <Link className="hover:text-baby duration-75" to="#">
+            <Link className="social-link" to="#">
               Privacy
             </Link>
-            <Link className="hover:text-baby duration-75" to="#">
+            <Link className="social-link" to="#">
               Contact
             </Link>
-            <Link className="hover:text-baby duration-75" to="#">
+            <Link className="social-link" to="#">
               About
             </Link>
           </div>
@@ -35,21 +35,21 @@ const Footer = () => {
                 <FontAwesomeIcon
                   icon={faFacebookSquare}
                   border
-                  className="hover:text-baby hover:border-baby duration-75"
+                  className="social-link-btn "
                 />
               </a>
               <a href="https://github.com/chingu-voyages/UpSkill">
                 <FontAwesomeIcon
                   icon={faGithub}
                   border
-                  className="hover:text-baby hover:border-baby duration-75"
+                  className="social-link-btn"
                 />
               </a>
               <a href="#">
                 <FontAwesomeIcon
                   icon={faLinkedinIn}
                   border
-                  className="hover:text-baby hover:border-baby duration-75"
+                  className="social-link-btn"
                 />
               </a>
             </div>
