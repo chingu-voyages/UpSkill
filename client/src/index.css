@@ -25,6 +25,7 @@ body {
     @apply hover:text-baby duration-75;
   }
   .social-link-btn {
-    @apply hover:text-baby hover:border-baby duration-75;
+    @apply hover:text-baby hover:fill-baby hover:border-baby duration-75 p-2 fill-ivory border border-ivory rounded 
+    drop-shadow-lg;
   }
 }

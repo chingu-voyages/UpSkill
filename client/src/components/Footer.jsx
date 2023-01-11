@@ -1,12 +1,6 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import {
-  faFacebookSquare,
-  faLinkedinIn,
-  faGithub,
-} from "@fortawesome/free-brands-svg-icons";
-
+import { BsGithub, BsLinkedin, BsGoogle } from "react-icons/bs";
 const Footer = () => {
   return (
     <footer className="bg-grotto text-ivory p-4">
@@ -32,25 +26,16 @@ const Footer = () => {
           <div>
             <div className="flex gap-4 text-xl">
               <a href="#" className="">
-                <FontAwesomeIcon
-                  icon={faFacebookSquare}
-                  border
-                  className="social-link-btn "
-                />
+                <BsGoogle size={40} className="social-link-btn" />
               </a>
-              <a href="https://github.com/chingu-voyages/UpSkill">
-                <FontAwesomeIcon
-                  icon={faGithub}
-                  border
-                  className="social-link-btn"
-                />
+              <a
+                href="https://github.com/chingu-voyages/UpSkill"
+                target="_blank"
+              >
+                <BsGithub size={40} className="social-link-btn" />
               </a>
               <a href="#">
-                <FontAwesomeIcon
-                  icon={faLinkedinIn}
-                  border
-                  className="social-link-btn"
-                />
+                <BsLinkedin size={40} className="social-link-btn" />
               </a>
             </div>
           </div>
