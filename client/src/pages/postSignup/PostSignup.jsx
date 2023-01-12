@@ -6,7 +6,7 @@ const PostSignup = () => {
 
   return (
     <main className="flex justify-center pt-8 min-h-full text-primary">
-      <div className="shadow-cardSh bg-winkle min-w-[80%] p-4 py-12 flex m-12 max-w-[1200px] justify-center rounded-lg">
+      <div className="shadow-cardSh bg-winkle min-w-[80%] p-4 py-12 flex m-12 max-w-[1200px] justify-center rounded-xl">
         <div className="hidden md:flex basis-1/2 items-center ">
           {" "}
           <img src={pic} alt="" />
