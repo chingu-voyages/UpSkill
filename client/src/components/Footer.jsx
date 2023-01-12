@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { BsGithub, BsLinkedin, BsGoogle } from "react-icons/bs";
 const Footer = () => {
   return (
-    <footer className="bg-grotto text-ivory p-4">
+    <footer className="bg-grotto-100 text-ivory-100 p-4">
       <div className="flex">
         <Link to="/">
           <h3 className="font-title sm:text-5xl text-xl font-bold">Upskill</h3>
