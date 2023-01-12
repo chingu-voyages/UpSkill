@@ -50,3 +50,9 @@ th {
     font-size: 14px;
   }
 }
+
+@layer components {
+  .card {
+    @apply shadow-cardSh rounded-lg bg-cardBg;
+  }
+}

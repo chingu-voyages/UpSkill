@@ -14,7 +14,7 @@ import learn from "../assets/dashboard/learner.svg";
 
 const Dashboard = () => {
   return (
-    <div className="max-w-screen-xl my-6 flex items-center justify-between ml-14 max-[1000px]:mx-auto max-[1000px]:px-6 min-h-screen overflow-x-hidden">
+    <div className="max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen ">
       <div className="flex gap-spaceBtwbioXScheduledLssn max-[1000px]:flex-col">
         <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center">
           <div className="flex items-center flex-col">
@@ -32,18 +32,24 @@ const Dashboard = () => {
 
             <h4 className="font-bold text-grotto text-xl mt-6">David Mark</h4>
           </div>
-          <div className="shadow-md p-8 max-[490px]:px-2 rounded-lg w-full flex flex-col items-center justify-between max-h-80 h-full relative">
-            <div className="flex">
-              <img src={skill} alt="" />
-              <h3 className="font-bold ml-2 text-primary text-xl">Skills</h3>
+          <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between max-h-80 h-full relative">
+            <div className="flex flex-col items-center">
+              <div className="flex">
+                <img src={skill} alt="" className="w-4" />
+                <h3 className="font-bold ml-2 text-primary text-xl">Skills</h3>
+              </div>
+              <img
+                src={pen}
+                alt=""
+                className="absolute right-4 cursor-pointer"
+              />
+              <span className="skill-set  text-grotto">
+                JavaScript, Python, UI/UX
+              </span>
             </div>
 
-            <img src={pen} alt="" className="absolute right-4 cursor-pointer" />
-            <span className="skill-set mt-4 text-grotto">
-              JavaScript, Python, UI/UX
-            </span>
             <br />
-            <div className="flex gap-6">
+            <div className="flex gap-2">
               <img src={coins} alt="" />
               <h3 className="text-primary text-xl font-bold">Tokens</h3>
               <div className="h-8 w-8 ">
@@ -52,7 +58,6 @@ const Dashboard = () => {
                 </span>
               </div>
             </div>
-            <br />
             <a
               href="#"
               className="flex bg-tokebgColor px-6 py-1 rounded-2xl text-white gap-2"
@@ -61,7 +66,7 @@ const Dashboard = () => {
               <img src={coins} alt="" />
             </a>
           </div>
-          <div className="shadow-md justify-between max-h-96 h-full max-[490px]:px-2 p-8 flex flex-col items-center rounded-lg mt-8 relative w-full">
+          <div className="card justify-between max-h-96 h-full max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative w-full">
             <div className="flex">
               <img src={bio} alt="" />
               <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
@@ -94,7 +99,7 @@ const Dashboard = () => {
           </div>
           <a
             href="#"
-            className="flex items-center justify-center h-48 w-full shadow-md mt-8 rounded-lg max-[490px]:px-2"
+            className="card flex items-center justify-center h-48 w-full mt-8  max-[490px]:px-2"
           >
             <p className="font-bold text-primary text-xl">
               View or Update your calendar
@@ -103,7 +108,7 @@ const Dashboard = () => {
           </a>
         </section>
         <section className="max-w-dashScheduleSection w-full">
-          <div className="flex items-center flex-col gap-4 w-full shadow-md p-8 max-[490px]:px-2 w-full">
+          <div className="flex items-center flex-col gap-4  card p-8 max-[490px]:px-2 w-full">
             <h3 className="font-bold text-primary text-2xl max-[432px]:text-xl">
               Scheduled Lessons
             </h3>
@@ -201,7 +206,7 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <div className="flex items-center w-full flex-col mt-8 shadow-md rounded-lg">
+          <div className="flex items-center w-full flex-col mt-8 card p-8">
             <div className="flex ">
               <img src={stats} alt="" />
               <h3 className="ml-2 text-primary font-bold">Statistics</h3>
