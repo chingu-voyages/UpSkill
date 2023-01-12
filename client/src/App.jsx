@@ -1,13 +1,17 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Auth from "./pages/auth/Auth";
+import Footer from "./components/Footer";
 import Dashboard from "./components/Dashboard";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Dashboard />
-      </div>
-    </Router>
+    <>
+      <Routes>
+        <Route path="/auth" element={<Auth />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Footer />
+      </Routes>
+    </>
   );
 }
 
