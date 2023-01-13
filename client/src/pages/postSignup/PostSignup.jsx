@@ -1,10 +1,11 @@
 import React from "react";
 import pic from "../../assets/signup//questions_nobg.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const PostSignup = () => {
   const options = ["Online only", "Online & In-person", "In-person only"];
+  const navigate = useNavigate();
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     const { wantToTeach, wantToLearn, connectingFrom, selector } =
       e.target.elements;
@@ -15,6 +16,8 @@ const PostSignup = () => {
       method: selector.value,
     };
     // make a put request to add the postData to the user's profile data in the DB.
+    // then if post is successful redirect to the dashboard
+    navigate("/");
   };
 
   return (
