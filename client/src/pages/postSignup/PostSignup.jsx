@@ -2,7 +2,20 @@ import React from "react";
 import pic from "../../assets/signup//questions_nobg.png";
 import { Link } from "react-router-dom";
 const PostSignup = () => {
-  const options = ["Online & In-person", "Online only", "In-person only"];
+  const options = ["Online only", "Online & In-person", "In-person only"];
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const { wantToTeach, wantToLearn, connectingFrom, selector } =
+      e.target.elements;
+    const postData = {
+      teaching: wantToTeach.value ? wantToTeach.value : null,
+      learning: wantToLearn.value ? wantToLearn.value : null,
+      location: connectingFrom.value,
+      method: selector.value,
+    };
+    // make a put request to add the postData to the user's profile data in the DB.
+  };
 
   return (
     <main className="flex justify-center pt-8 min-h-full text-primary">
@@ -11,7 +24,10 @@ const PostSignup = () => {
           {" "}
           <img src={pic} alt="" />
         </div>
-        <form className="flex flex-col items-center w-[80%] md:items-start gap-4 md:basis-1/2 justify-center p-2">
+        <form
+          className="flex flex-col items-center w-[80%] md:items-start gap-4 md:basis-1/2 justify-center p-2"
+          onSubmit={handleSubmit}
+        >
           <h1 className="max-[829px]:text-center text-2xl text-primary">
             Just Some Quick Questions
           </h1>
@@ -53,6 +69,7 @@ const PostSignup = () => {
             id="connectingFrom"
             name="connectingFrom"
             className="input-field"
+            required
           />
 
           <label htmlFor="selector">
@@ -61,16 +78,16 @@ const PostSignup = () => {
             </h3>
           </label>
           <select name="selector" id="selector" className="input-field">
-            {options.map(option => (
-              <option value={option} label={option}></option>
+            {options.map((option, i) => (
+              <option key={i} value={option} label={option}></option>
             ))}
           </select>
 
           <span className="text-center text-sm">
             Rather fill this out later? Click{" "}
-            <Link to="/">
-              <stong className="font-bold">here</stong>
-            </Link>{" "}
+            <span className="font-bold">
+              <Link to="/">here</Link>
+            </span>
           </span>
           <button type="submit" className="btn">
             Submit
