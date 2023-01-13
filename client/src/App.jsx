@@ -1,15 +1,15 @@
 import Auth from "./pages/auth/Auth";
-import Footer from "./components/Footer";
 import Dashboard from "./components/Dashboard";
 import { Routes, Route } from "react-router-dom";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <>
       <Routes>
+        <Route path="/" element={<Dashboard />} />
         <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Footer />
+        {/* <Footer /> */}
       </Routes>
     </>
   );
