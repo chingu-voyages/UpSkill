@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { BsGithub, BsLinkedin, BsGoogle } from "react-icons/bs";
 const Footer = () => {

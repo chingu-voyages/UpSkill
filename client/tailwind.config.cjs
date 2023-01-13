@@ -13,10 +13,17 @@ module.exports = {
         baby: "#84C7F2",
         grotto: { 100: "#1181C8", 200: "#1d4ed8" },
         winkle: "#BFC7F2",
+        cardBg: "#FAFAFA",
       },
       fontFamily: {
         title: ["Quicksand", "Open Sans"],
         body: ["Open Sans", "Avenir"],
+      },
+      fontSize: {
+        note: ".5rem",
+      },
+      boxShadow: {
+        cardSh: "2px 2px 7px rgba(0, 0, 0, 0.25)",
       },
     },
   },
