@@ -55,7 +55,7 @@ function Auth() {
    *
    * @param {*} e event
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     /**
      * to get the value of the input
@@ -86,7 +86,7 @@ function Auth() {
             </h1>
           </div>
         </div>
-        <div className="flex  justify-center content-center items-center">
+        <div className="flex justify-center content-center items-center">
           <div
             className="bg-ivory-100 m-4 p-4 rounded-lg drop-shadow-lg md:h-full md:w-3/4 
           md:flex md:justify-center md:content-center md:items-center"
@@ -157,7 +157,7 @@ function Auth() {
                   : "Don't have an account yet?"}{" "}
                 <span
                   className="cursor-pointer hover:text-grotto-100"
-                  onClick={() => setIsSignUp((p) => !p)}
+                  onClick={() => setIsSignUp(p => !p)}
                 >
                   Click here!
                 </span>{" "}

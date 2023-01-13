@@ -28,6 +28,9 @@ module.exports = {
       gap: {
         spaceBtwbioXScheduledLssn: "4.875rem",
       },
+      fontSize: {
+        note: ".5rem",
+      },
       boxShadow: {
         cardSh: "2px 2px 7px rgba(0, 0, 0, 0.25)",
       },

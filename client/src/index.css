@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -60,5 +61,14 @@ th {
   }
   .social-link-btn {
     @apply hover:text-baby hover:fill-baby hover:border-baby duration-75 p-2 fill-ivory-100 border border-ivory-100 rounded shadow-lg;
+  }
+  .input-field {
+    @apply rounded-lg border border-ivory-300 bg-cardBg w-full outline-none pl-2 pr-4;
+  }
+  .label-section {
+    @apply flex flex-col items-center text-center md:items-start;
+  }
+  .btn {
+    @apply bg-grotto-100 font-semibold text-white p-2 rounded w-48 hover:bg-primary;
   }
 }
