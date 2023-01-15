@@ -4,7 +4,7 @@ import Footer from "./components/Footer";
 import PostSignup from "./pages/postSignup/PostSignup";
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Profil from "./pages/profil";
+import Profile from "./pages/profile";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/profil" element={<Profil />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/auth/post-signup" element={<PostSignup />} />
       </Routes>
