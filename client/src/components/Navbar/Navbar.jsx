@@ -1,7 +1,7 @@
 import "./navbar.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { RxHamburgerMenu, RxCross2 } from "react-icons/Rx";
+import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import NavItem from "./NavItem";
 
 const Navbar = () => {
@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <nav
       className="bg-white border-b border-baby z-10 relative mb-4"
-      onClick={e => e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
     >
       <div className="flex items-center justify-between max-w-[1440px] h-[4rem] px-6 md:px-10 lg:px-14 text-primary">
         <Link to="/">
