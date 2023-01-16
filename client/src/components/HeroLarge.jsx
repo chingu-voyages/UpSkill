@@ -5,12 +5,12 @@ const HeroLarge = () => {
   return (
     <div className="w-full h-screen p-5">
       <div className="flex flex-row mt-20">
-        <div className="w-2/3">
+        <div className="w-[52%]">
           <img className="my-5" src={collabImg} alt="collaboration" />
         </div>
         <div className="w-1/3 my-20 p-5">
           <div className="mb-10">
-            <h1 className="text-grotto font-bold text-center text-4xl">
+            <h1 className="text-grotto-100 font-bold text-center text-4xl">
               Empowering individuals, <br /> building communities.
             </h1>
           </div>
@@ -19,7 +19,10 @@ const HeroLarge = () => {
             and teach new skills while connecting with others in the community.
           </p>
           <div className="flex flex-col my-6 bg-slate-200 rounded-lg p-3">
-            <label htmlFor="search" className="text-grotto font-bold text-sm">
+            <label
+              htmlFor="search"
+              className="text-grotto-100 font-bold text-sm"
+            >
               What would you like to learn?
             </label>
             <form action="#">

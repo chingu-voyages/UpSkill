@@ -6,14 +6,16 @@ const HowItWorks = () => {
   return (
     <div className="flex flex-col">
       <div>
-        <h1 className="text-center text-2xl font-bold text-grotto mt-10 mb-10 lg:text-4xl">
+        <h1 className="text-center text-2xl font-bold text-grotto-100 mt-10 mb-10 lg:text-4xl">
           How it works
         </h1>
       </div>
       <div className="flex flex-col justify-center md:flex-col lg:flex-row lg:p-10">
         <div className="flex flex-col h-screen items-center gap-6 lg:w-1/4 lg:mx-14">
-          <span className="font-bold
-          text-grotto border-solid border-2 border-slate-300 rounded-full p-2 inline-block w-10 text-center">
+          <span
+            className="font-bold
+          text-grotto-100 border-solid border-2 border-slate-300 rounded-full p-2 inline-block w-10 text-center"
+          >
             1
           </span>
           <span className="font-bold inline-block text-primary">
@@ -26,8 +28,10 @@ const HowItWorks = () => {
           </p>
         </div>
         <div className="flex flex-col h-screen items-center gap-6 lg:w-1/4 lg:mx-14">
-          <span className="font-bold
-          text-grotto border-solid border-2 border-slate-300 rounded-full p-2 inline-block w-10 text-center">
+          <span
+            className="font-bold
+          text-grotto-100 border-solid border-2 border-slate-300 rounded-full p-2 inline-block w-10 text-center"
+          >
             2
           </span>
           <span className="font-bold inline-block text-primary">
@@ -45,8 +49,10 @@ const HowItWorks = () => {
           </p>
         </div>
         <div className="flex flex-col h-screen items-center gap-6 lg:w-1/4 lg:mx-14">
-          <span className="font-bold
-          text-grotto border-solid border-2 border-slate-300 rounded-full p-2 inline-block w-10 text-center">
+          <span
+            className="font-bold
+          text-grotto-100 border-solid border-2 border-slate-300 rounded-full p-2 inline-block w-10 text-center"
+          >
             3
           </span>
           <span className="font-bold inline-block text-primary">

@@ -20,7 +20,7 @@ const Cards = () => {
           ever you are.
         </p>
         <div className="flex justify-center pb-16 md:pb-0">
-          <button className="font-bold bg-grotto py-2 px-4 rounded-lg text-white">
+          <button className="font-bold bg-grotto-100 py-2 px-4 rounded-lg text-white">
             Find out more
           </button>
         </div>
@@ -31,10 +31,10 @@ const Cards = () => {
           src={rocket}
           alt="a rocket ship blasting off"
         />
-        <h4 className="text-xl text-center font-bold text-ivory mt-5">
+        <h4 className="text-xl text-center font-bold text-ivory-100 mt-5">
           Ready to Go?
         </h4>
-        <p className="text-ivory leading-6 p-5 text-center">
+        <p className="text-ivory-100 leading-6 p-5 text-center">
           Come on in and see what skills people are sharing. Like what you see?
           Sign up, join the community and learn what you’ve always wanted to!
         </p>

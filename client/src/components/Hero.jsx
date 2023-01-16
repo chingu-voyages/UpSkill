@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="w-full h-screen p-5">
       <div className="flex flex-col mt-20">
         <div className="mb-3 lg:mb-10">
-          <h1 className="text-grotto font-bold text-center text-2xl">
+          <h1 className="text-grotto-100 font-bold text-center text-2xl">
             Empowering individuals, <br /> building communities.
           </h1>
         </div>
@@ -20,7 +20,7 @@ const Hero = () => {
           teach new skills while connecting with others in the community.
         </p>
         <div className="flex flex-col my-6 bg-slate-200 rounded-lg p-3">
-          <label htmlFor="search" className="text-grotto font-bold text-sm">
+          <label htmlFor="search" className="text-grotto-100 font-bold text-sm">
             What would you like to learn?
           </label>
           <form action="#">

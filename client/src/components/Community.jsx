@@ -24,7 +24,7 @@ const Community = () => {
               experience of our community.
             </p>
             <div className="flex justify-center w-full mt-8">
-              <button className="min-w-[250px] text-slate-100 rounded-lg p-2 bg-grotto">
+              <button className="min-w-[250px] text-slate-100 rounded-lg p-2 bg-grotto-100">
                 Join the community
               </button>
             </div>
