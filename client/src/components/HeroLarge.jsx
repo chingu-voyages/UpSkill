@@ -5,10 +5,10 @@ const HeroLarge = () => {
   return (
     <div className="w-full h-screen p-5">
       <div className="flex flex-row mt-20">
-        <div className="w-[52%]">
+        <div className="basis-1/2 flex justify-center items-center">
           <img className="my-5" src={collabImg} alt="collaboration" />
         </div>
-        <div className="w-1/3 my-20 p-5">
+        <div className="basis-1/2 my-20 p-5">
           <div className="mb-10">
             <h1 className="text-grotto-100 font-bold text-center text-4xl">
               Empowering individuals, <br /> building communities.
