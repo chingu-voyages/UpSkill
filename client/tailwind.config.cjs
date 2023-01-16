@@ -12,6 +12,7 @@ module.exports = {
           200: "#656567",
           300: "#B0B0AF",
         },
+        rocketBg: "#23445B",
         baby: "#84C7F2",
         grotto: { 100: "#1181C8", 200: "#1d4ed8" },
         winkle: "#BFC7F2",
