@@ -1,4 +1,4 @@
-//import and models/schemas
+const { supabase } = require("../config/supabase");
 
 //Get user info
 const getUser = async (req, res) => {
