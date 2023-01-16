@@ -3,7 +3,7 @@ import rocket from "../assets/landing/rocket.png";
 
 const Cards = () => {
   return (
-    <div className="flex flex-col md:flex-row justify-around md:justify-center md:gap-4 items-center gap-20 p-4">
+    <div className="flex flex-col md:flex-row justify-around md:justify-center lg:justify-around md:gap-4 items-center gap-20 p-4 mb-12">
       <div className=" bg-winkle md:h-[41rem] w-[80%] rounded-lg lg:w-2/6 flex flex-col items-center justify-around p-4">
         <img
           className="mx-auto max-w-[200px] sm:sm:max-w-[280px]"
