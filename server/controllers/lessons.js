@@ -1,4 +1,4 @@
-//import and models/schemas
+const { supabase } = require("../config/supabase");
 
 // Book a lesson
 const bookLesson = async (req, res) => {
