@@ -6,7 +6,7 @@ const Hero = () => {
     <div className="w-full h-screen p-5">
       <div className="flex flex-col mt-20">
         <div className="mb-3 lg:mb-10">
-          <h1 className="text-grotto font-bold text-center">
+          <h1 className="text-grotto font-bold text-center text-2xl">
             Empowering individuals, <br /> building communities.
           </h1>
         </div>
