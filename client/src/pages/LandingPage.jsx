@@ -3,26 +3,24 @@ import Hero from "../components/Hero";
 import HeroLarge from "../components/HeroLarge";
 import Community from "../components/Community";
 import HowItWorks from "../components/HowItWorks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 
 const LandingPage = () => {
-  let smallScreen = true;
-  useEffect(
-    () => {
-      function switchHero() {
-        window.innerWidth > 770 ? (smallScreen = false) : true;
-      }
-      window.addEventListener("resize", switchHero);
-      return () => {
-        window.removeEventListener("resize", switchHero);
-      };
-    },
-    [ window.innerWidth ]
-  );
+  const [smallscreen, setSmallscreen] = useState(false);
+  useEffect(() => {
+    function switchHero() {
+      console.log("switched");
+      window.innerWidth > 770 ? setSmallscreen(false) : setSmallscreen(true);
+    }
+    window.addEventListener("resize", switchHero);
+    return () => {
+      window.removeEventListener("resize", switchHero);
+    };
+  }, []);
   return (
     <div>
-      {smallScreen ? <Hero /> : <HeroLarge />}
+      {smallscreen ? <Hero /> : <HeroLarge />}
       <Community />
       <HowItWorks />
       <Cards />
