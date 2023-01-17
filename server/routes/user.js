@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { getUser, updateUser, deleteUser } = require("../controllers/user");
 
 //Get user info
-router.get("/user/:id", getUser);
+router.post("/", getUser);
 
 //Update user info
 router.put("/user/update/:id", updateUser);
