@@ -5,7 +5,7 @@ const { getUser, updateUser, deleteUser } = require("../controllers/user");
 router.post("/", getUser);
 
 //Update user info
-router.put("/user/update/:id", updateUser);
+router.put("/user/update/", updateUser);
 
 //Delete user
 router.delete("/user/delete/:id", deleteUser);
