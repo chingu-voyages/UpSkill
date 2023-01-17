@@ -6,10 +6,11 @@ const { supabase } = require("../config/supabase");
 const getUser = async (req, res) => {
   try {
     const { id } = req.body;
+    console.log(id);
     if (id) {
       const { data: User, error } = await supabase
         .from("User")
-        .select("*")
+        .select("*, User_data(*)")
         .eq("id", id);
       if (User) {
         return res.status(200).json(User);
