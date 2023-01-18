@@ -18,6 +18,7 @@ module.exports = {
         winkle: "#BFC7F2",
         tokebgColor: "#F27457",
         cardBg: "#FAFAFA",
+        myChat: "#cafaf1",
       },
       fontFamily: {
         title: ["Quicksand", "Open Sans"],
@@ -36,6 +37,9 @@ module.exports = {
       },
       boxShadow: {
         cardSh: "2px 2px 7px rgba(0, 0, 0, 0.25)",
+      },
+      height: {
+        chatScreenHeight: "calc(100vh - 4.9rem)",
       },
     },
   },

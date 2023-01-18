@@ -55,7 +55,7 @@ function Auth() {
    *
    * @param {*} e event
    */
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     /**
      * to get the value of the input
@@ -126,7 +126,7 @@ function Auth() {
                   classStyle={"md:mb-8"}
                   inputRef={dataRef.email}
                 >
-                  email
+                  Email
                 </Input>
                 <Input
                   type="password"
@@ -134,8 +134,9 @@ function Auth() {
                   classStyle={"md:mb-8"}
                   inputRef={dataRef.password}
                 >
-                  password
+                  Password
                 </Input>
+
                 {isSignUp && (
                   <Input
                     type="password"
@@ -157,7 +158,7 @@ function Auth() {
                   : "Don't have an account yet?"}{" "}
                 <span
                   className="cursor-pointer hover:text-grotto-100"
-                  onClick={() => setIsSignUp(p => !p)}
+                  onClick={() => setIsSignUp((p) => !p)}
                 >
                   Click here!
                 </span>{" "}
