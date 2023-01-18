@@ -10,7 +10,9 @@ const supabaseUtilParams = (keys, values, length) => {
 const getUser = async (req, res) => {
   try {
     const { id } = req.body;
-    console.log(id);
+
+    if (!id) return res.status(400).json("User ID Missing");
+
     if (id) {
       const { data: User, error } = await supabase
         .from("User")
@@ -21,16 +23,15 @@ const getUser = async (req, res) => {
       } else {
         return res.status(404).json({ User_not_found: error });
       }
-    } else {
-      return res.status(400).json("User_ID_ missing");
     }
   } catch (error) {
     return res.status(500).json({ Error_fetching_user_data: error });
   }
 };
 
-//Update user info
-const updateUser = async (req, res) => {
+//TODO!!!
+//Update user Account
+const updateUserAcc = async (req, res) => {
   try {
     const { id, profilePic, skills, about, mission, tokens, tutors, tutees } =
       req.body;
@@ -54,6 +55,26 @@ const updateUser = async (req, res) => {
   }
 };
 
+//Update the user info/data
+const updateUserInfo = async (req, res) => {
+  try {
+    const { id, profilePic, skills, about, mission, tokens, tutors, tutees } =
+      req.body;
+
+    if (!id) return res.status(400).json("User ID Missing");
+
+    if (id) {
+      await supabase
+        .from("User_data")
+        .update({ profilePic, skills, about, mission, tokens, tutors, tutees })
+        .eq("userId", id);
+      return res.status(200).json("User updated");
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
 //Delete user
 const deleteUser = async (req, res) => {
   try {
@@ -63,4 +84,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, updateUser, deleteUser };
+module.exports = { getUser, updateUserAcc, updateUserInfo, deleteUser };
