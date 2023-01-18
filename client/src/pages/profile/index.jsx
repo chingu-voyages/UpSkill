@@ -29,7 +29,7 @@ function Profil() {
   return (
     <main className="lg:flex lg:h-max lg:items-center">
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">
-        <div className="lg:ml-8 lg:w-1/3">
+        <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
             <h2 className="font-title font-bold text-primary text-3xl mb-8">
               Hi, I'm David 👋
@@ -133,8 +133,8 @@ function Profil() {
               <BioDetails title="Subject"></BioDetails>
             </div>
           )}
-        </div>
-        <div className="lg:mr-8 lg:w-1/2 lg:flex lg:flex-col lg:content-center  ">
+        </section>
+        <section className="lg:mr-8 lg:w-1/2 lg:flex lg:flex-col lg:content-center  ">
           {width >= 1024 ? (
             <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
               <div className="flex w-full p-4 justify-center border-b-2 border-ivory-50">
@@ -213,7 +213,7 @@ function Profil() {
               </a>
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </main>
   );
