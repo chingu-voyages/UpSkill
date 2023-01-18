@@ -78,7 +78,27 @@ const updateUserInfo = async (req, res) => {
 //Delete user
 const deleteUser = async (req, res) => {
   try {
-    return res.status(200).json({ testing });
+    const { id } = req.params;
+
+    if (!id) return res.status(400).json("User ID Missing");
+
+    if (id) {
+      const { error: info } = await supabase
+        .from("User_data")
+        .delete()
+        .eq("userId", id);
+
+      const { error: account } = await supabase
+        .from("User")
+        .delete()
+        .eq("id", id);
+
+      if (account || info) {
+        return res.status(404).json({ User_not_deleted: error });
+      } else {
+        return res.status(200).json("User and user data deleted successfully");
+      }
+    }
   } catch (error) {
     return res.status(500).json({ Error_deleting_user_data: error });
   }
