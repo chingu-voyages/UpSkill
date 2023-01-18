@@ -5,7 +5,7 @@ import SearchProfileCard from "../components/SearchProfileCard";
 
 function Search() {
   return (
-    <main className="lg:text-xl lg:text-lg">
+    <main className="lg:text-xl">
       <div className=" md:w-3/4 lg:ml-8 flex lg:grid lg:grid-cols-12 lg:flex-row my-6 bg-cardBg drop-shadow-lg mx-4 rounded-lg p-3">
         <label
           htmlFor="search"
@@ -16,10 +16,9 @@ function Search() {
         <form action="#" className="my-4 col-span-7 w-full">
           <div className="flex">
             <input
-              className="border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
+              className="border border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
               name="search"
               type="text"
-              //   placeholder="Search skills"
             />
             <button className="text-white bg-primary w-10 p-2 rounded-tr-lg rounded-br-lg">
               <FaSearch />
