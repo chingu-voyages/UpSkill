@@ -11,13 +11,13 @@ const Conversations = ({ message }) => {
             <img src="" alt="" />
           </div>
           <div className="flex inline">
-            <span className="max-[394px]:text-base text-sm p-2 shadow-md bg-ivory-100">
+            <span className="max-[940px]:text-base text-sm p-2 shadow-md bg-ivory-100">
               {message}
             </span>
           </div>
         </div>
         <div className="flex inline justify-end ">
-          <span className="max-[394px]:text-base text-sm w-max bg-myChat shadow-md my-6  p-2">
+          <span className="max-[940px]:text-base text-sm w-max bg-myChat shadow-md my-6  p-2">
             Yes I am. I am currently preparing my notes.
           </span>
         </div>

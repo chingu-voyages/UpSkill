@@ -18,10 +18,10 @@ const Chats = ({ avi, name, date, message, setOpenMsg }) => {
       </div>
       <div className="flex flex-col w-full ml-4">
         <div className="flex items-center justify-between w-full">
-          <p className="max-[390px]:text-lg font-bold text-primary">{name}</p>
+          <p className="max-[940px]:text-lg font-bold text-primary">{name}</p>
           <span className="text-winkle text-xs">{date}</span>
         </div>
-        <p className="max-[394px]:text-base text-left text-winkle text-xs mt-px">
+        <p className="max-[940px]:text-base text-left text-winkle text-xs mt-px">
           {message}
         </p>
       </div>
