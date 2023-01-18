@@ -1,7 +1,5 @@
 const { supabase } = require("../config/supabase");
 
-//    9fb70313-9464-44e8-a001-6610f4ca2113
-
 //Get user info
 const getUser = async (req, res) => {
   try {
@@ -25,7 +23,6 @@ const getUser = async (req, res) => {
   }
 };
 
-//TODO!!!
 //Update user Account
 const updateUserAcc = async (req, res) => {
   try {
