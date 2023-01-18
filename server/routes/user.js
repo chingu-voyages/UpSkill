@@ -16,6 +16,6 @@ router.put("/acc", updateUserAcc);
 router.put("/info", updateUserInfo);
 
 //Delete user
-router.delete("/delete/:id", deleteUser);
+router.delete("/:id", deleteUser);
 
 module.exports = router;
