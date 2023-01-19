@@ -1,9 +1,12 @@
 const router = require("express").Router();
 const { bookLesson, cancelLesson } = require("../controllers/lessons");
 // Book a lesson
-router.put("/book/:id", bookLesson);
+router.post("/", bookLesson);
 
 // Cancel a lesson
-router.delete("/delete/:id", cancelLesson);
+router.delete("/:id", cancelLesson);
+
+// Set lesson as complete
+router.put("/", cancelLesson);
 
 module.exports = router;

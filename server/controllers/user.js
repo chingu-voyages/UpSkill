@@ -80,21 +80,21 @@ const deleteUser = async (req, res) => {
     if (!id) return res.status(400).json("User ID Missing");
 
     if (id) {
-      //Must follow this order as the User info fomr "User_data" must be deleted first
-      const { error: info } = await supabase
+      //Must follow this order as the User info from "User_data" must be deleted first
+      const { error: infoErr } = await supabase
         .from("User_data")
         .delete()
         .eq("userId", id);
 
-      const { error: account } = await supabase
+      const { error: accountErr } = await supabase
         .from("User")
         .delete()
         .eq("id", id);
 
-      if (account || info) {
+      if (accountErr || infoErr) {
         return res.status(404).json({ User_not_deleted: error });
       } else {
-        return res.status(200).json("User and user data deleted successfully");
+        return res.status(204).json("User and user data deleted successfully");
       }
     }
   } catch (error) {
