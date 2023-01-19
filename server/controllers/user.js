@@ -3,7 +3,7 @@ const { supabase } = require("../config/supabase");
 //Get user info
 const getUser = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
     if (!id) return res.status(400).json("User ID Missing");
 

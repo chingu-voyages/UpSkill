@@ -7,7 +7,7 @@ const {
 } = require("../controllers/user");
 
 //Get user info
-router.post("/", getUser);
+router.get("/:id", getUser);
 
 //Update User account details
 router.put("/acc", updateUserAcc);
