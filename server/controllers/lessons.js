@@ -44,7 +44,7 @@ const cancelLesson = async (req, res) => {
     const { error } = await supabase.from("Lesson").delete().eq("id", id);
 
     if (!error) {
-      return res.status(204).json("Lesson cnacelled correctly");
+      return res.status(204).json("Lesson cancelled successfully");
     } else if (error) {
       return res.status(500).json({ Error_Cancelling_Lesson: error });
     }
@@ -55,7 +55,25 @@ const cancelLesson = async (req, res) => {
 
 const setLessonComplete = async (req, res) => {
   try {
-  } catch (error) {}
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json("No LessonId provided");
+    }
+
+    if (id) {
+      const { error } = await supabase
+        .from("Lesson")
+        .update({ completed: true })
+        .eq("id", id);
+      if (!error) {
+        return res.status(200).json("Lesson completed");
+      } else if (error) {
+        return res.status(500).json({ Error_Setting_Complete: error });
+      }
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_Setting_Complete: error });
+  }
 };
 
 module.exports = { bookLesson, cancelLesson, setLessonComplete };
