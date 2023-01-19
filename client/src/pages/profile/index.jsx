@@ -25,7 +25,7 @@ function Profil() {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, []);
+  }, [width]);
   return (
     <main className="lg:flex lg:h-max lg:items-center">
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">

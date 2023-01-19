@@ -1,6 +1,6 @@
 import React from "react";
 
-function Input({ children, type, name,inputRef, classStyle }) {
+function Input({ children, type, name, inputRef, classStyle }) {
   return (
     <div className={`mx-6 mt-4 ${classStyle}`}>
       <label
@@ -10,7 +10,7 @@ function Input({ children, type, name,inputRef, classStyle }) {
         {children}
       </label>
       <input
-        className={`w-full border-ivory-300 rounded-md h-8 border-2 focus:border-green `}
+        className={`w-full border-ivory-300 rounded-md h-8 border-2 focus:border-green p-2`}
         name={name}
         type={type}
         ref={inputRef}

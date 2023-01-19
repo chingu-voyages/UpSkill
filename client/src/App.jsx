@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Profile from "./pages/profile";
+import Messaging from "./pages/Messaging";
 import Search from "./pages/Search";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/auth/post-signup" element={<PostSignup />} />
+        <Route path="/messages" element={<Messaging />} />
       </Routes>
       <Footer />
     </Router>
