@@ -80,6 +80,7 @@ const deleteUser = async (req, res) => {
     if (!id) return res.status(400).json("User ID Missing");
 
     if (id) {
+      //Must follow this order as the User info fomr "User_data" must be deleted first
       const { error: info } = await supabase
         .from("User_data")
         .delete()
