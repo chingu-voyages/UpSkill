@@ -3,7 +3,16 @@ const {
   bookLesson,
   cancelLesson,
   setLessonComplete,
+  getAllUserLessonsAsTutor,
+  getAllUserLessonsAsTutee,
 } = require("../controllers/lessons");
+
+//Get all lessons as a tutor
+router.get("/tutor/:id", getAllUserLessonsAsTutor);
+
+//Get all lessons as a tutee
+router.get("/tutee/:id", getAllUserLessonsAsTutee);
+
 // Book a lesson
 router.post("/", bookLesson);
 

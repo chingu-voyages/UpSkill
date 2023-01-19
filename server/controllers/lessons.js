@@ -1,5 +1,48 @@
 const { supabase } = require("../config/supabase");
 
+// Get all user's booked lessons
+
+const getAllUserLessonsAsTutor = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(400).json("User ID Missing");
+
+    const { data: User, error } = await supabase
+      .from("Lesson")
+      .select("*")
+      .eq("tutor", id);
+
+    if (User) {
+      return res.status(200).json(User);
+    } else {
+      return res.status(404).json({ User_not_found: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_Fetching_lessons: error });
+  }
+};
+
+//Get all user's booked lessons as a tutee
+const getAllUserLessonsAsTutee = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(400).json("User ID Missing");
+
+    const { data: User, error } = await supabase
+      .from("Lesson")
+      .select("*")
+      .eq("tutee", id);
+
+    if (User) {
+      return res.status(200).json(User);
+    } else {
+      return res.status(404).json({ User_not_found: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_Fetching_lessons: error });
+  }
+};
+
 // Book a lesson/create a lesson and dedcut the tokens from the tutee
 const bookLesson = async (req, res) => {
   try {
@@ -190,4 +233,10 @@ const setLessonComplete = async (req, res) => {
   }
 };
 
-module.exports = { bookLesson, cancelLesson, setLessonComplete };
+module.exports = {
+  bookLesson,
+  cancelLesson,
+  setLessonComplete,
+  getAllUserLessonsAsTutor,
+  getAllUserLessonsAsTutee,
+};
