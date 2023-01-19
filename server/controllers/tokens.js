@@ -1,3 +1,10 @@
+/*For direct transfer of tokens between users
+
+I coded this out before making changes to the way the lessons are organised in terms of token verification and transfers. So perhaps this code will not be needed any longer.
+
+I have left it in there just in case we ever want to set up a way for users to directly transfer tokens between each other, like sharing tokens etc in the future, as that could be an interesting feature and inline with our vision of developing an open community based on sharing information and resources.
+*/
+
 const { supabase } = require("../config/supabase");
 
 const sendTokens = async (req, res) => {
