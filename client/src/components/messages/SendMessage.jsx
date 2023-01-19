@@ -5,7 +5,7 @@ import { MdSend } from "react-icons/md";
 const SendMessage = () => {
   return (
     <div className="flex items-center w-full absolute bottom-0 overflow-x-hidden bg-slate-50 p-2">
-      <ImAttachment />
+      <ImAttachment color="#265B8B" />
       <form className="w-full flex bg-slate-50">
         <input
           type="text"
@@ -13,7 +13,7 @@ const SendMessage = () => {
           className="w-full border-0 py-2 focus:outline-none bg-slate-50 px-2"
         />
         <button type="submit" className="inline-block w-12 ml-2">
-          <MdSend />
+          <MdSend color="#265B8B" />
         </button>
       </form>
     </div>

@@ -15,7 +15,7 @@ const ChatSearchInput = ({ text, placeholder }) => {
           placeholder={placeholder}
           className="border-0 pl-6 pr-2 py-2 focus:outline-none bg-transparent w-full "
         />
-        <BiSearch className="absolute left-1" />
+        <BiSearch color="#265B8B" className="absolute left-1" />
       </div>
 
       {filtered ? (
@@ -24,11 +24,11 @@ const ChatSearchInput = ({ text, placeholder }) => {
           className="bg-grotto-100 text-white ml-2 text-lg flex items-center justify-center w-6 h-6 rounded-full cursor-pointer"
           onClick={handleFilter}
         >
-          <MdFilterList />
+          <MdFilterList color="#265B8B" />
         </div>
       ) : (
         <div className="w-6 h-6 ml-2 flex items-center justify-center text-lg cursor-pointer">
-          <MdFilterList onClick={handleFilter} />
+          <MdFilterList color="#265B8B" onClick={handleFilter} />
         </div>
       )}
     </div>

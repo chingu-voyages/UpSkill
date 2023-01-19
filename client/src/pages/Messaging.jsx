@@ -125,7 +125,7 @@ const Messaging = () => {
             </div>
           ) : (
             <div className="w-full">
-              <div className="fixed left-0 right-0 z-10 bg-white max-w-full bg-primary">
+              <div className="z-10 bg-white max-w-full">
                 <div className="flex items-center w-44 justify-between p-4">
                   <IoIosArrowBack
                     className="cursor-pointer text-primary text-2xl"
@@ -173,7 +173,7 @@ const Messaging = () => {
             />
             <Chats
               avi={person2}
-              name="Mary"
+              name="Philip"
               date="1-15"
               message="Hey David, are you still available for our class at 2pm tomorrow?"
               setOpenMsg={setOpenMsg}
@@ -243,7 +243,7 @@ const Messaging = () => {
             />
           </div>
           <div className="w-full overflow-auto ">
-            <div className="fixed z-10 bg-white w-full">
+            <div className="bg-white w-full">
               <div className="flex items-center w-44 justify-between p-4">
                 {screenSize <= 940 && (
                   <IoIosArrowBack
