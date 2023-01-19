@@ -7,16 +7,15 @@ const getUser = async (req, res) => {
 
     if (!id) return res.status(400).json("User ID Missing");
 
-    if (id) {
-      const { data: User, error } = await supabase
-        .from("User")
-        .select("first_name, last_name, User_data(*)")
-        .eq("id", id);
-      if (User) {
-        return res.status(200).json(User);
-      } else {
-        return res.status(404).json({ User_not_found: error });
-      }
+    const { data: User, error } = await supabase
+      .from("User")
+      .select("first_name, last_name, User_data(*)")
+      .eq("id", id);
+
+    if (User) {
+      return res.status(200).json(User);
+    } else {
+      return res.status(404).json({ User_not_found: error });
     }
   } catch (error) {
     return res.status(500).json({ Error_fetching_user_data: error });
@@ -38,13 +37,15 @@ const updateUserAcc = async (req, res) => {
     // if(password){}
     // const
 
-    if (id) {
-      await supabase
-        .from("User")
-        .update({ id, first_name, last_name, email, password: hashPassword })
-        .eq("id", id);
+    const { error } = await supabase
+      .from("User")
+      .update({ id, first_name, last_name, email, password: hashPassword })
+      .eq("id", id);
 
+    if (!error) {
       return res.status(200).json("User updated");
+    } else {
+      return res.status(500).json({ Error_Updating_User: error });
     }
   } catch (error) {
     return res.status(500).json({ Error_updating_user_data: error });
@@ -59,13 +60,15 @@ const updateUserInfo = async (req, res) => {
 
     if (!id) return res.status(400).json("User ID Missing");
 
-    if (id) {
-      await supabase
-        .from("User_data")
-        .update({ profilePic, skills, about, mission, tokens, tutors, tutees })
-        .eq("userId", id);
+    const { error } = await supabase
+      .from("User_data")
+      .update({ profilePic, skills, about, mission, tokens, tutors, tutees })
+      .eq("userId", id);
 
+    if (!error) {
       return res.status(200).json("User updated");
+    } else {
+      return res.status(500).json({ Error_Updating_User: error });
     }
   } catch (error) {
     return res.status(500).json({ Error_updating_user_data: error });
@@ -79,23 +82,21 @@ const deleteUser = async (req, res) => {
 
     if (!id) return res.status(400).json("User ID Missing");
 
-    if (id) {
-      //Must follow this order as the User info from "User_data" must be deleted first
-      const { error: infoErr } = await supabase
-        .from("User_data")
-        .delete()
-        .eq("userId", id);
+    //Must follow this order as the User info from "User_data" must be deleted first
+    const { error: infoErr } = await supabase
+      .from("User_data")
+      .delete()
+      .eq("userId", id);
 
-      const { error: accountErr } = await supabase
-        .from("User")
-        .delete()
-        .eq("id", id);
+    const { error: accountErr } = await supabase
+      .from("User")
+      .delete()
+      .eq("id", id);
 
-      if (accountErr || infoErr) {
-        return res.status(404).json({ User_not_deleted: error });
-      } else {
-        return res.status(204).json("User and user data deleted successfully");
-      }
+    if (accountErr || infoErr) {
+      return res.status(404).json({ User_not_deleted: error });
+    } else {
+      return res.status(204).json("User and user data deleted successfully");
     }
   } catch (error) {
     return res.status(500).json({ Error_deleting_user_data: error });
