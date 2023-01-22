@@ -1,4 +1,3 @@
-import React from "react";
 import avatar from "../assets/dashboard/avatar.svg";
 import pencil from "../assets/dashboard/pencil.svg";
 import skill from "../assets/dashboard/skills.svg";
@@ -11,11 +10,25 @@ import stats from "../assets/dashboard/statistics.svg";
 import session from "../assets/dashboard/sessions.svg";
 import teach from "../assets/dashboard/teaching.svg";
 import learn from "../assets/dashboard/learner.svg";
-import Footer from "../components/Footer";
+
+import PhotoModal from "../components/Modal/PhotoModal";
+
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
+  const [editPhoto, setEditPhoto] = useState(false);
+
+  useEffect(() => {
+    if (editPhoto) {
+      window.document.body.style.overflow = "hidden";
+    } else if (!editPhoto) {
+      window.document.body.style.overflow = "unset";
+    }
+  }, [editPhoto]);
+
   return (
     <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen ">
+      {editPhoto && <PhotoModal setEditPhoto={setEditPhoto} />}
       <div className="flex gap-spaceBtwbioXScheduledLssn max-[1000px]:flex-col">
         <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center">
           <div className="flex items-center flex-col">
@@ -26,8 +39,12 @@ const Dashboard = () => {
               <img src={avatar} alt="" />
               <img
                 src={pencil}
-                alt=""
+                alt="pencil to edit user's photo"
                 className="absolute right-0 cursor-pointer"
+                onClick={() => {
+                  setEditPhoto(prev => !prev);
+                }}
+                itemType="file"
               />
             </div>
 
