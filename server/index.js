@@ -20,6 +20,7 @@ app.use("/user", require("./routes/user"));
 app.use("/auth", require("./routes/auth"));
 app.use("/tokens", require("./routes/tokens"));
 app.use("/lessons", require("./routes/lessons"));
+app.use("/messages", require("./routes/messages.routes"));
 
 app.listen(PORT, () => {
   console.log(`Server running on Port: ${PORT}`);
