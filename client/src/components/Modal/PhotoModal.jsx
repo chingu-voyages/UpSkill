@@ -28,7 +28,11 @@ const PhotoModal = ({ setEditPhoto }) => {
   };
   return (
     <div className="modal-container primary">
-      <form ref={clickRef} className="modalCard" onSubmit={handleSubmit}>
+      <form
+        ref={clickRef}
+        className="modalCard items-center gap-6"
+        onSubmit={handleSubmit}
+      >
         <RxCross2
           size={20}
           className="absolute top-2 right-3 cursor-pointer hover:text-baby"
@@ -50,6 +54,8 @@ const PhotoModal = ({ setEditPhoto }) => {
             className="hidden"
           />
         </label>
+
+        {/* TODO: Add update names, password etc here */}
         <button className="btn">Submit</button>
       </form>
     </div>

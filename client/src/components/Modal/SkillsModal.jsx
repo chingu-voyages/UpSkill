@@ -27,14 +27,31 @@ const SkillsModal = ({ setEditSkills }) => {
   };
   return (
     <div className="modal-container primary">
-      <form ref={clickRef} className="modalCard" onSubmit={handleSubmit}>
+      <form ref={clickRef} className="modalCard gap-6" onSubmit={handleSubmit}>
         <RxCross2
           size={20}
           className="absolute top-2 right-3 cursor-pointer hover:text-baby"
           onClick={closeModal}
         />
 
-        <button className="btn">Submit</button>
+        <label htmlFor="skills" className="self-center text-xl">
+          Skills
+        </label>
+
+        <div>
+          <p className="text-xs pl-1 pb-1">
+            Tell us your skills. Just keywords separated with commas e.g.
+            “French, cooking, mathematics, painting etc.”{" "}
+          </p>
+          <input
+            type="text"
+            name="skills"
+            id="skills"
+            className="input-field"
+          />
+        </div>
+
+        <button className="btn self-center">Submit</button>
       </form>
     </div>
   );
