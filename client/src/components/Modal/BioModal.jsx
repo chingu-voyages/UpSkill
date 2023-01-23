@@ -1,9 +1,8 @@
 import "./modal.css";
-import { MdPermMedia } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef } from "react";
 
-const PhotoModal = ({ setEditPhoto }) => {
+const BioModal = ({ setEditBio }) => {
   const clickRef = useRef(null);
 
   useEffect(() => {
@@ -19,11 +18,11 @@ const PhotoModal = ({ setEditPhoto }) => {
   }, [clickRef]);
 
   const closeModal = () => {
-    setEditPhoto(false);
+    setEditBio(false);
   };
   const handleSubmit = e => {
     e.preventDefault();
-    // TODO: PUT request to update photo.
+    // TODO: PUT request to update Bio.
     // closeModal();
   };
   return (
@@ -34,26 +33,11 @@ const PhotoModal = ({ setEditPhoto }) => {
           className="absolute top-2 right-3 cursor-pointer hover:text-baby"
           onClick={closeModal}
         />
-        <label
-          htmlFor="photo"
-          className="flex items-center justify-center gap-2"
-        >
-          Upload your new profile pic here
-          <MdPermMedia
-            size={25}
-            className="cursor-pointer text-grotto-100 hover:text-baby"
-          />
-          <input
-            type="file"
-            id="photo"
-            accept=".png,.jpg,.jpeg,.gif"
-            className="hidden"
-          />
-        </label>
+
         <button className="btn">Submit</button>
       </form>
     </div>
   );
 };
 
-export default PhotoModal;
+export default BioModal;

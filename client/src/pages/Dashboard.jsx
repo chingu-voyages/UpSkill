@@ -12,23 +12,29 @@ import teach from "../assets/dashboard/teaching.svg";
 import learn from "../assets/dashboard/learner.svg";
 
 import PhotoModal from "../components/Modal/PhotoModal";
+import SkillsModal from "../components/Modal/SkillsModal";
+import BioModal from "../components/Modal/BioModal";
 
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const [editPhoto, setEditPhoto] = useState(false);
+  const [editSkills, setEditSkills] = useState(false);
+  const [editBio, setEditBio] = useState(false);
 
   useEffect(() => {
-    if (editPhoto) {
+    if (editPhoto || editSkills || editBio) {
       window.document.body.style.overflow = "hidden";
-    } else if (!editPhoto) {
+    } else if (!editPhoto && !editSkills && !editBio) {
       window.document.body.style.overflow = "unset";
     }
-  }, [editPhoto]);
+  }, [editPhoto, editSkills, editBio]);
 
   return (
     <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen ">
       {editPhoto && <PhotoModal setEditPhoto={setEditPhoto} />}
+      {editSkills && <SkillsModal setEditSkills={setEditSkills} />}
+      {editBio && <BioModal setEditBio={setEditBio} />}
       <div className="flex gap-spaceBtwbioXScheduledLssn max-[1000px]:flex-col">
         <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center">
           <div className="flex items-center flex-col">
@@ -44,7 +50,6 @@ const Dashboard = () => {
                 onClick={() => {
                   setEditPhoto(prev => !prev);
                 }}
-                itemType="file"
               />
             </div>
 
@@ -62,6 +67,9 @@ const Dashboard = () => {
                 src={pen}
                 alt=""
                 className="absolute right-4 cursor-pointer"
+                onClick={() => {
+                  setEditSkills(prev => !prev);
+                }}
               />
               <span className="skill-set  text-grotto-100 mt-4">
                 JavaScript, Python, UI/UX
@@ -91,7 +99,14 @@ const Dashboard = () => {
               <img src={bio} alt="" />
               <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
             </div>
-            <img src={pen} alt="" className="absolute right-4 cursor-pointer" />
+            <img
+              src={pen}
+              alt=""
+              className="absolute right-4 cursor-pointer"
+              onClick={() => {
+                setEditBio(prev => !prev);
+              }}
+            />
 
             <div className="text-start">
               <h4 className="font-semibold text-grotto-100 mt-4">About</h4>
