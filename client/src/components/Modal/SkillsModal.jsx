@@ -1,6 +1,9 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef } from "react";
+import axios from "axios";
+
+const server = import.meta.env.VITE_SERVER;
 
 const SkillsModal = ({ setEditSkills }) => {
   const clickRef = useRef(null);
@@ -20,10 +23,17 @@ const SkillsModal = ({ setEditSkills }) => {
   const closeModal = () => {
     setEditSkills(false);
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    // TODO: PUT request to update Skills.
-    // closeModal();
+    // TODO: TEST on BE
+    const { skills } = e.target.elements;
+    const res = axios.put(`${server}/user/info`, {
+      id: "11684414-9afc-4f10-be32-28bb1652b88e",
+      skills: skills.value,
+    });
+    if (res) {
+      closeModal();
+    }
   };
   return (
     <div className="modal-container primary">

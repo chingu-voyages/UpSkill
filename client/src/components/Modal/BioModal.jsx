@@ -1,6 +1,9 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef } from "react";
+import axios from "axios";
+
+const server = import.meta.env.VITE_SERVER;
 
 const BioModal = ({ setEditBio }) => {
   const clickRef = useRef(null);
@@ -22,8 +25,18 @@ const BioModal = ({ setEditBio }) => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    // TODO: PUT request to update Bio.
-    // closeModal();
+    // TODO: TEST on BE
+    const { about, hobbies, mission } = e.target.elements;
+    console.log(about.value, hobbies.value, mission.value);
+    const res = axios.put(`${server}/user/info`, {
+      id: "11684414-9afc-4f10-be32-28bb1652b88e",
+      about: about.value,
+      hobbies: hobbies.value,
+      mission: mission.value,
+    });
+    if (res) {
+      closeModal();
+    }
   };
   return (
     <div className="modal-container primary">
@@ -42,12 +55,7 @@ const BioModal = ({ setEditBio }) => {
             <p className="text-xs pl-1 pb-1">
               Tell the world about you, where you are from, what you do.
             </p>
-            <input
-              type="text"
-              name="skills"
-              id="skills"
-              className="input-field"
-            />
+            <input type="text" name="about" id="abou" className="input-field" />
           </div>
 
           <div>
@@ -57,8 +65,8 @@ const BioModal = ({ setEditBio }) => {
             </p>
             <input
               type="text"
-              name="skills"
-              id="skills"
+              name="hobbies"
+              id="hobbies"
               className="input-field"
             />
           </div>
@@ -72,8 +80,8 @@ const BioModal = ({ setEditBio }) => {
             </p>
             <input
               type="text"
-              name="skills"
-              id="skills"
+              name="mission"
+              id="mission"
               className="input-field"
             />
           </div>

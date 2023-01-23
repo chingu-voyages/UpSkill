@@ -2,10 +2,13 @@ import "./modal.css";
 import { MdPermMedia } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef } from "react";
+import axios from "axios";
+
+const server = import.meta.env.VITE_SERVER;
 
 const PhotoModal = ({ setEditPhoto }) => {
   const clickRef = useRef(null);
-
+  console.log(server);
   useEffect(() => {
     function handleClickOutside(e) {
       if (!clickRef.current.contains(e.target)) {
@@ -21,16 +24,25 @@ const PhotoModal = ({ setEditPhoto }) => {
   const closeModal = () => {
     setEditPhoto(false);
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    // TODO: PUT request to update photo.
-    // closeModal();
+    const { photo } = e.target.elements;
+    const photoElement = new FormData();
+    photoElement.append("profilePic", photo.files[0]);
+    // TODO: set up storage for image on BE
+    // const res = axios.put(`${server}/user/info`, {
+    //   id: "11684414-9afc-4f10-be32-28bb1652b88e",
+    //   profilePic: pic,
+    // });
+    // if (res) {
+    //   closeModal();
+    // }
   };
   return (
     <div className="modal-container primary">
       <form
         ref={clickRef}
-        className="modalCard items-center gap-6"
+        className="modalCard gap-6 items-center"
         onSubmit={handleSubmit}
       >
         <RxCross2
@@ -50,12 +62,12 @@ const PhotoModal = ({ setEditPhoto }) => {
           <input
             type="file"
             id="photo"
+            name="photo"
             accept=".png,.jpg,.jpeg,.gif"
             className="hidden"
           />
         </label>
 
-        {/* TODO: Add update names, password etc here */}
         <button className="btn">Submit</button>
       </form>
     </div>
