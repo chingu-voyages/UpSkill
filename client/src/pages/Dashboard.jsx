@@ -1,15 +1,18 @@
 import avatar from "../assets/dashboard/avatar.svg";
-import pencil from "../assets/dashboard/pencil.svg";
-import skill from "../assets/dashboard/skills.svg";
-import pen from "../assets/dashboard/pen.svg";
-import coins from "../assets/dashboard/coins.svg";
-import bio from "../assets/dashboard/bio.svg";
-import calendar from "../assets/dashboard/calendar.svg";
 import placeholder from "../assets/dashboard/placeholder.svg";
 import stats from "../assets/dashboard/statistics.svg";
 import session from "../assets/dashboard/sessions.svg";
 import teach from "../assets/dashboard/teaching.svg";
 import learn from "../assets/dashboard/learner.svg";
+
+import {
+  FaPen,
+  FaBookOpen,
+  FaBrain,
+  FaCoins,
+  FaCalendarAlt,
+} from "react-icons/fa";
+import { BiEdit } from "react-icons/bi";
 
 import PhotoModal from "../components/Modal/PhotoModal";
 import SkillsModal from "../components/Modal/SkillsModal";
@@ -43,73 +46,75 @@ const Dashboard = () => {
             </h2>
             <div className="bg-baby h-32 w-32 rounded-full flex justify-center relative">
               <img src={avatar} alt="" />
-              <img
-                src={pencil}
-                alt="pencil to edit user's photo"
-                className="absolute right-0 cursor-pointer"
+              <FaPen
+                size={20}
+                className="absolute right-0 cursor-pointer hover:text-grotto-100"
                 onClick={() => {
                   setEditPhoto(prev => !prev);
                 }}
               />
+              {/* <img
+                src={pencil}
+                alt="pencil to edit user's photo"
+                className="absolute right-0 cursor-pointer"
+                
+              /> */}
             </div>
 
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
               David Mark
             </h4>
           </div>
-          <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between max-h-80 h-full relative mt-4">
-            <div className="flex flex-col items-center">
-              <div className="flex">
-                <img src={skill} alt="" className="w-4" />
+          <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between max-h-80 gap-8 relative mt-4">
+            <BiEdit
+              size={25}
+              className="absolute top-2 right-2 cursor-pointer hover:text-grotto-100"
+              onClick={() => {
+                setEditSkills(prev => !prev);
+              }}
+            />
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center">
+                <FaBrain size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Skills</h3>
               </div>
-              <img
-                src={pen}
-                alt=""
-                className="absolute right-4 cursor-pointer"
-                onClick={() => {
-                  setEditSkills(prev => !prev);
-                }}
-              />
-              <span className="skill-set  text-grotto-100 mt-4">
+
+              <span className="skill-set  text-grotto-100">
                 JavaScript, Python, UI/UX
               </span>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="flex gap-2 mb-6">
-                <img src={coins} alt="" />
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex items-center gap-2">
+                <FaCoins className="text-yellow-400" size={20} />
                 <h3 className="text-primary text-xl font-bold">Tokens</h3>
-                <div className="h-8 w-8 ">
-                  <span className="p-1 bg-tokebgColor text-white  text-center rounded-2xl">
-                    50
-                  </span>
-                </div>
+                <span className="p-1 bg-tokebgColor text-white  text-center rounded-2xl ">
+                  50
+                </span>
               </div>
               <a
                 href="#"
                 className="flex bg-tokebgColor px-6 py-1 rounded-2xl text-white gap-2"
               >
                 <span>Get more tokens</span>
-                <img src={coins} alt="" />
+                <FaCoins className="text-yellow-400" size={20} />
               </a>
             </div>
           </div>
           <div className="card justify-between max-h-96 h-full max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative w-full">
-            <div className="flex">
-              <img src={bio} alt="" />
+            <div className="flex items-center">
+              <FaBookOpen size={25} className="text-grotto-100" />
               <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
             </div>
-            <img
-              src={pen}
-              alt=""
-              className="absolute right-4 cursor-pointer"
+            <BiEdit
+              size={25}
+              className="absolute top-2 right-2 cursor-pointer hover:text-grotto-100"
               onClick={() => {
                 setEditBio(prev => !prev);
               }}
             />
 
             <div className="text-start">
-              <h4 className="font-semibold text-grotto-100 mt-4">About</h4>
+              <h4 className="font-semibold text-grotto-100">About</h4>
               <p className="text-grotto-100">
                 I’m David Mark from Argentina. I’m looking to trade my computer
                 coding skills in order to learn German and Maths
@@ -134,12 +139,15 @@ const Dashboard = () => {
           </div>
           <a
             href="#"
-            className="card flex items-center justify-center h-48 w-full mt-8  max-[490px]:px-2"
+            className="card flex items-center justify-center h-48 w-full mt-8 gap-4 max-[490px]:px-2"
           >
             <p className="font-bold text-primary text-xl">
               View or Update your calendar
             </p>
-            <img src={calendar} alt="" className="ml-6" />
+            <FaCalendarAlt
+              size={25}
+              className="text-grotto-100 hover:text-primary"
+            />
           </a>
         </section>
         <section className="max-w-dashScheduleSection w-full">
