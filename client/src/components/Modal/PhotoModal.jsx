@@ -26,17 +26,24 @@ const PhotoModal = ({ setEditPhoto }) => {
   };
   const handleSubmit = async e => {
     e.preventDefault();
+    //userId needed
     const { photo } = e.target.elements;
-    const photoElement = new FormData();
-    photoElement.append("profilePic", photo.files[0]);
+    const formData = new FormData();
+    formData.append("profilePic", photo.files[0]);
+    // formData.append("id", userId);
+    formData.append("id", "11684414-9afc-4f10-be32-28bb1652b88e");
     // TODO: set up storage for image on BE
-    // const res = axios.put(`${server}/user/info`, {
-    //   id: "11684414-9afc-4f10-be32-28bb1652b88e",
-    //   profilePic: pic,
-    // });
-    // if (res) {
-    //   closeModal();
-    // }
+
+    const res = await axios({
+      method: "put",
+      url: `${server}/user/info`,
+      data: formData,
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+
+    if (res) {
+      closeModal();
+    }
   };
   return (
     <div className="modal-container primary">

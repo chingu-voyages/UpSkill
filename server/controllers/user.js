@@ -55,17 +55,8 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const {
-      id,
-      profilePic,
-      skills,
-      about,
-      hobbies,
-      mission,
-      tokens,
-      tutors,
-      tutees,
-    } = req.body;
+    const { id, skills, about, hobbies, mission, tokens } = req.body;
+    const file = req.file;
 
     if (!id) return res.status(400).json("User ID Missing");
 
@@ -78,8 +69,6 @@ const updateUserInfo = async (req, res) => {
         hobbies,
         mission,
         tokens,
-        tutors,
-        tutees,
       })
       .eq("userId", id);
 

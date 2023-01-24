@@ -6,6 +6,8 @@ const {
   deleteUser,
 } = require("../controllers/user");
 
+const upload = require("../middleware/multer");
+
 //Get user info
 router.get("/:id", getUser);
 
@@ -13,7 +15,7 @@ router.get("/:id", getUser);
 router.put("/acc", updateUserAcc);
 
 //Update user info/data
-router.put("/info", updateUserInfo);
+router.put("/info", upload.single("profilePic"), updateUserInfo);
 
 //Delete user
 router.delete("/:id", deleteUser);
