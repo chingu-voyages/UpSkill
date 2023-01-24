@@ -25,14 +25,24 @@ const BioModal = ({ setEditBio }) => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    // TODO: TEST on BE
+    let aboutData, hobbiesData, missionData;
     const { about, hobbies, mission } = e.target.elements;
-    console.log(about.value, hobbies.value, mission.value);
+
+    if (about.value !== null && about.value.trim() !== "") {
+      aboutData = about.value;
+    }
+    if (hobbies.value !== null && hobbies.value.trim() !== "") {
+      hobbiesData = hobbies.value;
+    }
+    if (mission.value !== null && mission.value.trim() !== "") {
+      missionData = mission.value;
+    }
+
     const res = axios.put(`${server}/user/info`, {
       id: "11684414-9afc-4f10-be32-28bb1652b88e",
-      about: about.value,
-      hobbies: hobbies.value,
-      mission: mission.value,
+      about: aboutData,
+      hobbies: hobbiesData,
+      mission: missionData,
     });
     if (res) {
       closeModal();

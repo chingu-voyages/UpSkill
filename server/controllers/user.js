@@ -55,14 +55,32 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const { id, profilePic, skills, about, mission, tokens, tutors, tutees } =
-      req.body;
+    const {
+      id,
+      profilePic,
+      skills,
+      about,
+      hobbies,
+      mission,
+      tokens,
+      tutors,
+      tutees,
+    } = req.body;
 
     if (!id) return res.status(400).json("User ID Missing");
 
     const { error } = await supabase
       .from("User_data")
-      .update({ profilePic, skills, about, mission, tokens, tutors, tutees })
+      .update({
+        profilePic,
+        skills,
+        about,
+        hobbies,
+        mission,
+        tokens,
+        tutors,
+        tutees,
+      })
       .eq("userId", id);
 
     if (!error) {
