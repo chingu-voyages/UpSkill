@@ -1,5 +1,5 @@
 const { supabase } = require("../config/supabase");
-
+const cloudinary = require("../config/cloudinaryConfig");
 //Get user info
 const getUser = async (req, res) => {
   try {
@@ -56,14 +56,12 @@ const updateUserAcc = async (req, res) => {
 const updateUserInfo = async (req, res) => {
   try {
     const { id, skills, about, hobbies, mission, tokens } = req.body;
-    const file = req.file;
 
     if (!id) return res.status(400).json("User ID Missing");
 
     const { error } = await supabase
       .from("User_data")
       .update({
-        profilePic,
         skills,
         about,
         hobbies,
@@ -82,6 +80,49 @@ const updateUserInfo = async (req, res) => {
   }
 };
 
+// Update userPhoto
+const updateUserPhoto = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const { data, error: userErr } = await supabase
+      .from("User_data")
+      .select("profilePic, profilePicId")
+      .eq("userId", id);
+    console.log(data);
+    return res.status(200).json(done);
+    let cloudinaryId, img;
+    // if (file && id) {
+    //   const result = await cloudinary.uploader.upload(req.file.path);
+    //   if (result) {
+    //     cloudinaryId = result.public_id;
+    //     img = result.secure_url;
+    //   }
+    // }
+
+    // if (!id) return res.status(400).json("User ID Missing");
+
+    // const { error } = await supabase
+    //   .from("User_data")
+    //   .update({
+    //     profilePic: img,
+    //     profilePicId: cloudinaryId,
+    //     skills,
+    //     about,
+    //     hobbies,
+    //     mission,
+    //     tokens,
+    //   })
+    //   .eq("userId", id);
+
+    if (!error) {
+      return res.status(200).json("User updated");
+    } else {
+      return res.status(500).json({ Error_Updating_User: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
 //Delete user
 const deleteUser = async (req, res) => {
   try {
@@ -110,4 +151,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, updateUserAcc, updateUserInfo, deleteUser };
+module.exports = {
+  getUser,
+  updateUserAcc,
+  updateUserInfo,
+  deleteUser,
+  updateUserPhoto,
+};

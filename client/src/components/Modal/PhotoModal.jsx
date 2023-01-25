@@ -1,14 +1,15 @@
 import "./modal.css";
 import { MdPermMedia } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const server = import.meta.env.VITE_SERVER;
 
 const PhotoModal = ({ setEditPhoto }) => {
   const clickRef = useRef(null);
-  console.log(server);
+  const [clicked, setClicked] = useState(false);
+
   useEffect(() => {
     function handleClickOutside(e) {
       if (!clickRef.current.contains(e.target)) {
@@ -23,9 +24,11 @@ const PhotoModal = ({ setEditPhoto }) => {
 
   const closeModal = () => {
     setEditPhoto(false);
+    setClicked(false);
   };
   const handleSubmit = async e => {
     e.preventDefault();
+    setClicked(true);
     //userId needed
     const { photo } = e.target.elements;
     const formData = new FormData();
@@ -36,7 +39,7 @@ const PhotoModal = ({ setEditPhoto }) => {
 
     const res = await axios({
       method: "put",
-      url: `${server}/user/info`,
+      url: `${server}/user/photo`,
       data: formData,
       headers: { "Content-Type": "multipart/form-data" },
     });
@@ -75,7 +78,9 @@ const PhotoModal = ({ setEditPhoto }) => {
           />
         </label>
 
-        <button className="btn">Submit</button>
+        <button disabled={clicked} className="btn">
+          Submit
+        </button>
       </form>
     </div>
   );

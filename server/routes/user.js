@@ -3,6 +3,7 @@ const {
   getUser,
   updateUserAcc,
   updateUserInfo,
+  updateUserPhoto,
   deleteUser,
 } = require("../controllers/user");
 
@@ -15,7 +16,10 @@ router.get("/:id", getUser);
 router.put("/acc", updateUserAcc);
 
 //Update user info/data
-router.put("/info", upload.single("profilePic"), updateUserInfo);
+router.put("/info", updateUserInfo);
+
+//Update user photo
+router.put("/photo", upload.single("profilePic"), updateUserPhoto);
 
 //Delete user
 router.delete("/:id", deleteUser);
