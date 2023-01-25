@@ -84,38 +84,42 @@ const updateUserInfo = async (req, res) => {
 const updateUserPhoto = async (req, res) => {
   try {
     const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (!req.file) {
+      return res.status(400).json("Image Missing");
+    }
+
     const { data, error: userErr } = await supabase
       .from("User_data")
       .select("profilePic, profilePicId")
       .eq("userId", id);
-    console.log(data);
-    return res.status(200).json(done);
+    const { profilePicId } = data[0];
+    if (profilePicId) {
+      //delete previous photo from Cloudinary Storage
+      await cloudinary.uploader.destroy(profilePicId);
+    }
+
     let cloudinaryId, img;
-    // if (file && id) {
-    //   const result = await cloudinary.uploader.upload(req.file.path);
-    //   if (result) {
-    //     cloudinaryId = result.public_id;
-    //     img = result.secure_url;
-    //   }
-    // }
-
-    // if (!id) return res.status(400).json("User ID Missing");
-
-    // const { error } = await supabase
-    //   .from("User_data")
-    //   .update({
-    //     profilePic: img,
-    //     profilePicId: cloudinaryId,
-    //     skills,
-    //     about,
-    //     hobbies,
-    //     mission,
-    //     tokens,
-    //   })
-    //   .eq("userId", id);
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      if (result) {
+        cloudinaryId = result.public_id;
+        img = result.secure_url;
+      }
+    }
+    const { error } = await supabase
+      .from("User_data")
+      .update({
+        profilePic: img,
+        profilePicId: cloudinaryId,
+      })
+      .eq("userId", id);
 
     if (!error) {
-      return res.status(200).json("User updated");
+      return res.status(200).json("User Profile Image Updated");
     } else {
       return res.status(500).json({ Error_Updating_User: error });
     }
@@ -123,6 +127,7 @@ const updateUserPhoto = async (req, res) => {
     return res.status(500).json({ Error_updating_user_data: error });
   }
 };
+
 //Delete user
 const deleteUser = async (req, res) => {
   try {
