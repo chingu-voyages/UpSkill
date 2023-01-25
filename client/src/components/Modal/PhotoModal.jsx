@@ -29,13 +29,12 @@ const PhotoModal = ({ setEditPhoto }) => {
   const handleSubmit = async e => {
     e.preventDefault();
     setClicked(true);
-    //userId needed
+    //userId needed from state after auth
     const { photo } = e.target.elements;
     const formData = new FormData();
     formData.append("profilePic", photo.files[0]);
     // formData.append("id", userId);
     formData.append("id", "11684414-9afc-4f10-be32-28bb1652b88e");
-    // TODO: set up storage for image on BE
 
     const res = await axios({
       method: "put",
@@ -78,8 +77,11 @@ const PhotoModal = ({ setEditPhoto }) => {
           />
         </label>
 
-        <button disabled={clicked} className="btn">
-          Submit
+        <button
+          disabled={clicked}
+          className={clicked ? " btn bg-primary" : "btn"}
+        >
+          {clicked ? "Sending..." : "Submit"}
         </button>
       </form>
     </div>
