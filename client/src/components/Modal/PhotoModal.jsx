@@ -9,6 +9,7 @@ const server = import.meta.env.VITE_SERVER;
 const PhotoModal = ({ setEditPhoto }) => {
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -28,23 +29,30 @@ const PhotoModal = ({ setEditPhoto }) => {
   };
   const handleSubmit = async e => {
     e.preventDefault();
-    setClicked(true);
+
     //userId needed from state after auth
     const { photo } = e.target.elements;
-    const formData = new FormData();
-    formData.append("profilePic", photo.files[0]);
-    // formData.append("id", userId);
-    formData.append("id", "11684414-9afc-4f10-be32-28bb1652b88e");
 
-    const res = await axios({
-      method: "put",
-      url: `${server}/user/photo`,
-      data: formData,
-      headers: { "Content-Type": "multipart/form-data" },
-    });
+    if (!photo.files[0]) {
+      return setError(true);
+    } else {
+      setError(false);
+      setClicked(true);
+      const formData = new FormData();
+      formData.append("profilePic", photo.files[0]);
+      // formData.append("id", userId);
+      formData.append("id", "11684414-9afc-4f10-be32-28bb1652b88e");
 
-    if (res) {
-      closeModal();
+      const res = await axios({
+        method: "put",
+        url: `${server}/user/photo`,
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      if (res) {
+        closeModal();
+      }
     }
   };
   return (
@@ -76,6 +84,8 @@ const PhotoModal = ({ setEditPhoto }) => {
             className="hidden"
           />
         </label>
+
+        {error && <p className="self-center text-red-500">No photo attached</p>}
 
         <button
           disabled={clicked}

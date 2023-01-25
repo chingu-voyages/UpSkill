@@ -1,12 +1,14 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const server = import.meta.env.VITE_SERVER;
 
 const SkillsModal = ({ setEditSkills }) => {
   const clickRef = useRef(null);
+  const [clicked, setClicked] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -22,17 +24,27 @@ const SkillsModal = ({ setEditSkills }) => {
 
   const closeModal = () => {
     setEditSkills(false);
+    setClicked(false);
   };
+
   const handleSubmit = async e => {
     e.preventDefault();
-    // TODO: TEST on BE
+    setClicked(true);
     const { skills } = e.target.elements;
-    const res = axios.put(`${server}/user/info`, {
-      id: "11684414-9afc-4f10-be32-28bb1652b88e",
-      skills: skills.value,
-    });
-    if (res) {
-      closeModal();
+    if (skills.value === "" || skills.value === null) {
+      console.log("error", skills);
+      return setError(true);
+    } else {
+      setError(false);
+
+      const res = axios.put(`${server}/user/info`, {
+        //Take userId from state.
+        id: "11684414-9afc-4f10-be32-28bb1652b88e",
+        skills: skills.value,
+      });
+      if (res) {
+        closeModal();
+      }
     }
   };
   return (
@@ -60,8 +72,16 @@ const SkillsModal = ({ setEditSkills }) => {
             className="input-field"
           />
         </div>
-
-        <button className="btn self-center">Submit</button>
+        {error && (
+          <p className="self-center text-red-500">
+            Skills field cannot be empty
+          </p>
+        )}
+        <button
+          className={clicked ? "btn self-center bg-primary" : "btn self-center"}
+        >
+          {clicked ? "Sending..." : "Submit"}
+        </button>
       </form>
     </div>
   );

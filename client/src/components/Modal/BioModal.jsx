@@ -1,12 +1,14 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const server = import.meta.env.VITE_SERVER;
 
 const BioModal = ({ setEditBio }) => {
   const clickRef = useRef(null);
+  const [clicked, setClicked] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -22,9 +24,13 @@ const BioModal = ({ setEditBio }) => {
 
   const closeModal = () => {
     setEditBio(false);
+    setClicked(false);
   };
+
   const handleSubmit = e => {
     e.preventDefault();
+    setClicked(true);
+
     let aboutData, hobbiesData, missionData;
     const { about, hobbies, mission } = e.target.elements;
 
@@ -38,14 +44,21 @@ const BioModal = ({ setEditBio }) => {
       missionData = mission.value;
     }
 
-    const res = axios.put(`${server}/user/info`, {
-      id: "11684414-9afc-4f10-be32-28bb1652b88e",
-      about: aboutData,
-      hobbies: hobbiesData,
-      mission: missionData,
-    });
-    if (res) {
-      closeModal();
+    if (!aboutData && !hobbiesData && !missionData) {
+      return setError(true);
+    } else {
+      setError(false);
+
+      const res = axios.put(`${server}/user/info`, {
+        //To take userId from state
+        id: "11684414-9afc-4f10-be32-28bb1652b88e",
+        about: aboutData,
+        hobbies: hobbiesData,
+        mission: missionData,
+      });
+      if (res) {
+        closeModal();
+      }
     }
   };
   return (
@@ -65,7 +78,12 @@ const BioModal = ({ setEditBio }) => {
             <p className="text-xs pl-1 pb-1">
               Tell the world about you, where you are from, what you do.
             </p>
-            <input type="text" name="about" id="abou" className="input-field" />
+            <input
+              type="text"
+              name="about"
+              id="about"
+              className="input-field"
+            />
           </div>
 
           <div>
@@ -97,7 +115,17 @@ const BioModal = ({ setEditBio }) => {
           </div>
         </div>
 
-        <button className="btn self-center">Submit</button>
+        {error && (
+          <p className="self-center text-red-500">
+            At least one field must be filled
+          </p>
+        )}
+
+        <button
+          className={clicked ? "btn self-center bg-primary" : "btn self-center"}
+        >
+          {clicked ? "Sending..." : "Submit"}
+        </button>
       </form>
     </div>
   );
