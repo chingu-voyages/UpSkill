@@ -2,7 +2,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  // Initialize initial state here
+  // Initialize state here
 };
 
 export const searchSkillsSlice = createSlice({
