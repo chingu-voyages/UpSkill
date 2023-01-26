@@ -30,25 +30,28 @@ const PhotoModal = ({ setCalendar }) => {
     e.preventDefault();
 
     //userId needed from state after auth
-    const { photo } = e.target.elements;
-
-    if (!photo.files[0]) {
+    const { calendly } = e.target.elements;
+    console.log("clicked", calendly.value);
+    if (!calendly.value) {
       return setError(true);
     } else {
-      setError(false);
-      setClicked(true);
-      // formData.append("id", userId);
-      // ("id", "11684414-9afc-4f10-be32-28bb1652b88e");
+      if (calendly.value.match(/calendly.com\/\w*\/\w*/gm)) {
+        setError(false);
+        setClicked(true);
+        console.log("valid Link!!! 🚀");
+        // ("id", userId);
+        // ("id", "11684414-9afc-4f10-be32-28bb1652b88e");
 
-      const res = await axios({
-        method: "put",
-        url: `${server}/user/`,
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+        // const res = await axios({
+        //   method: "put",
+        //   url: `${server}/user/`,
+        // });
 
-      if (res) {
-        closeModal();
+        // if (res) {
+        //   closeModal();
+        // }
+      } else {
+        return setError(true);
       }
     }
   };
@@ -64,28 +67,29 @@ const PhotoModal = ({ setCalendar }) => {
           className="absolute top-2 right-3 cursor-pointer hover:text-baby"
           onClick={closeModal}
         />
-        <label
-          htmlFor="photo"
-          className="flex items-center justify-center gap-2"
-        >
-          Upload your Calendly link here
-        </label>
+        <h3 className="font-semibold">Upload your Calendly link here</h3>
         <div>
-          <p className="text-xs pl-1 pb-1">
-            Don't have a calendly yet? Get one{" "}
+          <p className="pl-1 pb-1">
+            Don't have a calendly yet?
             <a href="https://calendly.com/signup" target="_blank">
-              <strong className="text-bold">here</strong>
+              {" "}
+              To open a calendly please click
+              <strong className="text-bold"> here</strong>
             </a>
           </p>
           <input
-            type="text"
-            name="skills"
-            id="skills"
-            className="input-field"
+            type="url"
+            name="calendly"
+            id="calendly"
+            className="input-field w-full"
           />
         </div>
 
-        {error && <p className="self-center text-red-500">No photo attached</p>}
+        {error && (
+          <p className="self-center text-red-500">
+            Please enter a valid Calendly link
+          </p>
+        )}
 
         <button
           disabled={clicked}

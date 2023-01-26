@@ -28,9 +28,9 @@ const Dashboard = () => {
   const [calendar, setCalendar] = useState(false);
 
   useEffect(() => {
-    if (editPhoto || editSkills || editBio) {
+    if (editPhoto || editSkills || editBio || calendar) {
       window.document.body.style.overflow = "hidden";
-    } else if (!editPhoto && !editSkills && !editBio) {
+    } else if (!editPhoto && !editSkills && !editBio && !calendar) {
       window.document.body.style.overflow = "unset";
     }
   }, [editPhoto, editSkills, editBio, calendar]);

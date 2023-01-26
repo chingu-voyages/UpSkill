@@ -14,19 +14,6 @@
   animation: fadeIn 0.4s ease-in forwards;
 }
 
-@media only screen and (min-width: 550px) {
-  .edit-modal {
-    width: 50rem;
-    height: 30rem;
-  }
-}
-
-@media only screen and (max-width: 300px) {
-  .edit-modal {
-    height: 37rem;
-  }
-}
-
 @keyframes fadeIn {
   0% {
     opacity: 0;
