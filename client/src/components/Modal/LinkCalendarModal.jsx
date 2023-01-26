@@ -31,25 +31,24 @@ const PhotoModal = ({ setCalendar }) => {
 
     //userId needed from state after auth
     const { calendly } = e.target.elements;
-    console.log("clicked", calendly.value);
     if (!calendly.value) {
       return setError(true);
     } else {
       if (calendly.value.match(/calendly.com\/\w*\/\w*/gm)) {
         setError(false);
         setClicked(true);
-        console.log("valid Link!!! 🚀");
+
+        //TODO: add API integration.
         // ("id", userId);
         // ("id", "11684414-9afc-4f10-be32-28bb1652b88e");
 
-        // const res = await axios({
-        //   method: "put",
-        //   url: `${server}/user/`,
-        // });
-
-        // if (res) {
-        //   closeModal();
-        // }
+        const res = await axios.put(`${server}/user/calendar`, {
+          id: "11684414-9afc-4f10-be32-28bb1652b88e",
+          calendly: calendly.value,
+        });
+        if (res) {
+          closeModal();
+        }
       } else {
         return setError(true);
       }
@@ -78,7 +77,7 @@ const PhotoModal = ({ setCalendar }) => {
             </a>
           </p>
           <input
-            type="url"
+            type="text"
             name="calendly"
             id="calendly"
             className="input-field w-full"

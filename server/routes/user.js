@@ -4,6 +4,7 @@ const {
   updateUserAcc,
   updateUserInfo,
   updateUserPhoto,
+  setUserCalendlyLink,
   deleteUser,
 } = require("../controllers/user");
 
@@ -20,6 +21,9 @@ router.put("/info", updateUserInfo);
 
 //Update user photo
 router.put("/photo", upload.single("profilePic"), updateUserPhoto);
+
+//Update user calendly link
+router.put("/calendar", setUserCalendlyLink);
 
 //Delete user
 router.delete("/:id", deleteUser);
