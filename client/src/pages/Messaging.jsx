@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Chats from "../components/messages/Chats";
 import ChatSearchInput from "../components/messages/ChatSearchInput";
 import avatar from "../assets/chat/avatar.png";
@@ -7,10 +7,26 @@ import person2 from "../assets/chat/person2.jpg";
 import person3 from "../assets/chat/person3.jpg";
 import { IoIosArrowBack } from "react-icons/io";
 import Conversations from "../components/messages/Conversations";
+import { io } from "socket.io-client";
 
 const Messaging = () => {
   const [openMsg, setOpenMsg] = useState(false);
   const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const socket = useRef();
+
+  useEffect(() => {
+    socket.current = io(process.env.BACKENDURL);
+  }, []);
+
+  useEffect(() => {
+    socket.current.on("connect", (data) => {
+      console.log(socket.current);
+    });
+
+    return () => {
+      socket.current.disconnect();
+    };
+  }, []);
 
   useEffect(() => {
     function handleResize() {
@@ -56,69 +72,6 @@ const Messaging = () => {
                 avi={person3}
                 name="George"
                 date="1-14"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
                 message="Hey David, are you still available for our class at 2pm tomorrow?"
                 setOpenMsg={setOpenMsg}
               />
@@ -168,76 +121,6 @@ const Messaging = () => {
               avi={person1}
               name="June"
               date="March 2"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person2}
-              name="Philip"
-              date="1-15"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person3}
-              name="George"
-              date="1-14"
               message="Hey David, are you still available for our class at 2pm tomorrow?"
               setOpenMsg={setOpenMsg}
             />
