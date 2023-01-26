@@ -71,4 +71,7 @@ th {
   .btn {
     @apply bg-grotto-100 font-semibold text-white p-2 rounded w-48 hover:bg-primary;
   }
+  .modalCard {
+    @apply flex flex-col bg-cardBg rounded-lg shadow-cardSh px-4 py-8 my-2 mx-auto w-[90%] max-w-[700px] relative;
+  }
 }

@@ -1,5 +1,5 @@
 const { supabase } = require("../config/supabase");
-
+const cloudinary = require("../config/cloudinaryConfig");
 //Get user info
 const getUser = async (req, res) => {
   try {
@@ -55,18 +55,71 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const { id, profilePic, skills, about, mission, tokens, tutors, tutees } =
-      req.body;
+    const { id, skills, about, hobbies, mission, tokens } = req.body;
 
     if (!id) return res.status(400).json("User ID Missing");
 
     const { error } = await supabase
       .from("User_data")
-      .update({ profilePic, skills, about, mission, tokens, tutors, tutees })
+      .update({
+        skills,
+        about,
+        hobbies,
+        mission,
+        tokens,
+      })
       .eq("userId", id);
 
     if (!error) {
       return res.status(200).json("User updated");
+    } else {
+      return res.status(500).json({ Error_Updating_User: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
+// Update userPhoto
+const updateUserPhoto = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (!req.file) {
+      return res.status(400).json("Image Missing");
+    }
+
+    const { data, error: userErr } = await supabase
+      .from("User_data")
+      .select("profilePic, profilePicId")
+      .eq("userId", id);
+    const { profilePicId } = data[0];
+    if (profilePicId) {
+      //delete previous photo from Cloudinary Storage
+      await cloudinary.uploader.destroy(profilePicId);
+    }
+
+    let cloudinaryId, img;
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      if (result) {
+        cloudinaryId = result.public_id;
+        img = result.secure_url;
+      }
+    }
+    const { error } = await supabase
+      .from("User_data")
+      .update({
+        profilePic: img,
+        profilePicId: cloudinaryId,
+      })
+      .eq("userId", id);
+
+    if (!error) {
+      return res.status(200).json("User Profile Image Updated");
     } else {
       return res.status(500).json({ Error_Updating_User: error });
     }
@@ -103,4 +156,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, updateUserAcc, updateUserInfo, deleteUser };
+module.exports = {
+  getUser,
+  updateUserAcc,
+  updateUserInfo,
+  deleteUser,
+  updateUserPhoto,
+};
