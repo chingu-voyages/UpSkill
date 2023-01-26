@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Open Sans", Avenir, Helvetica, Arial, sans-serif;
+  line-height: 24px;
+  font-weight: 400;
+}
+* {
+  box-sizing: border-box;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  width: 100%;
+}
+
+tr {
+  border-bottom: 2px solid grey;
+}
+
+td,
+th {
+  text-align: center;
+}
+
+td {
+  height: 80px;
+  color: #1181c8;
+}
+
+th {
+  height: 50px;
+  color: #265b8b;
+}
+
+@media only screen and (max-width: 395px) {
+  td,
+  th {
+    font-size: 14px;
+  }
+}
+
+@layer components {
+  .card {
+    @apply shadow-cardSh rounded-lg bg-cardBg;
+  }
+  .social-link {
+    @apply hover:text-baby duration-75;
+  }
+  .social-link-btn {
+    @apply hover:text-baby hover:fill-baby hover:border-baby duration-75 p-2 fill-ivory-100 border border-ivory-100 rounded shadow-lg;
+  }
+  .input-field {
+    @apply rounded-lg border border-ivory-300 bg-cardBg w-full outline-none pl-2 pr-4;
+  }
+  .label-section {
+    @apply flex flex-col items-center text-center md:items-start;
+  }
+  .btn {
+    @apply bg-grotto-100 font-semibold text-white p-2 rounded w-48 hover:bg-primary;
+  }
+  .modalCard {
+    @apply flex flex-col bg-cardBg rounded-lg shadow-cardSh px-4 py-8 my-2 mx-auto w-[90%] max-w-[700px] relative;
+  }
+}

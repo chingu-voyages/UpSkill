@@ -1,0 +1,40 @@
+.modal-container {
+  background-color: #dcdbdbb7;
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  z-index: 100;
+  justify-content: center;
+  animation: fadeIn 0.4s ease-in forwards;
+}
+
+@media only screen and (min-width: 550px) {
+  .edit-modal {
+    width: 50rem;
+    height: 30rem;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .edit-modal {
+    height: 37rem;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
