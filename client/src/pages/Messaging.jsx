@@ -15,7 +15,7 @@ const Messaging = () => {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io(process.env.BACKENDURL);
+    socket.current = io(import.meta.env.BACKENDURL);
   }, []);
 
   useEffect(() => {

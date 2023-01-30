@@ -10,7 +10,7 @@ function Input({ children, type, name, inputRef, classStyle }) {
         {children}
       </label>
       <input
-        className={`w-full border-ivory-300 rounded-md h-8 border-2 focus:border-green p-2`}
+        className={`w-full border-ivory-300 rounded-md h-8 border-2 focus:outline-none focus:border-sky-500 focus:ring-1 focus:ring-sky-500 p-2`}
         name={name}
         type={type}
         ref={inputRef}
