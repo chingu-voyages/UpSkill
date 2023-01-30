@@ -28,6 +28,10 @@ function Profile() {
     };
   }, [width]);
 
+  const handleClick = e => {
+    e.stopPropagation();
+  };
+
   return (
     <main className=" text-primary lg:flex lg:h-max lg:items-center">
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">
@@ -192,7 +196,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
+          <div className="card px-4 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <h3 className="mt-2 md:text-start lg:w-full lg:ml-16 lg:my-4 text-primary font-bold text-xl">
               4 Reviews
             </h3>
@@ -205,13 +209,19 @@ function Profile() {
               Great tutor, so patient, would definitely recommend trading skills
               with David!
             </Reviews>
-            <div className="p-4">
+            <div className="flex gap-4 p-4">
               <a
                 href="#"
                 className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
               >
                 See more
               </a>
+              <button
+                onClick={handleClick}
+                className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-primary"
+              >
+                Leave a review
+              </button>
             </div>
           </div>
         </section>

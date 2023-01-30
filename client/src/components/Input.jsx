@@ -1,5 +1,3 @@
-import React from "react";
-
 function Input({ children, type, name, inputRef, classStyle }) {
   return (
     <div className={`mx-6 mt-4 ${classStyle}`}>
