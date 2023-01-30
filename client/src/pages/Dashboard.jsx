@@ -36,7 +36,7 @@ const Dashboard = () => {
   }, [editPhoto, editSkills, editBio, calendar]);
 
   return (
-    <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen ">
+    <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen">
       {editPhoto && <PhotoModal setEditPhoto={setEditPhoto} />}
       {editSkills && <SkillsModal setEditSkills={setEditSkills} />}
       {editBio && <BioModal setEditBio={setEditBio} />}
@@ -63,7 +63,7 @@ const Dashboard = () => {
               David Mark
             </h4>
           </div>
-          <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between max-h-80 gap-8 relative mt-4">
+          <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between gap-8 relative mt-2">
             <BiEdit
               size={25}
               className="absolute top-2 right-2 cursor-pointer hover:text-grotto-100"
@@ -98,7 +98,7 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <div className="card justify-between max-h-96 h-full max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative w-full">
+          <div className="card justify-between max-h-96 max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative">
             <div className="flex items-center">
               <FaBookOpen size={25} className="text-grotto-100" />
               <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
@@ -136,7 +136,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div
-            className="card flex items-center justify-center h-48 w-full mt-8 gap-4 max-[490px]:px-2 cursor-pointer"
+            className="card flex items-center justify-center h- w-full mt-8 gap-4 max-[490px]:px-2 cursor-pointer"
             onClick={() => {
               setCalendar(true);
             }}
@@ -249,8 +249,9 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <div className="flex items-center w-full flex-col mt-8 card p-8">
-            <div className="flex ">
+
+          <div className="card flex flex-col items-center w-full mt-8 p-8">
+            <div className="flex">
               <img src={stats} alt="" />
               <h3 className="ml-2 text-primary font-bold">Statistics</h3>
             </div>

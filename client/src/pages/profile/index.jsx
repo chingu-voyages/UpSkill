@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from "react";
 import avatar from "../../assets/dashboard/avatar.svg";
 import bio from "../../assets/dashboard/bio.svg";
-import badge from "../../assets/profil/badge.svg";
-import pen from "../../assets/dashboard/pen.svg";
-import skill from "../../assets/dashboard/skills.svg";
-import wantedSkill from "../../assets/profil/skill.svg";
 import stats from "../../assets/dashboard/statistics.svg";
 import session from "../../assets/dashboard/sessions.svg";
 import teach from "../../assets/dashboard/teaching.svg";
 import learn from "../../assets/dashboard/learner.svg";
 import { BsFillStarFill } from "react-icons/bs";
-import calendar from "../../assets/dashboard/calendar.svg";
-import Reviews from "../../components/Reviews";
 import BioDetails from "../../components/BioDetails";
+import {
+  FaBookOpen,
+  FaBookReader,
+  FaBrain,
+  FaCalendarAlt,
+} from "react-icons/fa";
 
-function Profil() {
+import Reviews from "../../components/Reviews";
+function Profile() {
   const [width, setWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -26,8 +27,9 @@ function Profil() {
       window.removeEventListener("resize", handleResize);
     };
   }, [width]);
+
   return (
-    <main className="lg:flex lg:h-max lg:items-center">
+    <main className=" text-primary lg:flex lg:h-max lg:items-center">
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
@@ -36,11 +38,6 @@ function Profil() {
             </h2>
             <div className="bg-baby h-32 w-32 rounded-full flex justify-center relative">
               <img src={avatar} alt="" />
-              <img
-                src={badge}
-                alt=""
-                className="absolute right-0 bottom-0 cursor-pointer"
-              />
             </div>
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
               David Mark
@@ -61,26 +58,21 @@ function Profil() {
               </div>
             </div>
           </div>
-          <div className="card lg:my-12 lg:h-auto mx-4 my-6 flex flex-col items-center justify-between h-full relative">
+          <div className="card p-4 lg:my-12 lg:h-auto mx-4 my-6 flex flex-col items-center justify-between">
             <div className="flex flex-col items-center my-4">
               <div className="flex">
-                <img src={skill} alt="" className="w-6" />
+                <FaBrain size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">
                   Skills offered
                 </h3>
               </div>
-              <img
-                src={pen}
-                alt=""
-                className="absolute right-4 cursor-pointer"
-              />
               <span className="skill-set  text-grotto-100 mt-4">
                 JavaScript, Python, UI/UX
               </span>
             </div>
             <div className="flex flex-col items-center my-4">
               <div className="flex">
-                <img src={wantedSkill} alt="" className="w-6" />
+                <FaBookReader size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">
                   Skills wanted
                 </h3>
@@ -90,16 +82,11 @@ function Profil() {
               </span>
             </div>
           </div>
-          <div className="card lg:my-12 lg:h-auto mx-4 my-6  flex flex-col items-center justify-between lg:justify-center h-full relative">
+          <div className="card p-4 lg:my-12 lg:h-auto mx-4 my-6  flex flex-col items-center m-auto justify-between lg:justify-center h-full relative">
             <div className="flex flex-col items-center my-4">
               <h3 className="font-bold ml-2 text-primary text-xl">
                 Misson Statement
               </h3>
-              <img
-                src={pen}
-                alt=""
-                className="absolute right-4 cursor-pointer"
-              />
               <span className="skill-set text-grotto-100 p-4 text-justify">
                 I want to learn how to speak German better, as I will be
                 travelling in Germany next year. I’d also like to improve my
@@ -111,18 +98,25 @@ function Profil() {
             </div>
           </div>
           {width >= 1024 ? (
-            <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
-              <div className="flex p-2 w-full justify-center border-b-2 border-ivory-50">
+            <a
+              className="card p-8 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
+              href="#"
+              target="_blank"
+            >
+              <div className="flex p-2  justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
                   Book a session with David
                 </h3>
-                <img src={calendar} alt="" className="w-6" />
+                <FaCalendarAlt
+                  size={25}
+                  className="text-grotto-100 hover:text-primary"
+                />
               </div>
-            </div>
+            </a>
           ) : (
             <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
               <div className="flex w-full p-4 justify-center border-b-2 border-ivory-50">
-                <img src={bio} alt="" className="w-6" />
+                <FaBookOpen size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
               <BioDetails title="About">
@@ -149,14 +143,21 @@ function Profil() {
               <BioDetails title="Subject"></BioDetails>
             </div>
           ) : (
-            <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
-              <div className="flex p-2 w-full justify-center border-b-2 border-ivory-50">
+            <a
+              className="card lg:my-12 p-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
+              href="#"
+              target="_blank"
+            >
+              <div className="flex w-full justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
                   Book a session with David
                 </h3>
-                <img src={calendar} alt="" className="w-6" />
+                <FaCalendarAlt
+                  size={25}
+                  className="text-grotto-100 hover:text-primary"
+                />
               </div>
-            </div>
+            </a>
           )}
           <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <div className="flex mt-4">
@@ -219,4 +220,4 @@ function Profil() {
   );
 }
 
-export default Profil;
+export default Profile;
