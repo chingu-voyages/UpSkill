@@ -7,7 +7,7 @@ import NavItem from "./NavItem";
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [user, setUser] = useState(false);
-  // fix click in navitem and fix stles for nav container
+
   const handleClick = () => setClick(!click);
   if (click) {
     if (typeof window != "undefined" && window.document) {
@@ -22,7 +22,7 @@ const Navbar = () => {
   return (
     <nav
       className="bg-white border-b border-baby z-10 relative mb-4"
-      onClick={(e) => e.stopPropagation()}
+      onClick={e => e.stopPropagation()}
     >
       <div className="flex items-center justify-between max-w-[1440px] h-[4rem] px-6 md:px-10 lg:px-14 text-primary">
         <Link to="/">
