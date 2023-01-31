@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { AiFillStar, AiOutlineStar } from "react-icons/ai";
-
 const Stars = ({ setSelectStar, selectStar }) => {
   const handleClick = (e, i) => {
     e.preventDefault();

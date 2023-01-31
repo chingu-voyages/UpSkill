@@ -18,6 +18,7 @@ import Reviews from "../../components/Reviews";
 import ReviewModal from "../../components/Modal/ReviewModal";
 function Profile() {
   const [width, setWidth] = useState(window.innerWidth);
+  const [postReview, setPostReview] = useState(false);
 
   useEffect(() => {
     function handleResize() {
@@ -29,13 +30,24 @@ function Profile() {
     };
   }, [width]);
 
+  useEffect(() => {
+    if (postReview) {
+      window.document.body.style.overflow = "hidden";
+    } else if (!postReview) {
+      window.document.body.style.overflow = "unset";
+    }
+  }, [postReview]);
+
   const handleClick = e => {
     e.stopPropagation();
+    setPostReview(true);
   };
 
   return (
     <main className=" text-primary lg:flex lg:h-max lg:items-center">
-      {/* <ReviewModal /> */}
+      {postReview && (
+        <ReviewModal postReview={postReview} setPostReview={setPostReview} />
+      )}
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
@@ -60,7 +72,7 @@ function Profile() {
                 5.0
               </div>
               <div className="font-bold text-grotto-100 mx-2 flex flex-row items-center text-xl">
-                Ratings count
+                Rating
               </div>
             </div>
           </div>

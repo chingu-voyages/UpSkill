@@ -8,6 +8,7 @@ const server = import.meta.env.VITE_SERVER;
 
 const BioModal = ({ setPostReview }) => {
   const clickRef = useRef(null);
+  const reviewInput = useRef(null);
   const [selectStar, setSelectStar] = useState(0);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
@@ -33,31 +34,24 @@ const BioModal = ({ setPostReview }) => {
     e.preventDefault();
     setClicked(true);
 
-    let aboutData, hobbiesData, missionData;
-    const { about, hobbies, mission } = e.target.elements;
-
-    if (about.value !== null && about.value.trim() !== "") {
-      aboutData = about.value;
-    }
-    if (hobbies.value !== null && hobbies.value.trim() !== "") {
-      hobbiesData = hobbies.value;
-    }
-    if (mission.value !== null && mission.value.trim() !== "") {
-      missionData = mission.value;
-    }
-
-    if (!aboutData && !hobbiesData && !missionData) {
+    if (!reviewInput.current.value) {
+      setClicked(false);
       return setError(true);
     } else {
       setError(false);
 
-      const res = axios.put(`${server}/user/info`, {
-        //To take userId from state
-        id: "11684414-9afc-4f10-be32-28bb1652b88e",
-      });
-      if (res) {
-        closeModal();
-      }
+      //review and star values being logged
+      //TODO:
+      //1 - send info to backend
+      //2 - set up rendering of modal in profile section via click.
+
+      // const res = axios.put(`${server}/user/info`, {
+      //   //To take userId from state
+      //   id: "11684414-9afc-4f10-be32-28bb1652b88e",
+      // });
+      // if (res) {
+      //   closeModal();
+      // }
     }
   };
   return (
@@ -91,18 +85,17 @@ const BioModal = ({ setPostReview }) => {
             </label>
             <div className="">
               <textarea
+                ref={reviewInput}
                 name="review"
                 id="review"
-                className="input-field resize-y max-h-[200px] min-h-[100px]"
+                className="input-field resize-y max-h-[200px] min-h-[100px] py-1"
               ></textarea>
             </div>
           </div>
         </div>
 
         {error && (
-          <p className="self-center text-red-500">
-            At least one field must be filled
-          </p>
+          <p className="self-center text-red-500">Please leave a review 🙂</p>
         )}
 
         <button
