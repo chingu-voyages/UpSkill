@@ -40,18 +40,16 @@ const BioModal = ({ setPostReview }) => {
     } else {
       setError(false);
 
-      //review and star values being logged
-      //TODO:
-      //1 - send info to backend
-      //2 - set up rendering of modal in profile section via click.
-
-      // const res = axios.put(`${server}/user/info`, {
-      //   //To take userId from state
-      //   id: "11684414-9afc-4f10-be32-28bb1652b88e",
-      // });
-      // if (res) {
-      //   closeModal();
-      // }
+      const res = axios.post(`${server}/user/review`, {
+        //To take userId from state
+        recevierId: "11684414-9afc-4f10-be32-28bb1652b88e",
+        reviewerId: "7965b017-cf49-46a1-8ff2-d10ae5f6ba0b",
+        review: reviewInput.current.value,
+        starRating: selectStar + 1,
+      });
+      if (res) {
+        closeModal();
+      }
     }
   };
   return (
