@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Chats from "../components/messages/Chats";
 import ChatSearchInput from "../components/messages/ChatSearchInput";
 import avatar from "../assets/chat/avatar.png";

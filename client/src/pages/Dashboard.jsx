@@ -136,7 +136,7 @@ const Dashboard = () => {
             </div>
           </div>
           <div
-            className="card flex items-center justify-center h- w-full mt-8 gap-4 max-[490px]:px-2 cursor-pointer"
+            className="card flex items-center justify-center p-6 w-full mt-8 gap-4 max-[490px]:px-2 cursor-pointer"
             onClick={() => {
               setCalendar(true);
             }}

@@ -1,7 +1,6 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
-import { BsFillStarFill } from "react-icons/bs";
 import Stars from "../Stars";
 import axios from "axios";
 
@@ -62,7 +61,7 @@ const BioModal = ({ setPostReview }) => {
     }
   };
   return (
-    <div className="modal-container primary">
+    <div className="modal-container text-primary">
       <form ref={clickRef} className="modalCard gap-6" onSubmit={handleSubmit}>
         <RxCross2
           size={20}
@@ -70,15 +69,32 @@ const BioModal = ({ setPostReview }) => {
           onClick={closeModal}
         />
 
-        <h3 className="self-center text-xl">About you</h3>
+        <h3 className="self-center text-xl">
+          Leave a review for [Tutor's Name]
+        </h3>
 
         <div className="flex flex-col gap-4">
           <div>
             <label className="leading-loose pl-1">
-              How would you rate Tutor Name out of 5?
+              How would you rate [Tutor's Name] out of 5?
             </label>
             <div className="flex">
               {<Stars selectStar={selectStar} setSelectStar={setSelectStar} />}
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div>
+            <label className="leading-loose pl-1">
+              What can you say about your interaction with [Tutor's Name]?
+            </label>
+            <div className="">
+              <textarea
+                name="review"
+                id="review"
+                className="input-field resize-y max-h-[200px] min-h-[100px]"
+              ></textarea>
             </div>
           </div>
         </div>
