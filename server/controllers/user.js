@@ -22,6 +22,27 @@ const getUser = async (req, res) => {
   }
 };
 
+// Get user based on skill
+const getUsersBySkill = async (req, res) => {
+  try {
+    const { skill } = req.query;
+    // Query user(s) by skill
+    const { data } = await supabase
+      .from("User_data")
+      .select(
+        "first_name, last_name, userId, skills, about, mission, profilePic, hobbies, occupation, location"
+      )
+      .ilike("skills", `%${skill}%`);
+
+    if (!data[0]) {
+      return res.status(404).json({ Message: "No mentors with that skill." });
+    }
+    return res.status(200).json({ users: data });
+  } catch (error) {
+    return res.status(404).json({ Users_not_found: error });
+  }
+};
+
 //Update user Account
 const updateUserAcc = async (req, res) => {
   try {
@@ -55,8 +76,16 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const { id, profilePic, skills, about, mission, tokens, tutors, tutees } =
-      req.body;
+    const {
+      id,
+      profilePic,
+      skills,
+      about,
+      mission,
+      tokens,
+      tutors,
+      tutees,
+    } = req.body;
 
     if (!id) return res.status(400).json("User ID Missing");
 
@@ -103,4 +132,10 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { getUser, updateUserAcc, updateUserInfo, deleteUser };
+module.exports = {
+  getUser,
+  getUsersBySkill,
+  updateUserAcc,
+  updateUserInfo,
+  deleteUser,
+};
