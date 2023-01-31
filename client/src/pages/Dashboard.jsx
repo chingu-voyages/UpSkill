@@ -12,32 +12,36 @@ import {
   FaCoins,
   FaCalendarAlt,
 } from "react-icons/fa";
+
 import { BiEdit } from "react-icons/bi";
 
 import PhotoModal from "../components/Modal/PhotoModal";
 import SkillsModal from "../components/Modal/SkillsModal";
 import BioModal from "../components/Modal/BioModal";
-
+import LinkCalendarModal from "../components/Modal/LinkCalendarModal";
 import { useState, useEffect } from "react";
 
 const Dashboard = () => {
   const [editPhoto, setEditPhoto] = useState(false);
   const [editSkills, setEditSkills] = useState(false);
   const [editBio, setEditBio] = useState(false);
+  const [calendar, setCalendar] = useState(false);
 
   useEffect(() => {
-    if (editPhoto || editSkills || editBio) {
+    if (editPhoto || editSkills || editBio || calendar) {
       window.document.body.style.overflow = "hidden";
-    } else if (!editPhoto && !editSkills && !editBio) {
+    } else if (!editPhoto && !editSkills && !editBio && !calendar) {
       window.document.body.style.overflow = "unset";
     }
-  }, [editPhoto, editSkills, editBio]);
+  }, [editPhoto, editSkills, editBio, calendar]);
 
   return (
     <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen ">
       {editPhoto && <PhotoModal setEditPhoto={setEditPhoto} />}
       {editSkills && <SkillsModal setEditSkills={setEditSkills} />}
       {editBio && <BioModal setEditBio={setEditBio} />}
+      {calendar && <LinkCalendarModal setCalendar={setCalendar} />}
+
       <div className="flex gap-spaceBtwbioXScheduledLssn max-[1000px]:flex-col">
         <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center">
           <div className="flex items-center flex-col">
@@ -53,12 +57,6 @@ const Dashboard = () => {
                   setEditPhoto(prev => !prev);
                 }}
               />
-              {/* <img
-                src={pencil}
-                alt="pencil to edit user's photo"
-                className="absolute right-0 cursor-pointer"
-                
-              /> */}
             </div>
 
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
@@ -137,18 +135,20 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <a
-            href="#"
-            className="card flex items-center justify-center h-48 w-full mt-8 gap-4 max-[490px]:px-2"
+          <div
+            className="card flex items-center justify-center h-48 w-full mt-8 gap-4 max-[490px]:px-2 cursor-pointer"
+            onClick={() => {
+              setCalendar(true);
+            }}
           >
             <p className="font-bold text-primary text-xl">
-              View or Update your calendar
+              View or Update your Calendar
             </p>
             <FaCalendarAlt
               size={25}
               className="text-grotto-100 hover:text-primary"
             />
-          </a>
+          </div>
         </section>
         <section className="max-w-dashScheduleSection w-full">
           <div className="flex items-center flex-col gap-4  card p-8 max-[490px]:px-2 w-full">

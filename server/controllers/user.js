@@ -121,7 +121,36 @@ const updateUserPhoto = async (req, res) => {
     if (!error) {
       return res.status(200).json("User Profile Image Updated");
     } else {
-      return res.status(500).json({ Error_Updating_User: error });
+      return res.status(500).json({ Error_Updating_User_Image: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_User_Image: error });
+  }
+};
+
+//Set user calendly account link
+const setUserCalendlyLink = async (req, res) => {
+  try {
+    const { id, calendly } = req.body;
+
+    if (!id) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (!calendly) {
+      return res.status(400).json("Calendly Link Missing");
+    }
+
+    const { error } = await supabase
+      .from("User_data")
+      .update({
+        calendly_link: calendly,
+      })
+      .eq("userId", id);
+
+    if (!error) {
+      return res.status(200).json("User Calendly Link Updated");
+    } else {
+      return res.status(500).json({ Error_Updating_Calendly_Link: error });
     }
   } catch (error) {
     return res.status(500).json({ Error_updating_user_data: error });
@@ -162,4 +191,5 @@ module.exports = {
   updateUserInfo,
   deleteUser,
   updateUserPhoto,
+  setUserCalendlyLink,
 };
