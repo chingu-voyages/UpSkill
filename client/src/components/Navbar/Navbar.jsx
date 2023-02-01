@@ -10,20 +10,10 @@ import NavDropDown from "./NavDropDown";
 const Navbar = () => {
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
-  const [loggedInMenuHidden, setLoggedInMenuHidden] = useState(false);
 
   const user = useSelector(state => state.auth.isAuthenticated);
   const userId = useSelector(state => state.user.id);
 
-  const toggleDropDown = e => {
-    e.preventDefault();
-    setLoggedInMenuHidden(state => !state);
-  };
-
-  const handleLogout = e => {
-    e.preventDefault();
-    dispatch(logOut());
-  };
   const handleClick = () => setClick(!click);
   if (click) {
     if (typeof window != "undefined" && window.document) {
