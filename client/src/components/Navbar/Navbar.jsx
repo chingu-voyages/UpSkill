@@ -99,64 +99,6 @@ const Navbar = () => {
               <NavDropDown />
             </ul>
           )}
-          {/* {!user && (
-              <NavItem
-                output={"How it works"}
-                direction="/"
-                setClicker={setClick}
-                clicker={click}
-              />
-            )}
-            {user ? (
-              <NavItem
-                output={"Messages"}
-                direction={"/messages"}
-                setClicker={setClick}
-                clicker={click}
-              />
-            ) : (
-              <NavItem
-                output={"About"}
-                direction={"/about"}
-                setClicker={setClick}
-                clicker={click}
-              />
-            )}
-            {user ? (
-              smallScreen ? (
-                <div>
-                  <NavItem
-                    output={"Profile"}
-                    direction={"/profile"}
-                    setClicker={setClick}
-                    clicker={click}
-                  />
-                  <NavItem
-                    output={"Dashboard"}
-                    direction={"/dashboard"}
-                    setClicker={setClick}
-                    clicker={click}
-                  />
-                  <NavItem
-                    output={"Logout"}
-                    direction={"/logout"}
-                    setClicker={setClick}
-                    clicker={click}
-                  />
-                </div>
-              ) : (
-                <NavDropDown />
-              )
-            ) : (
-              <NavItem
-                output={"Sign in"}
-                direction={"/auth"}
-                setClicker={setClick}
-                clicker={click}
-              />
-            )} */}
-          {/* </ul>
-          )} */}
 
           <div className="nav-icon" onClick={handleClick}>
             {click ? <RxCross2 size={30} /> : <RxHamburgerMenu size={30} />}
