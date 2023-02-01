@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const {
   getUser,
+  getUsersBySkill,
   updateUserAcc,
   updateUserInfo,
   updateUserPhoto,
@@ -13,7 +14,10 @@ const {
 const upload = require("../middleware/multer");
 
 //Get user info
-router.get("/:id", getUser);
+router.get("/id/:id", getUser);
+
+//Get user based on skill
+router.get("/skills", getUsersBySkill);
 
 //Update User account details
 router.put("/acc", updateUserAcc);

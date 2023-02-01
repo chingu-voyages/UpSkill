@@ -1,7 +1,22 @@
 import collabImg from "../assets/landing/collab_learning.jpg";
 import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const HeroLarge = () => {
+  const navigate = useNavigate();
+  const [ formInput, setFormInput ] = useState("");
+
+  const handleChange = e => {
+    setFormInput(e.target.value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setFormInput("");
+    navigate("/q", { state: { skill: `${formInput}` } });
+  };
+
   return (
     <div className="w-full h-screen p-5">
       <div className="flex flex-row mt-20">
@@ -25,13 +40,15 @@ const HeroLarge = () => {
             >
               What would you like to learn?
             </label>
-            <form action="#">
+            <form onSubmit={handleSubmit}>
               <div className="flex mt-2">
                 <input
                   className="border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
                   name="search"
                   type="text"
                   placeholder="Search skills"
+                  required
+                  onChange={handleChange}
                 />
                 <button className="text-white bg-primary w-10 p-2 rounded-tr-lg rounded-br-lg">
                   <FaSearch />
