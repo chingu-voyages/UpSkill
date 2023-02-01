@@ -157,6 +157,52 @@ const setUserCalendlyLink = async (req, res) => {
   }
 };
 
+const postUserReview = async (req, res) => {
+  console.log("received");
+  try {
+    const { recevierId, reviewerId, starRating, review } = req.body;
+    console.log(recevierId, reviewerId, starRating, review);
+    if (!reviewerId || !recevierId) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (reviewerId === recevierId) {
+      return res.status(403).json("User cannot review own profile");
+    }
+
+    const { data, error } = await supabase
+      .from("Reviews")
+      .insert([{ userId: recevierId, reviewerId, review, stars: starRating }])
+      .select();
+
+    if (!error) {
+      return res.status(200).json({ review_Posted: data });
+    } else {
+      return res.status(500).json({ Error_Updating_User: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
+const getUserReviews = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(400).json("User ID Missing");
+
+    let { data: Reviews, error } = await supabase
+      .from("Reviews")
+      .select(" reviewerId, review, stars, created_at ");
+
+    if (Reviews) {
+      return res.status(200).json(Reviews);
+    } else {
+      return res.status(404).json({ Reviews_not_found: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_fetching_review_data: error });
+  }
+};
+
 //Delete user
 const deleteUser = async (req, res) => {
   try {
@@ -192,4 +238,6 @@ module.exports = {
   deleteUser,
   updateUserPhoto,
   setUserCalendlyLink,
+  postUserReview,
+  getUserReviews,
 };

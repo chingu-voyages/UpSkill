@@ -1,5 +1,3 @@
-import React from "react";
-
 const Chats = ({ avi, name, date, message, setOpenMsg }) => {
   const handleOpenMsg = () => {
     setOpenMsg(true);

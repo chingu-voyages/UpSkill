@@ -1,4 +1,4 @@
-import React from "react";
+import { BsFillStarFill } from "react-icons/bs";
 
 function Reviews({ avatar, name, children }) {
   return (
@@ -7,10 +7,17 @@ function Reviews({ avatar, name, children }) {
         <img src={avatar} alt="" width={39} height={42} />
       </div>
       <div className="md:col-span-4 md:my-4 md:w-full">
-        <h3 className="font-bold md:my-2 md:text-lg text-primary md:text-start text-center text-xl">
-          {name}
-        </h3>
-        <div className="text-base md:font-semibold font-medium text-justify text-grotto-100 md:p-0 p-4">
+        <div className="flex items-center gap-4 px-4 md:p-0">
+          <h3 className="font-bold md:my-2 md:text-lg text-primary md:text-start text-center text-xl">
+            {name}
+          </h3>
+          <div className="flex items-center gap-1">
+            <span className="text">5</span>
+            <BsFillStarFill color="#facc15" />
+          </div>
+        </div>
+
+        <div className=" text-base md:font-semibold font-medium text-justify text-grotto-100 md:p-0 p-4 w-full">
           {children}
         </div>
       </div>

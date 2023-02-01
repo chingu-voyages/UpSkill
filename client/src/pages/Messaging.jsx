@@ -15,11 +15,11 @@ const Messaging = () => {
   const socket = useRef();
 
   useEffect(() => {
-    socket.current = io(import.meta.env.BACKENDURL);
+    socket.current = io(import.meta.env.VITE_SERVER);
   }, []);
 
   useEffect(() => {
-    socket.current.on("connect", (data) => {
+    socket.current.on("connect", data => {
       console.log(socket.current);
     });
 

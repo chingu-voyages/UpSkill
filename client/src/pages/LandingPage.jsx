@@ -1,4 +1,3 @@
-import React from "react";
 import Hero from "../components/Hero";
 import HeroLarge from "../components/HeroLarge";
 import Community from "../components/Community";
