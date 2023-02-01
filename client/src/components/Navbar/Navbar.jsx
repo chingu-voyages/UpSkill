@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import NavItem from "./NavItem";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const [user, setUser] = useState(false);
 
+  const user = useSelector((state) => state.auth.isAuthenticated);
+  
   const handleClick = () => setClick(!click);
   if (click) {
     if (typeof window != "undefined" && window.document) {
@@ -56,7 +58,7 @@ const Navbar = () => {
             {user ? (
               <NavItem
                 output={"User"}
-                direction={"/user"}
+                direction={"/profile"}
                 setClicker={setClick}
                 clicker={click}
               />
