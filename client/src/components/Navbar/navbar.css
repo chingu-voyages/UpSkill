@@ -1,5 +1,6 @@
 .nav-menu {
   display: flex;
+  align-items: center;
   list-style: none;
   text-align: center;
   gap: 3rem;
@@ -17,6 +18,19 @@
 .nav-icon {
   display: none;
 }
+
+.dropdownMenuBlock {
+  position: absolute;
+  top: 2.5rem;
+  right: 0;
+  padding: 1.4rem;
+}
+
+/*     50: "#DCDBDB",
+          75: "#D9D9D9",
+          100: "#ECECEB",
+          200: "#656567",
+          300: "#B0B0AF", */
 
 @media screen and (max-width: 768px) {
   .nav-menu {

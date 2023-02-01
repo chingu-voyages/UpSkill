@@ -1,8 +1,20 @@
 import "./navbar.css";
 import { NavLink } from "react-router-dom";
 
-const NavItem = ({ output, direction, clicker, setClicker }) => {
-  const handleClick = () => setClicker(!clicker);
+const NavItem = ({
+  output,
+  direction,
+  clicker,
+  setClicker,
+  setLoggedInMenuHidden,
+}) => {
+  const handleClick = () => {
+    if (clicker) {
+      setClicker(!clicker);
+    }
+    setLoggedInMenuHidden(false);
+  };
+
   if (clicker) {
     if (typeof window != "undefined" && window.document) {
       document.body.style.overflow = "hidden";
@@ -16,7 +28,10 @@ const NavItem = ({ output, direction, clicker, setClicker }) => {
   return (
     <li className="nav-item">
       <NavLink
-        onClick={clicker ? handleClick : null}
+        // onClick={clicker ? handleClick : null}
+        onClick={() => {
+          handleClick();
+        }}
         className="nav-links"
         to={direction}
       >

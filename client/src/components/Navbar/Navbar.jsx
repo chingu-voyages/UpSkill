@@ -5,13 +5,20 @@ import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import NavItem from "./NavItem";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../features/login-logout/login-logout-slice";
-
+import avatar from "../../assets/dashboard/avatar.svg";
+import NavDropDown from "./NavDropDown";
 const Navbar = () => {
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
+  const [loggedInMenuHidden, setLoggedInMenuHidden] = useState(false);
 
   const user = useSelector(state => state.auth.isAuthenticated);
   const userId = useSelector(state => state.user.id);
+
+  const toggleDropDown = e => {
+    e.preventDefault();
+    setLoggedInMenuHidden(state => !state);
+  };
 
   const handleLogout = e => {
     e.preventDefault();
@@ -63,18 +70,49 @@ const Navbar = () => {
               />
             )}
             {user ? (
-              <div
-                onClick={e => {
-                  handleLogout(e);
-                }}
-              >
-                <NavItem
-                  output={"Logout"}
-                  direction={"/"}
-                  setClicker={setClick}
-                  clicker={click}
-                />
-              </div>
+              // <div
+              //   className="flex flex-col relative"
+              //   onClick={e => toggleDropDown(e)}
+              // >
+              //   <img src={avatar} alt="" className="w-[2rem]" />
+              //   <ul
+              //     className={
+              //       loggedInMenuHidden
+              //         ? "dropdownMenuBlock card flex flex-col items-center gap-2"
+              //         : "hidden"
+              //     }
+              //   >
+              //     <li>
+              //       <NavItem
+              //         output={"Profile"}
+              //         direction={"/profile"}
+              //         setClicker={setClick}
+              //         clicker={click}
+              //       />
+              //     </li>
+              //     <li>
+              //       <NavItem
+              //         output={"Dashboard"}
+              //         direction={"/dashboard"}
+              //         setClicker={setClick}
+              //         clicker={click}
+              //       />
+              //     </li>
+              //     <li
+              //       onClick={e => {
+              //         handleLogout(e);
+              //       }}
+              //     >
+              //       <NavItem
+              //         output={"Logout"}
+              //         direction={"/"}
+              //         setClicker={setClick}
+              //         clicker={click}
+              //       />
+              //     </li>
+              //   </ul>
+              // </div>
+              <NavDropDown />
             ) : (
               <NavItem
                 output={"Sign in"}
