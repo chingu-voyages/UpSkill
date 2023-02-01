@@ -3,13 +3,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import NavItem from "./NavItem";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "../../features/login-logout/login-logout-slice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const [click, setClick] = useState(false);
 
-  const user = useSelector((state) => state.auth.isAuthenticated);
-  
+  const user = useSelector(state => state.auth.isAuthenticated);
+  const userId = useSelector(state => state.user.id);
+
+  const handleLogout = e => {
+    e.preventDefault();
+    dispatch(logOut());
+  };
   const handleClick = () => setClick(!click);
   if (click) {
     if (typeof window != "undefined" && window.document) {
@@ -56,12 +63,18 @@ const Navbar = () => {
               />
             )}
             {user ? (
-              <NavItem
-                output={"User"}
-                direction={"/profile"}
-                setClicker={setClick}
-                clicker={click}
-              />
+              <div
+                onClick={e => {
+                  handleLogout(e);
+                }}
+              >
+                <NavItem
+                  output={"Logout"}
+                  direction={"/"}
+                  setClicker={setClick}
+                  clicker={click}
+                />
+              </div>
             ) : (
               <NavItem
                 output={"Sign in"}
