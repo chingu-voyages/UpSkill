@@ -1,18 +1,29 @@
 import "./navbar.css";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import NavItem from "./NavItem";
-import { useSelector, useDispatch } from "react-redux";
-import { logOut } from "../../features/login-logout/login-logout-slice";
-import avatar from "../../assets/dashboard/avatar.svg";
+import { useSelector } from "react-redux";
 import NavDropDown from "./NavDropDown";
 const Navbar = () => {
-  const dispatch = useDispatch();
   const [click, setClick] = useState(false);
-
+  const [screen, setScreen] = useState(window.innerWidth);
   const user = useSelector(state => state.auth.isAuthenticated);
   const userId = useSelector(state => state.user.id);
+
+  useEffect(() => {
+    function switchDisplay() {
+      setScreen(window.innerWidth);
+      if (window.innerWidth >= 771) {
+        setClick(false);
+      }
+    }
+    window.addEventListener("resize", switchDisplay);
+
+    return () => {
+      window.removeEventListener("resize", switchDisplay);
+    };
+  }, []);
 
   const handleClick = () => setClick(!click);
   if (click) {
@@ -35,8 +46,60 @@ const Navbar = () => {
           <h3 className="font-bold font-title text-2xl">UpSkill</h3>
         </Link>
         <div className="menu">
-          <ul className={click ? "nav-menu active" : "nav-menu"}>
-            {!user && (
+          {!user ? (
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
+              <NavItem
+                output={"How it works"}
+                direction="/"
+                setClicker={setClick}
+                clicker={click}
+              />
+              <NavItem
+                output={"About"}
+                direction={"/about"}
+                setClicker={setClick}
+                clicker={click}
+              />
+              <NavItem
+                output={"Sign in"}
+                direction={"/auth"}
+                setClicker={setClick}
+                clicker={click}
+              />
+            </ul>
+          ) : screen <= 771 ? (
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
+              <NavItem
+                output={"Profile"}
+                direction={"/profile"}
+                setClicker={setClick}
+                clicker={click}
+              />
+              <NavItem
+                output={"Dashboard"}
+                direction={"/dashboard"}
+                setClicker={setClick}
+                clicker={click}
+              />
+              <NavItem
+                output={"Messages"}
+                direction={"/messages"}
+                setClicker={setClick}
+                clicker={click}
+              />
+              <NavItem
+                output={"Logout"}
+                direction={"/logout"}
+                setClicker={setClick}
+                clicker={click}
+              />
+            </ul>
+          ) : (
+            <ul className={click ? "nav-menu active" : "nav-menu"}>
+              <NavDropDown />
+            </ul>
+          )}
+          {/* {!user && (
               <NavItem
                 output={"How it works"}
                 direction="/"
@@ -60,49 +123,30 @@ const Navbar = () => {
               />
             )}
             {user ? (
-              // <div
-              //   className="flex flex-col relative"
-              //   onClick={e => toggleDropDown(e)}
-              // >
-              //   <img src={avatar} alt="" className="w-[2rem]" />
-              //   <ul
-              //     className={
-              //       loggedInMenuHidden
-              //         ? "dropdownMenuBlock card flex flex-col items-center gap-2"
-              //         : "hidden"
-              //     }
-              //   >
-              //     <li>
-              //       <NavItem
-              //         output={"Profile"}
-              //         direction={"/profile"}
-              //         setClicker={setClick}
-              //         clicker={click}
-              //       />
-              //     </li>
-              //     <li>
-              //       <NavItem
-              //         output={"Dashboard"}
-              //         direction={"/dashboard"}
-              //         setClicker={setClick}
-              //         clicker={click}
-              //       />
-              //     </li>
-              //     <li
-              //       onClick={e => {
-              //         handleLogout(e);
-              //       }}
-              //     >
-              //       <NavItem
-              //         output={"Logout"}
-              //         direction={"/"}
-              //         setClicker={setClick}
-              //         clicker={click}
-              //       />
-              //     </li>
-              //   </ul>
-              // </div>
-              <NavDropDown />
+              smallScreen ? (
+                <div>
+                  <NavItem
+                    output={"Profile"}
+                    direction={"/profile"}
+                    setClicker={setClick}
+                    clicker={click}
+                  />
+                  <NavItem
+                    output={"Dashboard"}
+                    direction={"/dashboard"}
+                    setClicker={setClick}
+                    clicker={click}
+                  />
+                  <NavItem
+                    output={"Logout"}
+                    direction={"/logout"}
+                    setClicker={setClick}
+                    clicker={click}
+                  />
+                </div>
+              ) : (
+                <NavDropDown />
+              )
             ) : (
               <NavItem
                 output={"Sign in"}
@@ -110,8 +154,9 @@ const Navbar = () => {
                 setClicker={setClick}
                 clicker={click}
               />
-            )}
-          </ul>
+            )} */}
+          {/* </ul>
+          )} */}
 
           <div className="nav-icon" onClick={handleClick}>
             {click ? <RxCross2 size={30} /> : <RxHamburgerMenu size={30} />}

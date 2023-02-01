@@ -38,7 +38,7 @@ const NavDropDown = () => {
       <img
         src={avatar}
         alt=""
-        className="w-[2rem]"
+        className="w-[2rem] cursor-pointer"
         onClick={e => toggleDropDown(e)}
       />
       <ul
@@ -62,6 +62,13 @@ const NavDropDown = () => {
           clicker={click}
           setLoggedInMenuHidden={setLoggedInMenuHidden}
         />
+        <NavItem
+          output={"Messages"}
+          direction={"/messages"}
+          setClicker={setClick}
+          clicker={click}
+        />
+
         <div
           onClick={e => {
             handleLogout(e);
