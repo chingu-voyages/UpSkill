@@ -1,4 +1,3 @@
-import React from "react";
 import avatar from "../assets/dashboard/avatar.svg";
 import { FaSearch } from "react-icons/fa";
 import SearchProfileCard from "../components/SearchProfileCard";

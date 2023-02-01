@@ -1,8 +1,8 @@
 import "./navbar.css";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
-const NavItem = ({ output, direction, clicker, setclicker }) => {
-  const handleClick = () => setClick(!clicker);
+
+const NavItem = ({ output, direction, clicker, setClicker }) => {
+  const handleClick = () => setClicker(!clicker);
   if (clicker) {
     if (typeof window != "undefined" && window.document) {
       document.body.style.overflow = "hidden";

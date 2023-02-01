@@ -3,11 +3,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import NavItem from "./NavItem";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
-  const [user, setUser] = useState(false);
-  // fix click in navitem and fix stles for nav container
+
+  const user = useSelector((state) => state.auth.isAuthenticated);
+  
   const handleClick = () => setClick(!click);
   if (click) {
     if (typeof window != "undefined" && window.document) {
@@ -22,7 +24,7 @@ const Navbar = () => {
   return (
     <nav
       className="bg-white border-b border-baby z-10 relative mb-4"
-      onClick={(e) => e.stopPropagation()}
+      onClick={e => e.stopPropagation()}
     >
       <div className="flex items-center justify-between max-w-[1440px] h-[4rem] px-6 md:px-10 lg:px-14 text-primary">
         <Link to="/">
@@ -56,7 +58,7 @@ const Navbar = () => {
             {user ? (
               <NavItem
                 output={"User"}
-                direction={"/user"}
+                direction={"/profile"}
                 setClicker={setClick}
                 clicker={click}
               />

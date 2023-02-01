@@ -1,5 +1,5 @@
 const { supabase } = require("../config/supabase");
-
+const cloudinary = require("../config/cloudinaryConfig");
 //Get user info
 const getUser = async (req, res) => {
   try {
@@ -91,7 +91,13 @@ const updateUserInfo = async (req, res) => {
 
     const { error } = await supabase
       .from("User_data")
-      .update({ profilePic, skills, about, mission, tokens, tutors, tutees })
+      .update({
+        skills,
+        about,
+        hobbies,
+        mission,
+        tokens,
+      })
       .eq("userId", id);
 
     if (!error) {
@@ -101,6 +107,129 @@ const updateUserInfo = async (req, res) => {
     }
   } catch (error) {
     return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
+// Update userPhoto
+const updateUserPhoto = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    if (!id) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (!req.file) {
+      return res.status(400).json("Image Missing");
+    }
+
+    const { data, error: userErr } = await supabase
+      .from("User_data")
+      .select("profilePic, profilePicId")
+      .eq("userId", id);
+    const { profilePicId } = data[0];
+    if (profilePicId) {
+      //delete previous photo from Cloudinary Storage
+      await cloudinary.uploader.destroy(profilePicId);
+    }
+
+    let cloudinaryId, img;
+    if (req.file) {
+      const result = await cloudinary.uploader.upload(req.file.path);
+      if (result) {
+        cloudinaryId = result.public_id;
+        img = result.secure_url;
+      }
+    }
+    const { error } = await supabase
+      .from("User_data")
+      .update({
+        profilePic: img,
+        profilePicId: cloudinaryId,
+      })
+      .eq("userId", id);
+
+    if (!error) {
+      return res.status(200).json("User Profile Image Updated");
+    } else {
+      return res.status(500).json({ Error_Updating_User_Image: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_User_Image: error });
+  }
+};
+
+//Set user calendly account link
+const setUserCalendlyLink = async (req, res) => {
+  try {
+    const { id, calendly } = req.body;
+
+    if (!id) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (!calendly) {
+      return res.status(400).json("Calendly Link Missing");
+    }
+
+    const { error } = await supabase
+      .from("User_data")
+      .update({
+        calendly_link: calendly,
+      })
+      .eq("userId", id);
+
+    if (!error) {
+      return res.status(200).json("User Calendly Link Updated");
+    } else {
+      return res.status(500).json({ Error_Updating_Calendly_Link: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
+const postUserReview = async (req, res) => {
+  console.log("received");
+  try {
+    const { recevierId, reviewerId, starRating, review } = req.body;
+    console.log(recevierId, reviewerId, starRating, review);
+    if (!reviewerId || !recevierId) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (reviewerId === recevierId) {
+      return res.status(403).json("User cannot review own profile");
+    }
+
+    const { data, error } = await supabase
+      .from("Reviews")
+      .insert([{ userId: recevierId, reviewerId, review, stars: starRating }])
+      .select();
+
+    if (!error) {
+      return res.status(200).json({ review_Posted: data });
+    } else {
+      return res.status(500).json({ Error_Updating_User: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
+const getUserReviews = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(400).json("User ID Missing");
+
+    let { data: Reviews, error } = await supabase
+      .from("Reviews")
+      .select(" reviewerId, review, stars, created_at ");
+
+    if (Reviews) {
+      return res.status(200).json(Reviews);
+    } else {
+      return res.status(404).json({ Reviews_not_found: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_fetching_review_data: error });
   }
 };
 
@@ -138,4 +267,8 @@ module.exports = {
   updateUserAcc,
   updateUserInfo,
   deleteUser,
+  updateUserPhoto,
+  setUserCalendlyLink,
+  postUserReview,
+  getUserReviews,
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import { ImAttachment } from "react-icons/im";
 import { MdSend } from "react-icons/md";
 

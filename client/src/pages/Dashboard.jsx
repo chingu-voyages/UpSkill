@@ -1,21 +1,47 @@
-import React from "react";
 import avatar from "../assets/dashboard/avatar.svg";
-import pencil from "../assets/dashboard/pencil.svg";
-import skill from "../assets/dashboard/skills.svg";
-import pen from "../assets/dashboard/pen.svg";
-import coins from "../assets/dashboard/coins.svg";
-import bio from "../assets/dashboard/bio.svg";
-import calendar from "../assets/dashboard/calendar.svg";
 import placeholder from "../assets/dashboard/placeholder.svg";
 import stats from "../assets/dashboard/statistics.svg";
 import session from "../assets/dashboard/sessions.svg";
 import teach from "../assets/dashboard/teaching.svg";
 import learn from "../assets/dashboard/learner.svg";
-import Footer from "../components/Footer";
+
+import {
+  FaPen,
+  FaBookOpen,
+  FaBrain,
+  FaCoins,
+  FaCalendarAlt,
+} from "react-icons/fa";
+
+import { BiEdit } from "react-icons/bi";
+
+import PhotoModal from "../components/Modal/PhotoModal";
+import SkillsModal from "../components/Modal/SkillsModal";
+import BioModal from "../components/Modal/BioModal";
+import LinkCalendarModal from "../components/Modal/LinkCalendarModal";
+import { useState, useEffect } from "react";
 
 const Dashboard = () => {
+  const [editPhoto, setEditPhoto] = useState(false);
+  const [editSkills, setEditSkills] = useState(false);
+  const [editBio, setEditBio] = useState(false);
+  const [calendar, setCalendar] = useState(false);
+
+  useEffect(() => {
+    if (editPhoto || editSkills || editBio || calendar) {
+      window.document.body.style.overflow = "hidden";
+    } else if (!editPhoto && !editSkills && !editBio && !calendar) {
+      window.document.body.style.overflow = "unset";
+    }
+  }, [editPhoto, editSkills, editBio, calendar]);
+
   return (
-    <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen ">
+    <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen">
+      {editPhoto && <PhotoModal setEditPhoto={setEditPhoto} />}
+      {editSkills && <SkillsModal setEditSkills={setEditSkills} />}
+      {editBio && <BioModal setEditBio={setEditBio} />}
+      {calendar && <LinkCalendarModal setCalendar={setCalendar} />}
+
       <div className="flex gap-spaceBtwbioXScheduledLssn max-[1000px]:flex-col">
         <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center">
           <div className="flex items-center flex-col">
@@ -24,10 +50,12 @@ const Dashboard = () => {
             </h2>
             <div className="bg-baby h-32 w-32 rounded-full flex justify-center relative">
               <img src={avatar} alt="" />
-              <img
-                src={pencil}
-                alt=""
-                className="absolute right-0 cursor-pointer"
+              <FaPen
+                size={20}
+                className="absolute right-0 cursor-pointer hover:text-grotto-100"
+                onClick={() => {
+                  setEditPhoto(prev => !prev);
+                }}
               />
             </div>
 
@@ -35,49 +63,56 @@ const Dashboard = () => {
               David Mark
             </h4>
           </div>
-          <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between max-h-80 h-full relative mt-4">
-            <div className="flex flex-col items-center">
-              <div className="flex">
-                <img src={skill} alt="" className="w-4" />
+          <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between gap-8 relative mt-2">
+            <BiEdit
+              size={25}
+              className="absolute top-2 right-2 cursor-pointer hover:text-grotto-100"
+              onClick={() => {
+                setEditSkills(prev => !prev);
+              }}
+            />
+            <div className="flex flex-col items-center gap-2">
+              <div className="flex items-center">
+                <FaBrain size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Skills</h3>
               </div>
-              <img
-                src={pen}
-                alt=""
-                className="absolute right-4 cursor-pointer"
-              />
-              <span className="skill-set  text-grotto-100 mt-4">
+
+              <span className="skill-set  text-grotto-100">
                 JavaScript, Python, UI/UX
               </span>
             </div>
-            <div className="flex flex-col items-center">
-              <div className="flex gap-2 mb-6">
-                <img src={coins} alt="" />
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex items-center gap-2">
+                <FaCoins className="text-yellow-400" size={20} />
                 <h3 className="text-primary text-xl font-bold">Tokens</h3>
-                <div className="h-8 w-8 ">
-                  <span className="p-1 bg-tokebgColor text-white  text-center rounded-2xl">
-                    50
-                  </span>
-                </div>
+                <span className="p-1 bg-tokebgColor text-white  text-center rounded-2xl ">
+                  50
+                </span>
               </div>
               <a
                 href="#"
                 className="flex bg-tokebgColor px-6 py-1 rounded-2xl text-white gap-2"
               >
                 <span>Get more tokens</span>
-                <img src={coins} alt="" />
+                <FaCoins className="text-yellow-400" size={20} />
               </a>
             </div>
           </div>
-          <div className="card justify-between max-h-96 h-full max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative w-full">
-            <div className="flex">
-              <img src={bio} alt="" />
+          <div className="card justify-between max-h-96 max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative">
+            <div className="flex items-center">
+              <FaBookOpen size={25} className="text-grotto-100" />
               <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
             </div>
-            <img src={pen} alt="" className="absolute right-4 cursor-pointer" />
+            <BiEdit
+              size={25}
+              className="absolute top-2 right-2 cursor-pointer hover:text-grotto-100"
+              onClick={() => {
+                setEditBio(prev => !prev);
+              }}
+            />
 
             <div className="text-start">
-              <h4 className="font-semibold text-grotto-100 mt-4">About</h4>
+              <h4 className="font-semibold text-grotto-100">About</h4>
               <p className="text-grotto-100">
                 I’m David Mark from Argentina. I’m looking to trade my computer
                 coding skills in order to learn German and Maths
@@ -100,15 +135,20 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <a
-            href="#"
-            className="card flex items-center justify-center h-48 w-full mt-8  max-[490px]:px-2"
+          <div
+            className="card flex items-center justify-center p-6 w-full mt-8 gap-4 max-[490px]:px-2 cursor-pointer"
+            onClick={() => {
+              setCalendar(true);
+            }}
           >
             <p className="font-bold text-primary text-xl">
-              View or Update your calendar
+              View or Update your Calendar
             </p>
-            <img src={calendar} alt="" className="ml-6" />
-          </a>
+            <FaCalendarAlt
+              size={25}
+              className="text-grotto-100 hover:text-primary"
+            />
+          </div>
         </section>
         <section className="max-w-dashScheduleSection w-full">
           <div className="flex items-center flex-col gap-4  card p-8 max-[490px]:px-2 w-full">
@@ -209,8 +249,9 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <div className="flex items-center w-full flex-col mt-8 card p-8">
-            <div className="flex ">
+
+          <div className="card flex flex-col items-center w-full mt-8 p-8">
+            <div className="flex">
               <img src={stats} alt="" />
               <h3 className="ml-2 text-primary font-bold">Statistics</h3>
             </div>

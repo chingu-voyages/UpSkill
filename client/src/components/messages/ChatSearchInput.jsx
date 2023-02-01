@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { BiSearch } from "react-icons/bi";
 import { MdFilterList } from "react-icons/md";
 
 const ChatSearchInput = ({ text, placeholder }) => {
   const [filtered, setFiltered] = useState(false);
   const handleFilter = () => {
-    setFiltered((prev) => !prev);
+    setFiltered(prev => !prev);
   };
   return (
     <div className=" flex items-center w-full">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { RiArrowDropUpLine, RiArrowDropDownLine } from "react-icons/ri";
 
 function BioDetails({ children, title }) {
@@ -11,13 +11,13 @@ function BioDetails({ children, title }) {
           <RiArrowDropUpLine
             className="fill-grotto-100 cursor-pointer"
             size={30}
-            onClick={() => setstate((p) => !p)}
+            onClick={() => setstate(p => !p)}
           />
         ) : (
           <RiArrowDropDownLine
             className="fill-grotto-100 cursor-pointer"
             size={30}
-            onClick={() => setstate((p) => !p)}
+            onClick={() => setstate(p => !p)}
           />
         )}
       </div>

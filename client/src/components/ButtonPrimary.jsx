@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import { Children } from "react";
 
 function ButtonPrimary({ children, type }) {
   return (

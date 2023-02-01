@@ -23,12 +23,10 @@ const signup = async (req, res, next) => {
     const { data, error } = await supabase
       .from("User")
       .insert({
-        first_name: firstName,
-        last_name: lastName,
         email: email,
         password: hashedPw,
       })
-      .select("first_name, last_name, email, id");
+      .select("email, id");
     const user = data[0];
     // Handle missing inputs
     if (error && error.code === "23502") {
@@ -43,6 +41,8 @@ const signup = async (req, res, next) => {
       from new user to userId column in User_data table
     */
     await supabase.from("User_data").insert({
+      first_name: firstName,
+      last_name: lastName,
       userId: user.id,
     });
     return res.status(203).json({ Message: "Successfully registered.", token });
