@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
 import { useSelector, useDispatch } from "react-redux";
-import { logOut } from "../../features/login-logout/login-logout-slice";
 import axios from "axios";
 
 import NavItem from "./NavItem";
@@ -11,8 +10,6 @@ import NavDropDown from "./NavDropDown";
 import LogoutNavItem from "./LogoutNavItem";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-
   const [click, setClick] = useState(false);
   const [screen, setScreen] = useState(window.innerWidth);
 

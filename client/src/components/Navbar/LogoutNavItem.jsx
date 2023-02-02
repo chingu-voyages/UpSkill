@@ -9,7 +9,6 @@ const LogoutNavItem = ({ output, direction, clicker, setClicker }) => {
 
   const handleClick = e => {
     e.preventDefault();
-    console.log("here it is");
     if (clicker) {
       setClicker(!clicker);
     }
