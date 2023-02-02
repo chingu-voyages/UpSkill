@@ -8,12 +8,11 @@ const getUser = async (req, res) => {
     if (!id) return res.status(400).json("User ID Missing");
 
     const { data: User, error } = await supabase
-      .from("User")
-      .select("first_name, last_name, User_data(*)")
-      .eq("id", id);
-
+      .from("User_data")
+      .select("*")
+      .eq("userId", id);
     if (User) {
-      return res.status(200).json(User);
+      return res.status(200).json(User[0]);
     } else {
       return res.status(404).json({ User_not_found: error });
     }
@@ -76,16 +75,8 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const {
-      id,
-      profilePic,
-      skills,
-      about,
-      mission,
-      tokens,
-      tutors,
-      tutees,
-    } = req.body;
+    const { id, profilePic, skills, about, mission, tokens, tutors, tutees } =
+      req.body;
 
     if (!id) return res.status(400).json("User ID Missing");
 

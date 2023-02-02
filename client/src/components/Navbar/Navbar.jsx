@@ -2,8 +2,7 @@ import "./navbar.css";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
-import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
+import { useSelector } from "react-redux";
 
 import NavItem from "./NavItem";
 import NavDropDown from "./NavDropDown";
@@ -15,7 +14,6 @@ const Navbar = () => {
 
   const user = useSelector(state => state.auth.isAuthenticated);
   const userId = useSelector(state => state.user.id);
-  const data = useSelector(state => state);
 
   useEffect(() => {
     function switchDisplay() {
@@ -30,11 +28,6 @@ const Navbar = () => {
       window.removeEventListener("resize", switchDisplay);
     };
   }, []);
-
-  useEffect(() => {
-    if (user) {
-    }
-  }, [user]);
 
   const handleClick = () => setClick(!click);
   if (click) {
@@ -108,7 +101,7 @@ const Navbar = () => {
             </ul>
           ) : (
             <ul className={click ? "nav-menu active" : "nav-menu"}>
-              <NavDropDown />
+              <NavDropDown userId={userId} />
             </ul>
           )}
 

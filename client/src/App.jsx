@@ -3,6 +3,7 @@ import Dashboard from "./pages/Dashboard";
 import Footer from "./components/Footer";
 import PostSignup from "./pages/postSignup/PostSignup";
 import Navbar from "./components/Navbar/Navbar";
+import axios from "axios";
 import {
   BrowserRouter as Router,
   Routes,
@@ -17,8 +18,9 @@ import Search from "./pages/Search";
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./features/user/user-slice";
+import { setUser, setUserData } from "./features/user/user-slice";
 import { ifAuthenticated } from "./features/login-logout/login-logout-slice";
+import { getUserInfo } from "./api";
 
 export const jwtFuncDecode = () => {
   try {
@@ -36,12 +38,21 @@ const ProtectedRoutes = ({ condition, redirection = "/" }) => {
 
 function App() {
   const auth = useSelector(state => state.auth);
+  const currentUserId = useSelector(state => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
   useEffect(() => {
     dispatch(ifAuthenticated());
     dispatch(setUser(decoded));
-  }, []);
+
+    if (currentUserId) {
+      const fetch = async () => {
+        const fetchData = await getUserInfo(currentUserId);
+        dispatch(setUserData(fetchData.data));
+      };
+      fetch();
+    }
+  }, [auth]);
   return (
     <Router>
       <Navbar />
