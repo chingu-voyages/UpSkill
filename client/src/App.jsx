@@ -3,7 +3,6 @@ import Dashboard from "./pages/Dashboard";
 import Footer from "./components/Footer";
 import PostSignup from "./pages/postSignup/PostSignup";
 import Navbar from "./components/Navbar/Navbar";
-import axios from "axios";
 import {
   BrowserRouter as Router,
   Routes,
