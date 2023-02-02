@@ -1,15 +1,24 @@
 import "./navbar.css";
 import { useState, useEffect } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { RxHamburgerMenu, RxCross2 } from "react-icons/rx";
+import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "../../features/login-logout/login-logout-slice";
+import axios from "axios";
+
 import NavItem from "./NavItem";
-import { useSelector } from "react-redux";
 import NavDropDown from "./NavDropDown";
+import LogoutNavItem from "./LogoutNavItem";
+
 const Navbar = () => {
+  const dispatch = useDispatch();
+
   const [click, setClick] = useState(false);
   const [screen, setScreen] = useState(window.innerWidth);
+
   const user = useSelector(state => state.auth.isAuthenticated);
   const userId = useSelector(state => state.user.id);
+  const data = useSelector(state => state);
 
   useEffect(() => {
     function switchDisplay() {
@@ -24,6 +33,11 @@ const Navbar = () => {
       window.removeEventListener("resize", switchDisplay);
     };
   }, []);
+
+  useEffect(() => {
+    if (user) {
+    }
+  }, [user]);
 
   const handleClick = () => setClick(!click);
   if (click) {
@@ -87,9 +101,10 @@ const Navbar = () => {
                 setClicker={setClick}
                 clicker={click}
               />
-              <NavItem
+
+              <LogoutNavItem
                 output={"Logout"}
-                direction={"/logout"}
+                direction={"/"}
                 setClicker={setClick}
                 clicker={click}
               />

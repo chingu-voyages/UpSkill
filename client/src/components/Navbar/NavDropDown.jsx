@@ -1,9 +1,12 @@
 import "./navbar.css";
 import { useState, useRef, useEffect } from "react";
-import NavItem from "./NavItem";
-import avatar from "../../assets/dashboard/avatar.svg";
 import { useDispatch } from "react-redux";
 import { logOut } from "../../features/login-logout/login-logout-slice";
+import avatar from "../../assets/dashboard/avatar.svg";
+
+import NavItem from "./NavItem";
+import LogoutNavItem from "./LogoutNavItem";
+
 const NavDropDown = () => {
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
@@ -38,7 +41,7 @@ const NavDropDown = () => {
       <img
         src={avatar}
         alt=""
-        className="w-[2rem] cursor-pointer"
+        className="w-[3rem] cursor-pointer border-2 border-baby rounded-full p-2 "
         onClick={e => toggleDropDown(e)}
       />
       <ul
