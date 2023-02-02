@@ -9,7 +9,6 @@ const LandingPage = () => {
   const [smallscreen, setSmallscreen] = useState(false);
   useEffect(() => {
     function switchHero() {
-      console.log("switched");
       window.innerWidth > 770 ? setSmallscreen(false) : setSmallscreen(true);
     }
     window.addEventListener("resize", switchHero);

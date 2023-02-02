@@ -1,18 +1,18 @@
 import "./navbar.css";
 import { NavLink } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-const NavItem = ({
-  output,
-  direction,
-  clicker,
-  setClicker,
-  setLoggedInMenuHidden,
-}) => {
-  const handleClick = () => {
+import { logOut } from "../../features/login-logout/login-logout-slice";
+
+const LogoutNavItem = ({ output, direction, clicker, setClicker }) => {
+  const dispatch = useDispatch();
+
+  const handleClick = e => {
+    e.preventDefault();
     if (clicker) {
       setClicker(!clicker);
     }
-    setLoggedInMenuHidden(false);
+    dispatch(logOut());
   };
 
   if (clicker) {
@@ -28,9 +28,8 @@ const NavItem = ({
   return (
     <li className="nav-item">
       <NavLink
-        // onClick={clicker ? handleClick : null}
-        onClick={() => {
-          handleClick();
+        onClick={e => {
+          handleClick(e);
         }}
         className="nav-links"
         to={direction}
@@ -41,4 +40,4 @@ const NavItem = ({
   );
 };
 
-export default NavItem;
+export default LogoutNavItem;
