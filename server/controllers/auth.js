@@ -82,4 +82,55 @@ const login = async (req, res, next) => {
   }
 };
 
-module.exports = { signup, login };
+const authO = async (req, res, next) => {
+  try {
+    const { firstName, lastName, profilePic, email, password } = req.body;
+
+    const { data: duplicateUser } = await supabase
+      .from("User")
+      .select("email, password")
+      .eq("email", email);
+    if (duplicateUser[0]) {
+      const validPw = await bcrypt.compare(password, duplicateUser[0].password);
+      if (validPw) {
+        // Create JWT 🥇
+        const token = createToken(duplicateUser[0]);
+
+        return res
+          .status(200)
+          .json({ Message: "Successfully logged in", token });
+      } else {
+        return res.status(404).json({ Error: "Email already used." });
+      }
+    }
+
+    const hashedPw = await bcrypt.hash(password, BCRYPT_WF);
+    const { data, error } = await supabase
+      .from("User")
+      .insert({
+        email: email,
+        password: hashedPw,
+      })
+      .select("email, id");
+    const user = data[0];
+    // Handle missing inputs
+    if (error && error.code === "23502") {
+      return res.status(500).json({ Error: "Missing Credentials." });
+    }
+
+    // Create JWT 🥇
+    const token = createToken(user);
+
+    await supabase.from("User_data").insert({
+      profilePic: profilePic || null,
+      first_name: firstName,
+      last_name: lastName,
+      userId: user.id,
+    });
+    return res.status(203).json({ Message: "Successfully registered.", token });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+module.exports = { signup, login, authO };

@@ -16,6 +16,12 @@ import {
   signup,
 } from "../../features/signup/signup-slice";
 import { useNavigate } from "react-router-dom";
+import {
+  LoginSocialGoogle,
+  LoginSocialFacebook,
+  LoginSocialLinkedin,
+} from "reactjs-social-login";
+import { authZero, setError } from "../../features/auth0/auth0-slice";
 
 /**
  * this is the interface for the login and sign up
@@ -35,20 +41,9 @@ function Auth() {
   const signupState = useSelector((state) => state.signUp);
   const isSignUp = signupState.isSignup;
   const auth = useSelector((state) => state.auth);
+  const auth0 = useSelector((state) => state.auth0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const googleAuth = () => {
-    //google authentification
-  };
-
-  const facebookAuth = () => {
-    //facebook authentification
-  };
-
-  const linkedInAuth = () => {
-    //linkedIn authentification
-  };
 
   useEffect(() => {
     if (signupState.registered) {
@@ -88,7 +83,7 @@ function Auth() {
         dispatch(setErrorSignup("password should equal to re-type password"));
         return;
       }
-      dispatch(
+      await dispatch(
         signup({
           firstName: dataRef.firstName.current.value,
           lastName: dataRef.lastName.current.value,
@@ -96,7 +91,7 @@ function Auth() {
           password: dataRef.password.current.value,
         })
       );
-      dispatch(ifAuthenticated());
+      await dispatch(ifAuthenticated());
     } else {
       if (
         dataRef.password.current.value === "" ||
@@ -104,13 +99,54 @@ function Auth() {
       ) {
         return;
       }
-      dispatch(
+      await dispatch(
         login({
           email: dataRef.email.current.value,
           password: dataRef.password.current.value,
         })
       );
     }
+  };
+
+  const googleAuth = async (res) => {
+    const userData = res?.data;
+    await dispatch(
+      authZero({
+        profilePic: userData.picture,
+        firstName: userData.given_name,
+        lastName: userData.family_name,
+        email: userData.email,
+        password: userData.sub,
+      })
+    );
+    await dispatch(ifAuthenticated());
+  };
+
+  const facebookAuth = async (res) => {
+    const userData = res?.data;
+    await dispatch(
+      authZero({
+        profilePic: userData.picture.data.url,
+        firstName: userData.first_name,
+        lastName: userData.last_name,
+        email: userData.id,
+        password: userData.userID,
+      })
+    );
+    await dispatch(ifAuthenticated());
+  };
+
+  const linkedinAuth = async (res) => {
+    const userData = res?.data;
+    await dispatch(
+      authZero({
+        firstName: userData.localizedFirstName,
+        lastName: userData.localizedLastName,
+        email: userData.id,
+        password: userData.id,
+      })
+    );
+    await dispatch(ifAuthenticated());
   };
 
   return (
@@ -143,10 +179,10 @@ function Auth() {
               >
                 {isSignUp ? "Sign Up" : "Login"}
               </h1>
-              {(auth.error || signupState.error) && (
+              {(auth.error || signupState.error || auth0.error) && (
                 <span className="text-red-600">
                   {" "}
-                  {auth.error || signupState.error}{" "}
+                  {auth.error || signupState.error || auth0.error}{" "}
                 </span>
               )}
               <form action="" onSubmit={handleSubmit}>
@@ -230,26 +266,51 @@ function Auth() {
               <br />
               <div className="flex justify-center">
                 <div className="flex flex-row justify-between w-3/4">
-                  <BsGoogle
-                    color="grotto-100"
-                    size={50}
-                    className="p-2 fill-grotto-100 border border-ivory-300 rounded 
+                  <LoginSocialGoogle
+                    client_id={import.meta.env.VITE_GOOGLECLIENTID || ""}
+                    scope="profile"
+                    onResolve={googleAuth}
+                    onReject={(err) => dispatch(setError(err))}
+                    redirect_uri="http://localhost:5173/auth"
+                    cookie_policy="single_host_orgin"
+                  >
+                    <BsGoogle
+                      color="grotto-100"
+                      size={50}
+                      className="p-2 fill-grotto-100 border border-ivory-300 rounded 
               drop-shadow-lg hover:fill-white hover:bg-grotto-100"
-                    onClick={googleAuth}
-                  />
-                  <TfiFacebook
-                    color="grotto-100"
-                    size={50}
-                    className="p-2 fill-grotto-100 border border-ivory-300 rounded 
+                    />
+                  </LoginSocialGoogle>
+                  <LoginSocialFacebook
+                    client_id={import.meta.env.VITE_FACEBOOK_APP_ID || ""}
+                    scope="email"
+                    onResolve={facebookAuth}
+                    onReject={(err) => dispatch(setError(err))}
+                    cookie_policy="single_host_orgin"
+                  >
+                    <TfiFacebook
+                      color="grotto-100"
+                      size={50}
+                      className="p-2 fill-grotto-100 border border-ivory-300 rounded 
               drop-shadow-lg hover:fill-white hover:bg-grotto-100"
-                    onClick={facebookAuth}
-                  />
-                  <BsLinkedin
-                    size={50}
-                    className="p-2 fill-grotto-100 border border-ivory-300 rounded 
+                    />
+                  </LoginSocialFacebook>
+                  <LoginSocialLinkedin
+                    client_secret={
+                      import.meta.env.VITE_SECRET_CLIENT_LINKEDIN || ""
+                    }
+                    client_id={import.meta.env.VITE_LINKEDIN_ID || ""}
+                    onResolve={linkedinAuth}
+                    onReject={(err) => dispatch(setError(err))}
+                    redirect_uri="http://localhost:5173/auth"
+                    cookie_policy="single_host_orgin"
+                  >
+                    <BsLinkedin
+                      size={50}
+                      className="p-2 fill-grotto-100 border border-ivory-300 rounded 
               drop-shadow-lg hover:fill-white hover:bg-grotto-100"
-                    onClick={linkedInAuth}
-                  />
+                    />
+                  </LoginSocialLinkedin>
                 </div>
               </div>
             </div>

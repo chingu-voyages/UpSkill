@@ -8,6 +8,7 @@ import searchSkillsReducer from "../features/post-reviews/post-review-slice";
 import signUpReducer from "../features/signup/signup-slice";
 import updateBioReducer from "../features/update-bio/update-bio-slice";
 import userStateReducer from "../features/user/user-slice";
+import auth0SliceReducer from "../features/auth0/auth0-slice";
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     getLesson: getLessonsReducer,
     getToken: getTokenReducer,
     auth: authSliceReducer,
+    auth0: auth0SliceReducer,
     postReview: postReviewReducer,
     searchSkill: searchSkillsReducer,
     signUp: signUpReducer,

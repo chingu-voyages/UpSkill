@@ -9,7 +9,7 @@ export const login = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const response = await loginAPI(credentials);
-      return response.data;
+      return response?.data;
     } catch (error) {
       throw new Error(JSON.stringify(error.response.data));
     }
