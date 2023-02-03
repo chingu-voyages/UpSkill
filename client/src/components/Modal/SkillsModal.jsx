@@ -4,12 +4,14 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const server = import.meta.env.VITE_SERVER;
+import { useSelector } from "react-redux";
 
 const SkillsModal = ({ setEditSkills }) => {
+  const user = useSelector(state => state.user);
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
-
+  console.log(user.id);
   useEffect(() => {
     function handleClickOutside(e) {
       if (!clickRef.current.contains(e.target)) {
@@ -37,12 +39,13 @@ const SkillsModal = ({ setEditSkills }) => {
     } else {
       setError(false);
 
-      const res = axios.put(`${server}/user/info`, {
-        //Take userId from state.
-        id: "11684414-9afc-4f10-be32-28bb1652b88e",
+      const res = axios.put(`${server}user/info`, {
+        id: user.id,
         skills: skills.value,
       });
       if (res) {
+        //TODO: Make dispatch call for state change
+        window.location.reload();
         closeModal();
       }
     }

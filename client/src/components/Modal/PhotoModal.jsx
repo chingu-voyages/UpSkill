@@ -3,10 +3,13 @@ import { MdPermMedia } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const server = import.meta.env.VITE_SERVER;
 
 const PhotoModal = ({ setEditPhoto }) => {
+  const user = useSelector(state => state.user);
+
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
@@ -40,17 +43,16 @@ const PhotoModal = ({ setEditPhoto }) => {
       setClicked(true);
       const formData = new FormData();
       formData.append("profilePic", photo.files[0]);
-      // formData.append("id", userId);
-      formData.append("id", "11684414-9afc-4f10-be32-28bb1652b88e");
-
+      formData.append("id", `${user.id}`);
       const res = await axios({
         method: "put",
-        url: `${server}/user/photo`,
+        url: `${server}user/photo`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
 
       if (res) {
+        window.location.reload();
         closeModal();
       }
     }

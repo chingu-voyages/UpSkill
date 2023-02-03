@@ -2,10 +2,11 @@ import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 const server = import.meta.env.VITE_SERVER;
 
 const BioModal = ({ setEditBio }) => {
+  const user = useSelector(state => state.user);
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
@@ -49,15 +50,16 @@ const BioModal = ({ setEditBio }) => {
     } else {
       setError(false);
 
-      const res = axios.put(`${server}/user/info`, {
+      const res = axios.put(`${server}user/info`, {
         //To take userId from state
-        id: "11684414-9afc-4f10-be32-28bb1652b88e",
+        id: user.id,
         about: aboutData,
         hobbies: hobbiesData,
         mission: missionData,
       });
       if (res) {
         closeModal();
+        window.location.reload();
       }
     }
   };
