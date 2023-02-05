@@ -2,11 +2,14 @@ import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateBio } from "../../api";
 const server = import.meta.env.VITE_SERVER;
+import { setBio } from "../../features/user/user-slice";
 
 const BioModal = ({ setEditBio }) => {
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
@@ -28,7 +31,7 @@ const BioModal = ({ setEditBio }) => {
     setClicked(false);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setClicked(true);
 
@@ -50,16 +53,25 @@ const BioModal = ({ setEditBio }) => {
     } else {
       setError(false);
 
-      const res = axios.put(`${server}user/info`, {
-        //To take userId from state
-        id: user.id,
-        about: aboutData,
-        hobbies: hobbiesData,
-        mission: missionData,
-      });
+      // const res = axios.put(`${server}user/info`, {
+      //   //To take userId from state
+      //   id: user.id,
+      //   about: aboutData,
+      //   hobbies: hobbiesData,
+      //   mission: missionData,
+      // });
+
+      const res = await updateBio(user.id, aboutData, hobbiesData, missionData);
+
       if (res) {
         closeModal();
-        window.location.reload();
+        dispatch(
+          setBio({
+            hobbies: hobbiesData,
+            about: aboutData,
+            mission: missionData,
+          })
+        );
       }
     }
   };

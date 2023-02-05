@@ -6,7 +6,6 @@ import authSliceReducer from "../features/login-logout/login-logout-slice";
 import postReviewReducer from "../features/post-reviews/post-review-slice";
 import searchSkillsReducer from "../features/post-reviews/post-review-slice";
 import signUpReducer from "../features/signup/signup-slice";
-import updateBioReducer from "../features/update-bio/update-bio-slice";
 import userStateReducer from "../features/user/user-slice";
 
 export const store = configureStore({
@@ -18,6 +17,5 @@ export const store = configureStore({
     postReview: postReviewReducer,
     searchSkill: searchSkillsReducer,
     signUp: signUpReducer,
-    updateBio: updateBioReducer,
   },
 });

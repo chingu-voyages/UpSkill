@@ -38,8 +38,11 @@ const ProtectedRoutes = ({ condition, redirection = "/" }) => {
 function App() {
   const auth = useSelector(state => state.auth);
   const currentUserId = useSelector(state => state.user.id);
+  const userData = useSelector(state => state.user);
+  console.log(userData);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
+
   useEffect(() => {
     dispatch(ifAuthenticated());
     dispatch(setUser(decoded));
@@ -52,6 +55,7 @@ function App() {
       fetch();
     }
   }, [auth]);
+
   return (
     <Router>
       <Navbar />

@@ -13,3 +13,12 @@ export const signupAPI = credentials =>
 export const getUserInfo = id => {
   return instance.get(`/user/id/${id}`);
 };
+
+export const updateBio = (id, about, hobbies, mission) => {
+  return instance.put("/user/info", {
+    id,
+    about,
+    hobbies,
+    mission,
+  });
+};
