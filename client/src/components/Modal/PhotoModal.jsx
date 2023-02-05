@@ -2,13 +2,13 @@ import "./modal.css";
 import { MdPermMedia } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
-
-const server = import.meta.env.VITE_SERVER;
+import { useSelector, useDispatch } from "react-redux";
+import { setPhoto } from "../../features/user/user-slice";
+import { updatePhoto } from "../../api";
 
 const PhotoModal = ({ setEditPhoto }) => {
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
@@ -44,15 +44,11 @@ const PhotoModal = ({ setEditPhoto }) => {
       const formData = new FormData();
       formData.append("profilePic", photo.files[0]);
       formData.append("id", `${user.id}`);
-      const res = await axios({
-        method: "put",
-        url: `${server}user/photo`,
-        data: formData,
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const res = await updatePhoto(formData);
+      const newPhoto = res.data.Photo_updated;
 
       if (res) {
-        window.location.reload();
+        dispatch(setPhoto({ profilePic: newPhoto }));
         closeModal();
       }
     }

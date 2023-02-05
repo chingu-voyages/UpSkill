@@ -1,5 +1,6 @@
 // The redux store saves the whole state of the app in an immutable object tree
 import { configureStore } from "@reduxjs/toolkit";
+import thunkMiddleware from "redux-thunk";
 import getLessonsReducer from "../features/get-lessons/get-lessons-slice";
 import getTokenReducer from "../features/get-tokens/get-tokens-slice";
 import authSliceReducer from "../features/login-logout/login-logout-slice";

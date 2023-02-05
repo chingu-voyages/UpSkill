@@ -82,10 +82,20 @@ export const userSlice = createSlice({
           : state.skills;
       }
     },
+    setPhoto(state, action) {
+      if (action.payload?.error) {
+        return { ...state };
+      } else {
+        state.profilePic = action.payload.profilePic
+          ? action.payload.profilePic
+          : state.profilePic;
+      }
+    },
     // Write your different action logics here
   },
 });
 
-export const { setUser, setUserData, setBio, setSkills } = userSlice.actions;
+export const { setUser, setUserData, setBio, setSkills, setPhoto } =
+  userSlice.actions;
 
 export default userSlice.reducer;

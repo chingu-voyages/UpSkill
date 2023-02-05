@@ -12,7 +12,7 @@ const SkillsModal = ({ setEditSkills }) => {
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
-  console.log(user.id);
+
   useEffect(() => {
     function handleClickOutside(e) {
       if (!clickRef.current.contains(e.target)) {
@@ -35,7 +35,6 @@ const SkillsModal = ({ setEditSkills }) => {
     setClicked(true);
     const { skills } = e.target.elements;
     if (skills.value === "" || skills.value === null) {
-      console.log("error", skills);
       return setError(true);
     } else {
       setError(false);
@@ -49,6 +48,7 @@ const SkillsModal = ({ setEditSkills }) => {
       }
     }
   };
+
   return (
     <div className="modal-container primary">
       <form ref={clickRef} className="modalCard gap-6" onSubmit={handleSubmit}>

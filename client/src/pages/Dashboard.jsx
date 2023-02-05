@@ -104,8 +104,8 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <div className="card justify-between max-h-96 max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative w-full">
-            <div className="flex items-center">
+          <div className="card justify-between max-h-96 max-[490px]:px-2 p-8 flex flex-col mt-8 relative w-full">
+            <div className="flex justify-center">
               <FaBookOpen size={25} className="text-grotto-100" />
               <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
             </div>

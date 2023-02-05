@@ -141,7 +141,7 @@ const updateUserPhoto = async (req, res) => {
       .eq("userId", id);
 
     if (!error) {
-      return res.status(200).json("User Profile Image Updated");
+      return res.status(200).json({ Photo_updated: img });
     } else {
       return res.status(500).json({ Error_Updating_User_Image: error });
     }

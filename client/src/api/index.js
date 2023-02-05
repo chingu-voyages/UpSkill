@@ -29,3 +29,9 @@ export const updateSkills = (id, skills) => {
     skills,
   });
 };
+
+export const updatePhoto = formData => {
+  return instance.put("/user/photo", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};
