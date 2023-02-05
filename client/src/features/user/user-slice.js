@@ -77,21 +77,15 @@ export const userSlice = createSlice({
       if (action.payload?.error) {
         return { ...state };
       } else {
-        (state.hobbies = action.payload.hobbies
-          ? action.payload.hobbies
-          : state.hobbies),
-          (state.about = action.payload.about
-            ? action.payload.about
-            : state.about),
-          (state.mission = action.payload.mission
-            ? action.payload.mission
-            : state.mission);
+        state.skills = action.payload.skills
+          ? action.payload.skills
+          : state.skills;
       }
     },
     // Write your different action logics here
   },
 });
 
-export const { setUser, setUserData, setBio } = userSlice.actions;
+export const { setUser, setUserData, setBio, setSkills } = userSlice.actions;
 
 export default userSlice.reducer;

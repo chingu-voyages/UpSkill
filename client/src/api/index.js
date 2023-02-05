@@ -22,3 +22,10 @@ export const updateBio = (id, about, hobbies, mission) => {
     mission,
   });
 };
+
+export const updateSkills = (id, skills) => {
+  return instance.put("/user/info", {
+    id,
+    skills,
+  });
+};

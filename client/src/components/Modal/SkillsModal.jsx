@@ -1,13 +1,14 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-
-const server = import.meta.env.VITE_SERVER;
-import { useSelector } from "react-redux";
+import { updateSkills } from "../../api";
+import { setSkills } from "../../features/user/user-slice";
+import { useSelector, useDispatch } from "react-redux";
 
 const SkillsModal = ({ setEditSkills }) => {
   const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
@@ -39,13 +40,11 @@ const SkillsModal = ({ setEditSkills }) => {
     } else {
       setError(false);
 
-      const res = axios.put(`${server}user/info`, {
-        id: user.id,
-        skills: skills.value,
-      });
+      const res = await updateSkills(user.id, skills.value);
+
       if (res) {
         //TODO: Make dispatch call for state change
-        window.location.reload();
+        dispatch(setSkills({ skills: skills.value }));
         closeModal();
       }
     }

@@ -1,10 +1,8 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { updateBio } from "../../api";
-const server = import.meta.env.VITE_SERVER;
 import { setBio } from "../../features/user/user-slice";
 
 const BioModal = ({ setEditBio }) => {
@@ -52,14 +50,6 @@ const BioModal = ({ setEditBio }) => {
       return setError(true);
     } else {
       setError(false);
-
-      // const res = axios.put(`${server}user/info`, {
-      //   //To take userId from state
-      //   id: user.id,
-      //   about: aboutData,
-      //   hobbies: hobbiesData,
-      //   mission: missionData,
-      // });
 
       const res = await updateBio(user.id, aboutData, hobbiesData, missionData);
 
