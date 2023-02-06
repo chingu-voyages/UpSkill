@@ -8,6 +8,7 @@ import searchSkillsReducer from "../features/post-reviews/post-review-slice";
 import signUpReducer from "../features/signup/signup-slice";
 import updateBioReducer from "../features/update-bio/update-bio-slice";
 import userStateReducer from "../features/user/user-slice";
+import messagesReducer from "../features/messages/messages-slice";
 
 export const store = configureStore({
   reducer: {
@@ -19,5 +20,6 @@ export const store = configureStore({
     searchSkill: searchSkillsReducer,
     signUp: signUpReducer,
     updateBio: updateBioReducer,
+    messages: messagesReducer,
   },
 });

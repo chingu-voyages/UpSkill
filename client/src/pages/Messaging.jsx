@@ -6,22 +6,33 @@ import person1 from "../assets/chat/person1.jpg";
 import person2 from "../assets/chat/person2.jpg";
 import person3 from "../assets/chat/person3.jpg";
 import { IoIosArrowBack } from "react-icons/io";
-import Conversations from "../components/messages/Conversations";
 import { io } from "socket.io-client";
+import Conversations from "../components/messages/Conversations";
+import { conversations } from "../features/messages/messages-slice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Messaging = () => {
   const [openMsg, setOpenMsg] = useState(false);
+  const [seeMessages, setSeeMessages] = useState({});
   const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const user = useSelector((state) => state.user);
+  const conversationList = useSelector((state) => state.messages.conversations);
   const socket = useRef();
+  const dispatch = useDispatch();
+
+  // console.log(conversationList);
+  useEffect(() => {
+    if (user.id !== null) {
+      dispatch(conversations(user.id));
+    }
+  }, [user.id]);
 
   useEffect(() => {
     socket.current = io(import.meta.env.VITE_SERVER);
   }, []);
 
   useEffect(() => {
-    socket.current.on("connect", data => {
-      console.log(socket.current);
-    });
+    socket.current.on("connect", (data) => {});
 
     return () => {
       socket.current.disconnect();
@@ -47,34 +58,18 @@ const Messaging = () => {
                 Chats
               </h2>
               <ChatSearchInput text="text" placeholder="Search" />
-              <Chats
-                avi={avatar}
-                name="John"
-                date="Yesterday"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={person1}
-                name="June"
-                date="March 2"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={person2}
-                name="Mary"
-                date="1-15"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
-              <Chats
-                avi={person3}
-                name="George"
-                date="1-14"
-                message="Hey David, are you still available for our class at 2pm tomorrow?"
-                setOpenMsg={setOpenMsg}
-              />
+              {conversationList?.map((value) => {
+                return (
+                  <Chats
+                    key={value?.user.id}
+                    avi={`${value?.user.profilePic}`}
+                    name={`${value?.user.first_name} ${value?.user.last_name}`}
+                    date="Yesterday"
+                    message="Hey David, are you still available for our class at 2pm tomorrow?"
+                    setOpenMsg={setOpenMsg}
+                  />
+                );
+              })}
             </div>
           ) : (
             <div className="w-full">
@@ -110,20 +105,20 @@ const Messaging = () => {
               Chats
             </h2>
             <ChatSearchInput text="text" placeholder="Search" />
-            <Chats
-              avi={avatar}
-              name="John"
-              date="Yesterday"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
-            <Chats
-              avi={person1}
-              name="June"
-              date="March 2"
-              message="Hey David, are you still available for our class at 2pm tomorrow?"
-              setOpenMsg={setOpenMsg}
-            />
+            {conversationList?.map((value) => {
+              return (
+                <Chats
+                  key={value?.user.id}
+                  avi={`${value?.user.profilePic}`}
+                  name={`${value?.user.first_name} ${value?.user.last_name}`}
+                  conversationId={value?.conversation_id}
+                  date="Yesterday"
+                  message="Hey David, are you still available for our class at 2pm tomorrow?"
+                  setOpenMsg={setOpenMsg}
+                  setSeeMessages={setSeeMessages}
+                />
+              );
+            })}
           </div>
           <div className="w-full overflow-auto ">
             <div className="bg-white w-full">
@@ -134,20 +129,25 @@ const Messaging = () => {
                     onClick={() => setOpenMsg(false)}
                   />
                 )}
-                <div className="flex items-center">
-                  <div className="h-10 w-10">
-                    <img
-                      src={avatar}
-                      alt=""
-                      className="w-full h-full rounded-full object-cover"
-                    />
+                {openMsg && (
+                  <div className="flex items-center">
+                    <div className="h-10 w-10">
+                      <img
+                        src={`${seeMessages?.avi}`}
+                        alt=""
+                        className="w-full h-full rounded-full object-cover"
+                      />
+                    </div>
+                    <span className="ml-4 font-bold text-primary">{`${seeMessages?.name}`}</span>
                   </div>
-                  <span className="ml-4 font-bold text-primary">John</span>
-                </div>
+                )}
               </div>
             </div>
 
-            <Conversations message="Hey David, are you still available for our class at 2pm tomorrow?" />
+            <Conversations
+              openMsg={openMsg}
+              conversationId={seeMessages?.conversationId}
+            />
           </div>
         </div>
       )}

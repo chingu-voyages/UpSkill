@@ -1,6 +1,19 @@
-const Chats = ({ avi, name, date, message, setOpenMsg }) => {
+const Chats = ({
+  avi,
+  name,
+  date,
+  message,
+  setOpenMsg,
+  setSeeMessages,
+  conversationId,
+}) => {
   const handleOpenMsg = () => {
     setOpenMsg(true);
+    setSeeMessages({
+      name,
+      avi,
+      conversationId,
+    });
   };
   return (
     <div

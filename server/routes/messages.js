@@ -5,12 +5,14 @@ const {
   getAllMessage,
   updateAMessage,
   deleteAMessage,
+  getAllConversation,
 } = require("../controllers/messages");
 const {
   postAMessagesValidator,
   getAllMessageValidator,
   updateAMessageValidator,
   deleteAMessageValidator,
+  getAllConversationValidator,
 } = require("../validator/messagesValidator");
 
 /**
@@ -19,7 +21,13 @@ const {
 
 router.post("/q/:relationId?", postAMessagesValidator(), postAMessage);
 
-router.get("/:reationId", getAllMessageValidator(), getAllMessage);
+router.get("/:relationId", getAllMessageValidator(), getAllMessage);
+
+router.get(
+  "/conversation/:userId",
+  getAllConversationValidator(),
+  getAllConversation
+);
 
 router.put("/:messageId", updateAMessageValidator(), updateAMessage);
 
