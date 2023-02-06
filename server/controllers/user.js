@@ -8,17 +8,37 @@ const getUser = async (req, res) => {
     if (!id) return res.status(400).json("User ID Missing");
 
     const { data: User, error } = await supabase
-      .from("User")
-      .select("first_name, last_name, User_data(*)")
-      .eq("id", id);
-
+      .from("User_data")
+      .select("*")
+      .eq("userId", id);
     if (User) {
-      return res.status(200).json(User);
+      return res.status(200).json(User[0]);
     } else {
       return res.status(404).json({ User_not_found: error });
     }
   } catch (error) {
     return res.status(500).json({ Error_fetching_user_data: error });
+  }
+};
+
+// Get user based on skill
+const getUsersBySkill = async (req, res) => {
+  try {
+    const { skill } = req.query;
+    // Query user(s) by skill
+    const { data } = await supabase
+      .from("User_data")
+      .select(
+        "first_name, last_name, userId, skills, about, mission, profilePic, hobbies, occupation, location"
+      )
+      .ilike("skills", `%${skill}%`);
+
+    if (!data[0]) {
+      return res.status(404).json({ Message: "No mentors with that skill." });
+    }
+    return res.status(200).json({ users: data });
+  } catch (error) {
+    return res.status(404).json({ Users_not_found: error });
   }
 };
 
@@ -55,7 +75,8 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const { id, skills, about, hobbies, mission, tokens } = req.body;
+    const { id, profilePic, skills, about, hobbies, mission, tokens } =
+      req.body;
 
     if (!id) return res.status(400).json("User ID Missing");
 
@@ -76,6 +97,7 @@ const updateUserInfo = async (req, res) => {
       return res.status(500).json({ Error_Updating_User: error });
     }
   } catch (error) {
+    console.log("caught: ", error);
     return res.status(500).json({ Error_updating_user_data: error });
   }
 };
@@ -119,12 +141,87 @@ const updateUserPhoto = async (req, res) => {
       .eq("userId", id);
 
     if (!error) {
-      return res.status(200).json("User Profile Image Updated");
+      return res.status(200).json({ Photo_updated: img });
+    } else {
+      return res.status(500).json({ Error_Updating_User_Image: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_User_Image: error });
+  }
+};
+
+//Set user calendly account link
+const setUserCalendlyLink = async (req, res) => {
+  try {
+    const { id, calendly } = req.body;
+
+    if (!id) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (!calendly) {
+      return res.status(400).json("Calendly Link Missing");
+    }
+
+    const { error } = await supabase
+      .from("User_data")
+      .update({
+        calendly_link: calendly,
+      })
+      .eq("userId", id);
+
+    if (!error) {
+      return res.status(200).json("User Calendly Link Updated");
+    } else {
+      return res.status(500).json({ Error_Updating_Calendly_Link: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
+const postUserReview = async (req, res) => {
+  console.log("received");
+  try {
+    const { recevierId, reviewerId, starRating, review } = req.body;
+    console.log(recevierId, reviewerId, starRating, review);
+    if (!reviewerId || !recevierId) {
+      return res.status(400).json("User ID Missing");
+    }
+    if (reviewerId === recevierId) {
+      return res.status(403).json("User cannot review own profile");
+    }
+
+    const { data, error } = await supabase
+      .from("Reviews")
+      .insert([{ userId: recevierId, reviewerId, review, stars: starRating }])
+      .select();
+
+    if (!error) {
+      return res.status(200).json({ review_Posted: data });
     } else {
       return res.status(500).json({ Error_Updating_User: error });
     }
   } catch (error) {
     return res.status(500).json({ Error_updating_user_data: error });
+  }
+};
+
+const getUserReviews = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) return res.status(400).json("User ID Missing");
+
+    let { data: Reviews, error } = await supabase
+      .from("Reviews")
+      .select(" reviewerId, review, stars, created_at ");
+
+    if (Reviews) {
+      return res.status(200).json(Reviews);
+    } else {
+      return res.status(404).json({ Reviews_not_found: error });
+    }
+  } catch (error) {
+    return res.status(500).json({ Error_fetching_review_data: error });
   }
 };
 
@@ -158,8 +255,12 @@ const deleteUser = async (req, res) => {
 
 module.exports = {
   getUser,
+  getUsersBySkill,
   updateUserAcc,
   updateUserInfo,
   deleteUser,
   updateUserPhoto,
+  setUserCalendlyLink,
+  postUserReview,
+  getUserReviews,
 };

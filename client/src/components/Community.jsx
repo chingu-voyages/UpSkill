@@ -1,4 +1,3 @@
-import React from "react";
 import community from "../assets/landing/community_nobg.png";
 
 const Community = () => {

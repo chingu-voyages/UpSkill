@@ -1,14 +1,13 @@
 import "./modal.css";
-import { MdPermMedia } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { setPhoto } from "../../features/user/user-slice";
-import { updatePhoto } from "../../api";
+import axios from "axios";
 
-const PhotoModal = ({ setEditPhoto }) => {
+const server = import.meta.env.VITE_SERVER;
+import { useSelector } from "react-redux";
+
+const PhotoModal = ({ setCalendar }) => {
   const user = useSelector(state => state.user);
-  const dispatch = useDispatch();
 
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
@@ -27,29 +26,30 @@ const PhotoModal = ({ setEditPhoto }) => {
   }, [clickRef]);
 
   const closeModal = () => {
-    setEditPhoto(false);
+    setCalendar(false);
     setClicked(false);
   };
   const handleSubmit = async e => {
     e.preventDefault();
 
     //userId needed from state after auth
-    const { photo } = e.target.elements;
-
-    if (!photo.files[0]) {
+    const { calendly } = e.target.elements;
+    if (!calendly.value) {
       return setError(true);
     } else {
-      setError(false);
-      setClicked(true);
-      const formData = new FormData();
-      formData.append("profilePic", photo.files[0]);
-      formData.append("id", `${user.id}`);
-      const res = await updatePhoto(formData);
-      const newPhoto = res.data.Photo_updated;
+      if (calendly.value.match(/calendly.com\/\w*\/\w*/gm)) {
+        setError(false);
+        setClicked(true);
 
-      if (res) {
-        dispatch(setPhoto({ profilePic: newPhoto }));
-        closeModal();
+        const res = await axios.put(`${server}user/calendar`, {
+          id: user.id,
+          calendly: calendly.value,
+        });
+        if (res) {
+          closeModal();
+        }
+      } else {
+        return setError(true);
       }
     }
   };
@@ -65,25 +65,29 @@ const PhotoModal = ({ setEditPhoto }) => {
           className="absolute top-2 right-3 cursor-pointer hover:text-baby"
           onClick={closeModal}
         />
-        <label
-          htmlFor="photo"
-          className="flex items-center justify-center gap-2"
-        >
-          Upload your new profile pic here
-          <MdPermMedia
-            size={25}
-            className="cursor-pointer text-grotto-100 hover:text-baby"
-          />
+        <h3 className="font-semibold">Upload your Calendly link here</h3>
+        <div>
+          <p className="pl-1 pb-1">
+            Don't have a calendly yet?
+            <a href="https://calendly.com/signup" target="_blank">
+              {" "}
+              To open a calendly please click
+              <strong className="text-bold"> here</strong>
+            </a>
+          </p>
           <input
-            type="file"
-            id="photo"
-            name="photo"
-            accept=".png,.jpg,.jpeg,.gif"
-            className="hidden"
+            type="text"
+            name="calendly"
+            id="calendly"
+            className="input-field w-full"
           />
-        </label>
+        </div>
 
-        {error && <p className="self-center text-red-500">No photo attached</p>}
+        {error && (
+          <p className="self-center text-red-500">
+            Please enter a valid Calendly link
+          </p>
+        )}
 
         <button
           disabled={clicked}

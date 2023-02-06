@@ -1,28 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { BsGoogle, BsLinkedin } from "react-icons/bs";
 import { TfiFacebook } from "react-icons/tfi";
 import loginImg from "../../assets/signup/girl_at_computer.jpg";
 import ButtonPrimary from "../../components/ButtonPrimary";
 import Input from "../../components/Input";
+import { useSelector, useDispatch } from "react-redux";
 import "./index.css";
+import {
+  ifAuthenticated,
+  login,
+} from "../../features/login-logout/login-logout-slice";
+import {
+  setErrorSignup,
+  setIsSignup,
+  signup,
+} from "../../features/signup/signup-slice";
+import { useNavigate } from "react-router-dom";
 
 /**
  * this is the interface for the login and sign up
  * @return Jsx
  */
 function Auth() {
-  const initialData = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  };
-  const [isSignUp, setIsSignUp] = useState(false);
   /**
    * here we'll get the state from redux,
    */
-  const [dataForm, setDataForm] = useState(initialData);
   const dataRef = {
     firstName: useRef(null),
     lastName: useRef(null),
@@ -30,13 +32,12 @@ function Auth() {
     password: useRef(null),
     confirmPassword: useRef(null),
   };
+  const signupState = useSelector((state) => state.signUp);
+  const isSignUp = signupState.isSignup;
+  const auth = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    /**
-     * we'll make a condition that if state is true
-     * then setIsSignUp(true)
-     */
-  }, []);
   const googleAuth = () => {
     //google authentification
   };
@@ -49,26 +50,69 @@ function Auth() {
     //linkedIn authentification
   };
 
+  useEffect(() => {
+    if (signupState.registered) {
+      navigate("/post-signup");
+      return;
+    }
+    if (auth.isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [auth.isAuthenticated, signupState.registered]);
   /**
    * this function processes sending data
    * that the user has to enter manually
    *
    * @param {*} e event
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     /**
      * to get the value of the input
      * eg: dataRef.email.current.value
      */
     if (isSignUp) {
-      //handle the post methode as sign up here
-      //redirect to postSignUpQ/A
+      if (
+        dataRef.password.current.value === "" ||
+        dataRef.email.current.value === "" ||
+        dataRef.firstName.current.value === "" ||
+        dataRef.lastName.current.value === ""
+      ) {
+        dispatch(setErrorSignup("Every field must have a value"));
+        return;
+      }
+      if (
+        dataRef.password.current.value !== dataRef.confirmPassword.current.value
+      ) {
+        dispatch(setErrorSignup("password should equal to re-type password"));
+        return;
+      }
+      dispatch(
+        signup({
+          firstName: dataRef.firstName.current.value,
+          lastName: dataRef.lastName.current.value,
+          email: dataRef.email.current.value,
+          password: dataRef.password.current.value,
+        })
+      );
+      dispatch(ifAuthenticated());
     } else {
-      //handle the post methode as sign in(login)
-      //redirect to dashbord
+      if (
+        dataRef.password.current.value === "" ||
+        dataRef.email.current.value === ""
+      ) {
+        return;
+      }
+      dispatch(
+        login({
+          email: dataRef.email.current.value,
+          password: dataRef.password.current.value,
+        })
+      );
     }
   };
+
   return (
     <div className="container h-full flex justify-center content-center items-center mx-auto text-center">
       <div className="md:grid md:grid-cols-2">
@@ -99,6 +143,12 @@ function Auth() {
               >
                 {isSignUp ? "Sign Up" : "Login"}
               </h1>
+              {(auth.error || signupState.error) && (
+                <span className="text-red-600">
+                  {" "}
+                  {auth.error || signupState.error}{" "}
+                </span>
+              )}
               <form action="" onSubmit={handleSubmit}>
                 {isSignUp && (
                   <div className="flex ">
@@ -158,7 +208,10 @@ function Auth() {
                   : "Don't have an account yet?"}{" "}
                 <span
                   className="cursor-pointer hover:text-grotto-100"
-                  onClick={() => setIsSignUp((p) => !p)}
+                  onClick={() => {
+                    dispatch(setErrorSignup(null));
+                    dispatch(setIsSignup());
+                  }}
                 >
                   Click here!
                 </span>{" "}
