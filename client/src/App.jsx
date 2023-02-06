@@ -53,7 +53,7 @@ function App() {
       };
       fetch();
     }
-  }, [auth.isAuthenticated]);
+  }, [auth]);
 
   return (
     <Router>
