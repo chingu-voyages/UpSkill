@@ -3,10 +3,12 @@ import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
 import Stars from "../Stars";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const server = import.meta.env.VITE_SERVER;
-
 const BioModal = ({ setPostReview }) => {
+  const user = useSelector(state => state.user);
+
   const clickRef = useRef(null);
   const reviewInput = useRef(null);
   const [selectStar, setSelectStar] = useState(0);
@@ -40,10 +42,11 @@ const BioModal = ({ setPostReview }) => {
     } else {
       setError(false);
 
-      const res = axios.post(`${server}/user/review`, {
-        //To take userId from state
+      const res = axios.post(`${server}user/review`, {
+        //TODO: get receiverId dynamically
+        // Dispatch change of state on review upalod
         recevierId: "11684414-9afc-4f10-be32-28bb1652b88e",
-        reviewerId: "7965b017-cf49-46a1-8ff2-d10ae5f6ba0b",
+        reviewerId: `${user.id}`,
         review: reviewInput.current.value,
         starRating: selectStar + 1,
       });

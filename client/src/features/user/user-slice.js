@@ -44,8 +44,8 @@ export const userSlice = createSlice({
           (state.occupation = null),
           (state.location = null);
       } else {
-        state.skills = action.payload?.skills;
-        (state.about = action.payload?.about),
+        (state.skills = action.payload?.skills),
+          (state.about = action.payload?.about),
           (state.hobbies = action.payload?.hobbies),
           (state.mission = action.payload?.mission),
           (state.tokens = action.payload?.tokens),
@@ -58,10 +58,44 @@ export const userSlice = createSlice({
           (state.location = action.payload?.location);
       }
     },
+    setBio(state, action) {
+      if (action.payload?.error) {
+        return { ...state };
+      } else {
+        (state.hobbies = action.payload.hobbies
+          ? action.payload.hobbies
+          : state.hobbies),
+          (state.about = action.payload.about
+            ? action.payload.about
+            : state.about),
+          (state.mission = action.payload.mission
+            ? action.payload.mission
+            : state.mission);
+      }
+    },
+    setSkills(state, action) {
+      if (action.payload?.error) {
+        return { ...state };
+      } else {
+        state.skills = action.payload.skills
+          ? action.payload.skills
+          : state.skills;
+      }
+    },
+    setPhoto(state, action) {
+      if (action.payload?.error) {
+        return { ...state };
+      } else {
+        state.profilePic = action.payload.profilePic
+          ? action.payload.profilePic
+          : state.profilePic;
+      }
+    },
     // Write your different action logics here
   },
 });
 
-export const { setUser, setUserData } = userSlice.actions;
+export const { setUser, setUserData, setBio, setSkills, setPhoto } =
+  userSlice.actions;
 
 export default userSlice.reducer;

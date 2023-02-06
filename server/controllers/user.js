@@ -75,7 +75,7 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const { id, profilePic, skills, about, mission, tokens, tutors, tutees } =
+    const { id, profilePic, skills, about, hobbies, mission, tokens } =
       req.body;
 
     if (!id) return res.status(400).json("User ID Missing");
@@ -97,6 +97,7 @@ const updateUserInfo = async (req, res) => {
       return res.status(500).json({ Error_Updating_User: error });
     }
   } catch (error) {
+    console.log("caught: ", error);
     return res.status(500).json({ Error_updating_user_data: error });
   }
 };
@@ -140,7 +141,7 @@ const updateUserPhoto = async (req, res) => {
       .eq("userId", id);
 
     if (!error) {
-      return res.status(200).json("User Profile Image Updated");
+      return res.status(200).json({ Photo_updated: img });
     } else {
       return res.status(500).json({ Error_Updating_User_Image: error });
     }
