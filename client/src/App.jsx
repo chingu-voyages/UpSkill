@@ -36,9 +36,8 @@ const ProtectedRoutes = ({ condition, redirection = "/" }) => {
 };
 
 function App() {
-  const auth = useSelector(state => state.auth);
-  const currentUserId = useSelector(state => state.user.id);
-  const userData = useSelector(state => state.user);
+  const auth = useSelector((state) => state.auth);
+  const currentUserId = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
 
