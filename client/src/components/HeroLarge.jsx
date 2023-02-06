@@ -1,20 +1,21 @@
 import collabImg from "../assets/landing/collab_learning.jpg";
 import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { searchSkills } from "../features/search/search-slice";
+import { useSelector, useDispatch } from "react-redux";
 
 const HeroLarge = () => {
   const navigate = useNavigate();
-  const [ formInput, setFormInput ] = useState("");
+  const dispatch = useDispatch();
+  const searchQuery = useSelector((state) => state.searchSkill.searchQuery);
 
-  const handleChange = e => {
-    setFormInput(e.target.value);
+  const handleChange = (e) => {
+    dispatch(searchSkills(e.target.value));
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setFormInput("");
-    navigate("/q", { state: { skill: `${formInput}` } });
+    navigate("/q", { state: { skill: `${searchQuery}` } });
   };
 
   return (
@@ -43,8 +44,9 @@ const HeroLarge = () => {
             <form onSubmit={handleSubmit}>
               <div className="flex mt-2">
                 <input
-                  className="border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
+                  className="border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full focus:outline-none"
                   name="search"
+                  value={searchQuery}
                   type="text"
                   placeholder="Search skills"
                   required
