@@ -1,10 +1,9 @@
-import avatar from "../assets/dashboard/avatar.svg";
 import placeholder from "../assets/dashboard/placeholder.svg";
 import stats from "../assets/dashboard/statistics.svg";
 import session from "../assets/dashboard/sessions.svg";
 import teach from "../assets/dashboard/teaching.svg";
 import learn from "../assets/dashboard/learner.svg";
-
+import { useNavigate } from "react-router-dom";
 import {
   FaPen,
   FaBookOpen,
@@ -21,7 +20,12 @@ import BioModal from "../components/Modal/BioModal";
 import LinkCalendarModal from "../components/Modal/LinkCalendarModal";
 import { useState, useEffect } from "react";
 
+import { useSelector } from "react-redux";
+
 const Dashboard = () => {
+  const navigate = useNavigate();
+  const user = useSelector(state => state.user);
+
   const [editPhoto, setEditPhoto] = useState(false);
   const [editSkills, setEditSkills] = useState(false);
   const [editBio, setEditBio] = useState(false);
@@ -46,13 +50,17 @@ const Dashboard = () => {
         <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center">
           <div className="flex items-center flex-col">
             <h2 className="font-title font-bold text-primary text-3xl mb-8">
-              Welcome, David
+              Welcome, {user.first_name}
             </h2>
-            <div className="bg-baby h-32 w-32 rounded-full flex justify-center relative">
-              <img src={avatar} alt="" />
+            <div className="h-32 w-32 rounded-full relative">
+              <img
+                src={user.profilePic}
+                alt=""
+                className="h-32 w-32 rounded-full object-cover border-2 border-baby"
+              />
               <FaPen
                 size={20}
-                className="absolute right-0 cursor-pointer hover:text-grotto-100"
+                className="absolute right-0 top-1 cursor-pointer hover:text-grotto-100"
                 onClick={() => {
                   setEditPhoto(prev => !prev);
                 }}
@@ -60,7 +68,7 @@ const Dashboard = () => {
             </div>
 
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
-              David Mark
+              {`${user.first_name} ${user.last_name}`}
             </h4>
           </div>
           <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between gap-8 relative mt-2">
@@ -77,16 +85,14 @@ const Dashboard = () => {
                 <h3 className="font-bold ml-2 text-primary text-xl">Skills</h3>
               </div>
 
-              <span className="skill-set  text-grotto-100">
-                JavaScript, Python, UI/UX
-              </span>
+              <span className="skill-set  text-grotto-100">{user.skills}</span>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="flex items-center gap-2">
                 <FaCoins className="text-yellow-400" size={20} />
                 <h3 className="text-primary text-xl font-bold">Tokens</h3>
-                <span className="p-1 bg-tokebgColor text-white  text-center rounded-2xl ">
-                  50
+                <span className=" bg-tokebgColor text-white w-6 h-6 rounded-full ">
+                  {user.tokens ? user.tokens : 0}
                 </span>
               </div>
               <a
@@ -98,8 +104,8 @@ const Dashboard = () => {
               </a>
             </div>
           </div>
-          <div className="card justify-between max-h-96 max-[490px]:px-2 p-8 flex flex-col items-center mt-8 relative">
-            <div className="flex items-center">
+          <div className="card justify-between max-h-96 max-[490px]:px-2 p-8 flex flex-col mt-8 relative w-full">
+            <div className="flex justify-center">
               <FaBookOpen size={25} className="text-grotto-100" />
               <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
             </div>
@@ -113,17 +119,12 @@ const Dashboard = () => {
 
             <div className="text-start">
               <h4 className="font-semibold text-grotto-100">About</h4>
-              <p className="text-grotto-100">
-                I’m David Mark from Argentina. I’m looking to trade my computer
-                coding skills in order to learn German and Maths
-              </p>
+              <p className="text-grotto-100">{user.about}</p>
               <br />
 
               <h4 className="font-semibold text-grotto-100">Hobbies</h4>
 
-              <p className="text-grotto-100">
-                I love running, reading and meeting new people
-              </p>
+              <p className="text-grotto-100">{user.hobbies}</p>
             </div>
 
             <div className="text-start w-full pt-6">
@@ -241,12 +242,14 @@ const Dashboard = () => {
               >
                 See more
               </a>
-              <a
-                href="#"
+              <button
                 className="px-6 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full outline outline-2 border-none outline-grotto-100"
+                onClick={() => {
+                  navigate("/q");
+                }}
               >
                 Search for tutors
-              </a>
+              </button>
             </div>
           </div>
 

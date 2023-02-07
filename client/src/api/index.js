@@ -22,3 +22,25 @@ export const getMessages = (relationId) =>
 
 export const postAMessage = (relationId, credentials) =>
   instance.post(`/messages/q/${relationId}`, credentials);
+
+export const updateBio = (id, about, hobbies, mission) => {
+  return instance.put("/user/info", {
+    id,
+    about,
+    hobbies,
+    mission,
+  });
+};
+
+export const updateSkills = (id, skills) => {
+  return instance.put("/user/info", {
+    id,
+    skills,
+  });
+};
+
+export const updatePhoto = formData => {
+  return instance.put("/user/photo", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};

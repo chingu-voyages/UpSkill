@@ -4,8 +4,11 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 
 const server = import.meta.env.VITE_SERVER;
+import { useSelector } from "react-redux";
 
 const PhotoModal = ({ setCalendar }) => {
+  const user = useSelector(state => state.user);
+
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
@@ -38,12 +41,8 @@ const PhotoModal = ({ setCalendar }) => {
         setError(false);
         setClicked(true);
 
-        //TODO: add API integration.
-        // ("id", userId);
-        // ("id", "11684414-9afc-4f10-be32-28bb1652b88e");
-
-        const res = await axios.put(`${server}/user/calendar`, {
-          id: "11684414-9afc-4f10-be32-28bb1652b88e",
+        const res = await axios.put(`${server}user/calendar`, {
+          id: user.id,
           calendly: calendly.value,
         });
         if (res) {

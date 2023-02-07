@@ -1,7 +1,11 @@
 import { BsFillStarFill } from "react-icons/bs";
-import ButtonUse from "./ButtonUse";
+import { useNavigate } from "react-router-dom";
 
-function SearchProfileCard({ children, avatar, name, bio, skills }) {
+function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/profile/${id}`);
+  };
   return (
     <div className="md:w-3/4 lg:ml-8 grid grid-cols-12 my-8 bg-cardBg drop-shadow-lg mx-4 rounded-lg p-3">
       {" "}
@@ -29,8 +33,15 @@ function SearchProfileCard({ children, avatar, name, bio, skills }) {
         </div>
       </div>
       <div className="col-span-4 flex flex-col lg:m-4 lg:flex-row lg:col-span-12 lg:justify-end lg:order-last">
-        <ButtonUse>Message</ButtonUse>
-        <ButtonUse>View profile</ButtonUse>
+        <button className="search-btn">Message</button>
+        <button
+          className="search-btn"
+          onClick={() => {
+            handleClick();
+          }}
+        >
+          View profile
+        </button>
       </div>
       <div className="text-[10px] lg:text-base font-semibold leading-normal col-span-10 text-grotto-100 flex gap-60">
         <div className="text-[10px] lg:text-[14px] font-normal lg:flex lg:flex-col lg:text-left my-2 text-grotto-100 ml-6">

@@ -1,11 +1,14 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
-import axios from "axios";
-
-const server = import.meta.env.VITE_SERVER;
+import { updateSkills } from "../../api";
+import { setSkills } from "../../features/user/user-slice";
+import { useSelector, useDispatch } from "react-redux";
 
 const SkillsModal = ({ setEditSkills }) => {
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
@@ -32,21 +35,20 @@ const SkillsModal = ({ setEditSkills }) => {
     setClicked(true);
     const { skills } = e.target.elements;
     if (skills.value === "" || skills.value === null) {
-      console.log("error", skills);
       return setError(true);
     } else {
       setError(false);
 
-      const res = axios.put(`${server}/user/info`, {
-        //Take userId from state.
-        id: "11684414-9afc-4f10-be32-28bb1652b88e",
-        skills: skills.value,
-      });
+      const res = await updateSkills(user.id, skills.value);
+
       if (res) {
+        //TODO: Make dispatch call for state change
+        dispatch(setSkills({ skills: skills.value }));
         closeModal();
       }
     }
   };
+
   return (
     <div className="modal-container primary">
       <form ref={clickRef} className="modalCard gap-6" onSubmit={handleSubmit}>
