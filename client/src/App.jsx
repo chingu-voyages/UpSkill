@@ -41,18 +41,21 @@ function App() {
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
 
-  useEffect(() => {
-    dispatch(ifAuthenticated());
-    dispatch(setUser(decoded));
+  useEffect(
+    () => {
+      dispatch(ifAuthenticated());
+      dispatch(setUser(decoded));
 
-    if (currentUserId) {
-      const fetch = async () => {
-        const fetchData = await getUserInfo(currentUserId);
-        dispatch(setUserData(fetchData.data));
-      };
-      fetch();
-    }
-  }, [auth]);
+      if (currentUserId) {
+        const fetch = async () => {
+          const fetchData = await getUserInfo(currentUserId);
+          dispatch(setUserData(fetchData.data));
+        };
+        fetch();
+      }
+    },
+    [ auth ]
+  );
 
   return (
     <Router>
