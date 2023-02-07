@@ -1,12 +1,10 @@
 import { BsFillStarFill } from "react-icons/bs";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
-  const URL = useLocation();
   const navigate = useNavigate();
   const handleClick = () => {
-    console.log("clicked");
-    navigate(`${URL.pathname}/${id}`);
+    navigate(`/profile/${id}`);
   };
   return (
     <div className="md:w-3/4 lg:ml-8 grid grid-cols-12 my-8 bg-cardBg drop-shadow-lg mx-4 rounded-lg p-3">

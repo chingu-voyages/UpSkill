@@ -11,7 +11,7 @@ function Profile() {
   return (
     <>
       {/* TODO: Render the user is logged in and params math userId, else render user with params */}
-      {user ? user.id === id && <CurrentUser /> : <ViewUser id={id} />}
+      {user && user.id === id ? <CurrentUser /> : <ViewUser id={id} />}
     </>
   );
 }
