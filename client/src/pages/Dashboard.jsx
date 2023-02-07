@@ -1,10 +1,9 @@
-import avatar from "../assets/dashboard/avatar.svg";
 import placeholder from "../assets/dashboard/placeholder.svg";
 import stats from "../assets/dashboard/statistics.svg";
 import session from "../assets/dashboard/sessions.svg";
 import teach from "../assets/dashboard/teaching.svg";
 import learn from "../assets/dashboard/learner.svg";
-
+import { useNavigate } from "react-router-dom";
 import {
   FaPen,
   FaBookOpen,
@@ -24,6 +23,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const user = useSelector(state => state.user);
 
   const [editPhoto, setEditPhoto] = useState(false);
@@ -242,12 +242,14 @@ const Dashboard = () => {
               >
                 See more
               </a>
-              <a
-                href="#"
+              <button
                 className="px-6 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full outline outline-2 border-none outline-grotto-100"
+                onClick={() => {
+                  navigate("/q");
+                }}
               >
                 Search for tutors
-              </a>
+              </button>
             </div>
           </div>
 
