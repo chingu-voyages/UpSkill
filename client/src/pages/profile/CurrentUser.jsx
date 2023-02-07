@@ -23,7 +23,7 @@ function CurrentUser() {
   const [width, setWidth] = useState(window.innerWidth);
   const [postReview, setPostReview] = useState(false);
   const [reviews, setReviews] = useState(null);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     function handleResize() {
@@ -43,7 +43,7 @@ function CurrentUser() {
     }
   }, [postReview]);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.stopPropagation();
     setPostReview(true);
   };
@@ -72,7 +72,7 @@ function CurrentUser() {
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
-            <h2 className="font-title font-bold text-primary text-3xl mb-8">
+            <h2 className="font-title font-bold text-primary text-3xl mb-8 capitalize">
               Hi, I'm {user?.first_name} 👋
             </h2>
             <div>
@@ -82,7 +82,7 @@ function CurrentUser() {
                 className="h-32 w-32 rounded-full object-cover border-2 border-baby"
               />
             </div>
-            <h4 className="font-bold text-grotto-100 text-xl mt-6">
+            <h4 className="font-bold text-grotto-100 text-xl mt-6 capitalize">
               {user?.first_name} {user?.last_name}
             </h4>
             <div className="flex flex-row justify-between">
