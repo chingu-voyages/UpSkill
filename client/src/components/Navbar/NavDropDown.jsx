@@ -9,7 +9,7 @@ import NavItem from "./NavItem";
 
 const NavDropDown = () => {
   const user = useSelector(state => state.user);
-
+  console.log("from nav", user.id);
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const [loggedInMenuHidden, setLoggedInMenuHidden] = useState(false);
@@ -55,7 +55,7 @@ const NavDropDown = () => {
       >
         <NavItem
           output={"Profile"}
-          direction={"/profile"}
+          direction={`/profile/${user.id}`}
           setClicker={setClick}
           clicker={click}
           setLoggedInMenuHidden={setLoggedInMenuHidden}
