@@ -14,12 +14,15 @@ import {
   FaCalendarAlt,
 } from "react-icons/fa";
 
+import { useSelector } from "react-redux";
+
 import Reviews from "../../components/Reviews";
 import ReviewModal from "../../components/Modal/ReviewModal";
-function CurrentUser(user) {
+function CurrentUser() {
   const [width, setWidth] = useState(window.innerWidth);
   const [postReview, setPostReview] = useState(false);
-
+  const user = useSelector(state => state.user);
+  console.log(user);
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -52,20 +55,20 @@ function CurrentUser(user) {
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
             <h2 className="font-title font-bold text-primary text-3xl mb-8">
-              Hi, I'm David 👋
+              Hi, I'm {user?.first_name} 👋
             </h2>
-            <div className="bg-baby h-32 w-32 rounded-full flex justify-center relative">
-              <img src={avatar} alt="" />
+            <div>
+              <img
+                src={user?.profilePic || avatar}
+                alt=""
+                className="h-32 w-32 rounded-full object-cover border-2 border-baby"
+              />
             </div>
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
-              David Mark
+              {user?.first_name} {user?.last_name}
             </h4>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center text-2xl">
-                <BsFillStarFill color="#facc15" />
-                <BsFillStarFill color="#facc15" />
-                <BsFillStarFill color="#facc15" />
-                <BsFillStarFill color="#facc15" />
                 <BsFillStarFill color="#facc15" />
               </div>
               <div className="font-bold text-grotto-100 mx-2 flex flex-row items-center text-3xl">
@@ -85,7 +88,7 @@ function CurrentUser(user) {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                JavaScript, Python, UI/UX
+                {user?.skills}
               </span>
             </div>
             <div className="flex flex-col items-center my-4">
@@ -96,7 +99,7 @@ function CurrentUser(user) {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                Mathematics, German tuition
+                TODO: ADD TO DB
               </span>
             </div>
           </div>
@@ -106,19 +109,14 @@ function CurrentUser(user) {
                 Misson Statement
               </h3>
               <span className="skill-set text-grotto-100 p-4 text-justify">
-                I want to learn how to speak German better, as I will be
-                travelling in Germany next year. I’d also like to improve my
-                mathematice as I’ll be studying for a masters next year. <br />{" "}
-                <br /> I am currently a software engineer and owuld be happy to
-                meet anyone wanting to improve their skills, pick up a computer
-                programming language, or who wants advice on breaking into tech.
+                {user?.mission}
               </span>
             </div>
           </div>
           {width >= 1024 ? (
             <a
               className="card p-6 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href="#"
+              href={user?.calendly_link}
               target="_blank"
             >
               <div className="flex p-2  justify-center">
@@ -137,12 +135,9 @@ function CurrentUser(user) {
                 <FaBookOpen size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">
-                I’m David Mark from Argentina. I’m looking to trade my computer
-                coding skills in order to learn German and Math
-              </BioDetails>
+              <BioDetails title="About">{user?.about}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Subject"></BioDetails>
+              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
             </div>
           )}
         </section>
@@ -153,17 +148,14 @@ function CurrentUser(user) {
                 <img src={bio} alt="" className="w-6" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">
-                I’m David Mark from Argentina. I’m looking to trade my computer
-                coding skills in order to learn German and Math
-              </BioDetails>
+              <BioDetails title="About">{user?.about}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Subject"></BioDetails>
+              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
             </div>
           ) : (
             <a
               className="card lg:my-12 p-6 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href="#"
+              href={user?.calendly_link}
               target="_blank"
             >
               <div className="flex w-full justify-center">

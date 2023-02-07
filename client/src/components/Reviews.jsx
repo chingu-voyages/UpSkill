@@ -1,7 +1,14 @@
+import { useEffect } from "react";
 import { BsFillStarFill } from "react-icons/bs";
 
-function Reviews({ avatar, name, children }) {
+function Reviews({ avatar, name, children, id }) {
+  // useEffect(()=>{
+
+  //   //GET user profile photo from id
+  //   //SET all info into state
+  // },[])
   return (
+    //Use the state
     <div className="grid justify-items-center md:pr-4 md:border-y-2 md:w-full md:border-ivory-50 md:grid-cols-5">
       <div className="bg-ivory-75 h-14 w-14 my-4 rounded-full flex justify-center relative">
         <img src={avatar} alt="" width={39} height={42} />

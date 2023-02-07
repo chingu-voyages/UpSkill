@@ -220,6 +220,9 @@ function ViewUser({ id }) {
             <h3 className="mt-2 md:text-start lg:w-full lg:ml-16 lg:my-4 text-primary font-bold text-xl">
               4 Reviews
             </h3>
+            {/* {[...Array(3)].map((elem,i) => (
+              <Reviews id={id}>Testing</Reviews>
+            ))} */}
             <Reviews avatar={avatar} name="James Smith">
               It was a pleasure to teach David German, he’s been a great
               student, a friendly guy and he has helped me get started with
