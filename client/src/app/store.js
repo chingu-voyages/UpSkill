@@ -19,7 +19,6 @@ export const store = configureStore({
     postReview: postReviewReducer,
     searchSkill: searchReducer,
     signUp: signUpReducer,
-    updateBio: updateBioReducer,
     messages: messagesReducer,
   },
 });
