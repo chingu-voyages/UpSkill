@@ -75,7 +75,11 @@ function ViewUser({ id }) {
   return (
     <main className=" text-primary lg:flex lg:h-max lg:items-center">
       {postReview && (
-        <ReviewModal postReview={postReview} setPostReview={setPostReview} />
+        <ReviewModal
+          postReview={postReview}
+          setPostReview={setPostReview}
+          receiverId={id}
+        />
       )}
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">
         <section className="lg:ml-8 lg:w-1/3">

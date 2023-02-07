@@ -6,7 +6,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const server = import.meta.env.VITE_SERVER;
-const BioModal = ({ setPostReview }) => {
+const BioModal = ({ setPostReview, postReview, receiverId }) => {
   const user = useSelector(state => state.user);
 
   const clickRef = useRef(null);
@@ -45,13 +45,14 @@ const BioModal = ({ setPostReview }) => {
       const res = axios.post(`${server}user/review`, {
         //TODO: get receiverId dynamically
         // Dispatch change of state on review upalod
-        recevierId: "11684414-9afc-4f10-be32-28bb1652b88e",
+        recevierId: receiverId,
         reviewerId: `${user.id}`,
         review: reviewInput.current.value,
         starRating: selectStar + 1,
       });
       if (res) {
         closeModal();
+        window.location.reload();
       }
     }
   };

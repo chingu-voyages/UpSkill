@@ -183,7 +183,6 @@ const postUserReview = async (req, res) => {
   console.log("received");
   try {
     const { recevierId, reviewerId, starRating, review } = req.body;
-    console.log(recevierId, reviewerId, starRating, review);
     if (!reviewerId || !recevierId) {
       return res.status(400).json("User ID Missing");
     }
