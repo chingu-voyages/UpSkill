@@ -1,4 +1,4 @@
-import avatar from "../assets/dashboard/avatar.svg";
+import noUserImg from "../assets/dashboard/noUser.png";
 import { FaSearch } from "react-icons/fa";
 import SearchProfileCard from "../components/SearchProfileCard";
 import { useState, useEffect } from "react";
@@ -113,7 +113,7 @@ function Search() {
         mentorData.map(mentor => (
           <SearchProfileCard
             key={mentor.userId}
-            avatar={mentor.profilePic || avatar}
+            avatar={mentor.profilePic || noUserImg}
             name={`${mentor.first_name} ${mentor.last_name}`}
             skills={mentor.skills}
             id={mentor.userId}

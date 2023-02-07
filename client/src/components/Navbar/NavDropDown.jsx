@@ -2,7 +2,7 @@ import "./navbar.css";
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../features/login-logout/login-logout-slice";
-import avatar from "../../assets/dashboard/avatar.svg";
+import noUserImg from "../../assets/dashboard/noUser.png";
 
 import NavItem from "./NavItem";
 
@@ -39,7 +39,7 @@ const NavDropDown = () => {
   return (
     <div className="flex flex-col relative" ref={clickRef}>
       <img
-        src={user.profilePic || avatar}
+        src={user.profilePic || noUserImg}
         alt=""
         className="h-14 w-14 cursor-pointer border-2 border-baby rounded-full object-cover"
         onClick={e => toggleDropDown(e)}

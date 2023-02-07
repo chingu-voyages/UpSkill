@@ -1,3 +1,4 @@
+import noUserImg from "../assets/dashboard/noUser.png";
 import placeholder from "../assets/dashboard/placeholder.svg";
 import stats from "../assets/dashboard/statistics.svg";
 import session from "../assets/dashboard/sessions.svg";
@@ -54,7 +55,7 @@ const Dashboard = () => {
             </h2>
             <div className="h-32 w-32 rounded-full relative">
               <img
-                src={user.profilePic}
+                src={user.profilePic || noUserImg}
                 alt=""
                 className="h-32 w-32 rounded-full object-cover border-2 border-baby"
               />
@@ -68,7 +69,7 @@ const Dashboard = () => {
             </div>
 
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
-              {`${user.first_name} ${user.last_name}`}
+              {user ? `${user.first_name} ${user.last_name}` : " "}
             </h4>
           </div>
           <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between gap-8 relative mt-2">
