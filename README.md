@@ -144,16 +144,13 @@ Clone the project
 ```
 
 Go to the client directory
-
 ```bash
   cd client
   npm install
   npm run dev
 ```
 
-```
 Go to the server directory
-
 ```bash
   cd server
   npm install
