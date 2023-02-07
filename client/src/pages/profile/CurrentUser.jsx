@@ -61,7 +61,7 @@ function CurrentUser() {
   }, [user.id]);
 
   return (
-    <main className=" text-primary lg:flex lg:h-max lg:items-center">
+    <main className="text-primary">
       {postReview && (
         <ReviewModal
           postReview={postReview}
@@ -69,7 +69,7 @@ function CurrentUser() {
           receiverId={user.id}
         />
       )}
-      <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">
+      <div className="lg:flex lg:h-max lg:flex-row lg:justify-between">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
             <h2 className="font-title font-bold text-primary text-3xl mb-8">

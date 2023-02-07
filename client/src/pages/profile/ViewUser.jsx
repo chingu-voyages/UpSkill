@@ -73,7 +73,7 @@ function ViewUser({ id }) {
   };
 
   return (
-    <main className=" text-primary lg:flex lg:h-max lg:items-center">
+    <main className="text-primary">
       {postReview && (
         <ReviewModal
           postReview={postReview}
