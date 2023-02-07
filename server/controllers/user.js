@@ -213,7 +213,8 @@ const getUserReviews = async (req, res) => {
 
     let { data: Reviews, error } = await supabase
       .from("Reviews")
-      .select(" reviewerId, review, stars, created_at ");
+      .select(" reviewerId, review, stars, created_at ")
+      .eq("userId", id);
 
     if (Reviews) {
       return res.status(200).json(Reviews);

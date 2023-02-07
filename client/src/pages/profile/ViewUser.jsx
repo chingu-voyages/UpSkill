@@ -21,18 +21,34 @@ function ViewUser({ id }) {
   const [width, setWidth] = useState(window.innerWidth);
   const [postReview, setPostReview] = useState(false);
   const [user, setUser] = useState(null);
+  const [reviews, setReviews] = useState(null);
 
+  // Fetch the user's profile infomation
   useEffect(() => {
-    const fetchUser = async () => {
-      const res = await axios.get(
-        `${import.meta.env.VITE_SERVER}user/id/${id}`
-      );
-      console.log("ran");
-      setUser(res.data);
+    if (id) {
+      const fetchUser = async () => {
+        const res = await axios.get(
+          `${import.meta.env.VITE_SERVER}user/id/${id}`
+        );
+        setUser(res.data);
+      };
+      fetchUser();
+    }
+  }, [id]);
+
+  // fetch the reviews for the user's profile
+  useEffect(() => {
+    const fetchReviews = async () => {
+      if (id) {
+        const res = await axios.get(
+          `${import.meta.env.VITE_SERVER}user/review/${id}`
+        );
+        setReviews(res.data);
+      }
     };
-    fetchUser();
-  }, []);
-  console.log(user);
+    fetchReviews();
+  }, [id]);
+
   useEffect(() => {
     function handleResize() {
       setWidth(window.innerWidth);
@@ -79,10 +95,6 @@ function ViewUser({ id }) {
             </h4>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center text-2xl">
-                <BsFillStarFill color="#facc15" />
-                <BsFillStarFill color="#facc15" />
-                <BsFillStarFill color="#facc15" />
-                <BsFillStarFill color="#facc15" />
                 <BsFillStarFill color="#facc15" />
               </div>
               <div className="font-bold text-grotto-100 mx-2 flex flex-row items-center text-3xl">
@@ -218,20 +230,20 @@ function ViewUser({ id }) {
           </div>
           <div className="card px-4 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <h3 className="mt-2 md:text-start lg:w-full lg:ml-16 lg:my-4 text-primary font-bold text-xl">
-              4 Reviews
+              {reviews?.length === 1
+                ? `${reviews?.length} Review`
+                : `${reviews?.length} Reviews`}
             </h3>
-            {/* {[...Array(3)].map((elem,i) => (
-              <Reviews id={id}>Testing</Reviews>
-            ))} */}
-            <Reviews avatar={avatar} name="James Smith">
-              It was a pleasure to teach David German, he’s been a great
-              student, a friendly guy and he has helped me get started with
-              Python!. Thanks David!
-            </Reviews>
-            <Reviews avatar={avatar} name="Eric Bojangles">
-              Great tutor, so patient, would definitely recommend trading skills
-              with David!
-            </Reviews>
+            {reviews &&
+              [...Array(3)].map((elem, i) => (
+                <Reviews
+                  key={`${reviews[i]?.id}${i}`}
+                  stars={reviews[i]?.stars}
+                  id={reviews[i]?.reviewerId}
+                >
+                  {reviews[i]?.review}
+                </Reviews>
+              ))}
             <div className="flex gap-4 p-4">
               <a
                 href="#"

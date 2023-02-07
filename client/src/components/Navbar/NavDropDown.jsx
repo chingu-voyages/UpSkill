@@ -2,14 +2,12 @@ import "./navbar.css";
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../features/login-logout/login-logout-slice";
-
 import avatar from "../../assets/dashboard/avatar.svg";
 
 import NavItem from "./NavItem";
 
 const NavDropDown = () => {
   const user = useSelector(state => state.user);
-  console.log("from nav", user.id);
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const [loggedInMenuHidden, setLoggedInMenuHidden] = useState(false);
