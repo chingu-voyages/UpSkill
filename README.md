@@ -183,12 +183,12 @@ Go Chingu Bears 29!
 <!-- Contact -->
 ## :handshake: Contact
 
-Pictured from 👈 Left to Right 👉
-Mark, 
-Mario,
-Michael,
-Dana,
-Jim
+## Pictured from 👈 Left to Right 👉
+- [Mark](https://github.com/marksist300)
+- [Mario](https://github.com/manzcode) 
+- [Michael](https://github.com/mikeyxx) 
+- [Dana](https://github.com/Dnhem) 
+- [Jim](https://github.com/jdmedlock)
 
 Project Link: [N/A]([https://github.com/Louis3797/awesome-readme-template](https://www.chingu.io/))
 
