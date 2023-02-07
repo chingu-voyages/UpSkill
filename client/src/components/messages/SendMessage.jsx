@@ -3,7 +3,13 @@ import { ImAttachment } from "react-icons/im";
 import { MdSend } from "react-icons/md";
 import { postAMessage } from "../../api";
 
-const SendMessage = ({ setMessages, conversationId, userId }) => {
+const SendMessage = ({
+  setMessages,
+  conversationId,
+  userId,
+  socket,
+  correspondance,
+}) => {
   const inputRef = useRef(null);
   const HandleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +26,11 @@ const SendMessage = ({ setMessages, conversationId, userId }) => {
       }
     };
     sendTheMessage();
+    socket.current?.emit("sendMessage", {
+      message: inputRef.current.value,
+      recever: correspondance,
+      sender: userId,
+    });
     inputRef.current.value = "";
   };
   return (

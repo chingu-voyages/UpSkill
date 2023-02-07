@@ -1,10 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Chats from "../components/messages/Chats";
 import ChatSearchInput from "../components/messages/ChatSearchInput";
-import avatar from "../assets/chat/avatar.png";
-import person1 from "../assets/chat/person1.jpg";
-import person2 from "../assets/chat/person2.jpg";
-import person3 from "../assets/chat/person3.jpg";
 import { IoIosArrowBack } from "react-icons/io";
 import { io } from "socket.io-client";
 import Conversations from "../components/messages/Conversations";
@@ -19,25 +15,20 @@ const Messaging = () => {
   const conversationList = useSelector((state) => state.messages.conversations);
   const socket = useRef();
   const dispatch = useDispatch();
-
-  // console.log(conversationList);
-  useEffect(() => {
-    if (user.id !== null) {
-      dispatch(conversations(user.id));
-    }
-  }, [user.id]);
-
   useEffect(() => {
     socket.current = io(import.meta.env.VITE_SERVER);
-  }, []);
-
-  useEffect(() => {
-    socket.current.on("connect", (data) => {});
-
+    socket.current?.on("connect", () => {});
     return () => {
       socket.current.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (user.id !== null) {
+      dispatch(conversations(user.id));
+      socket.current?.emit("setConnectedUser", { userId: user?.id });
+    }
+  }, [user]);
 
   useEffect(() => {
     function handleResize() {
@@ -48,6 +39,7 @@ const Messaging = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, [screenSize]);
+
   return (
     <>
       {screenSize <= 940 ? (
@@ -62,11 +54,14 @@ const Messaging = () => {
                 return (
                   <Chats
                     key={value?.user.id}
+                    correspondance={value?.user.userId}
                     avi={`${value?.user.profilePic}`}
                     name={`${value?.user.first_name} ${value?.user.last_name}`}
+                    conversationId={value?.conversation_id}
                     date="Yesterday"
                     message="Hey David, are you still available for our class at 2pm tomorrow?"
                     setOpenMsg={setOpenMsg}
+                    setSeeMessages={setSeeMessages}
                   />
                 );
               })}
@@ -82,19 +77,24 @@ const Messaging = () => {
                   <div className="flex items-center">
                     <div className="h-10 w-10">
                       <img
-                        src={avatar}
+                        src={`${seeMessages?.avi}`}
                         alt=""
                         className="w-full h-full rounded-full object-cover"
                       />
                     </div>
                     <span className="ml-4 text-primary text-lg font-bold">
-                      John
+                      {`${seeMessages?.name}`}
                     </span>
                   </div>
                 </div>
               </div>
 
-              <Conversations message="Hey David, are you still available for our class at 2pm tomorrow?" />
+              <Conversations
+                openMsg={openMsg}
+                conversationId={seeMessages?.conversationId}
+                correspondance={seeMessages?.correspondance}
+                socket={socket}
+              />
             </div>
           )}
         </div>
@@ -110,6 +110,7 @@ const Messaging = () => {
                 <Chats
                   key={value?.user.id}
                   avi={`${value?.user.profilePic}`}
+                  correspondance={value?.user.userId}
                   name={`${value?.user.first_name} ${value?.user.last_name}`}
                   conversationId={value?.conversation_id}
                   date="Yesterday"
@@ -147,6 +148,8 @@ const Messaging = () => {
             <Conversations
               openMsg={openMsg}
               conversationId={seeMessages?.conversationId}
+              correspondance={seeMessages?.correspondance}
+              socket={socket}
             />
           </div>
         </div>

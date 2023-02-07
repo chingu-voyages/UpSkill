@@ -6,6 +6,7 @@ const Chats = ({
   setOpenMsg,
   setSeeMessages,
   conversationId,
+  correspondance,
 }) => {
   const handleOpenMsg = () => {
     setOpenMsg(true);
@@ -13,6 +14,7 @@ const Chats = ({
       name,
       avi,
       conversationId,
+      correspondance,
     });
   };
   return (

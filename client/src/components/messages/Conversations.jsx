@@ -4,11 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../api";
 import SendMessage from "./SendMessage";
 
-const Conversations = ({ conversationId, openMsg }) => {
+const Conversations = ({ conversationId, openMsg, socket, correspondance }) => {
   const [messages, setMessages] = useState([]);
+  const [arrivalMessages, setArrivalMessages] = useState(null);
   const userId = useSelector((state) => state.user.id);
+  useEffect(() => {
+    if (arrivalMessages !== null) {
+      setMessages((sms) => [...sms, arrivalMessages]);
+    }
+  }, [arrivalMessages]);
 
-  console.log(messages);
+  useEffect(() => {
+    socket.current?.on("getMessage", (data) => {
+      data.correspondance === correspondance &&
+        setArrivalMessages({
+          sender: data.correspondance,
+          content: data.message,
+        });
+    });
+  }, []);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -28,7 +42,10 @@ const Conversations = ({ conversationId, openMsg }) => {
             {messages?.map((value) => {
               if (value.sender !== userId) {
                 return (
-                  <div className="my-4" key={value.id}>
+                  <div
+                    className="my-4"
+                    key={value.id || Date.now().toString(10)}
+                  >
                     <div className="hidden">
                       <img src="" alt="" />
                     </div>
@@ -52,7 +69,9 @@ const Conversations = ({ conversationId, openMsg }) => {
           <SendMessage
             setMessages={setMessages}
             conversationId={conversationId}
+            correspondance={correspondance}
             userId={userId}
+            socket={socket}
           />
         </>
       ) : (
