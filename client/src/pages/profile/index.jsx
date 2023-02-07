@@ -13,30 +13,63 @@ import {
   FaBrain,
   FaCalendarAlt,
 } from "react-icons/fa";
-
+import { useDispatch, useSelector } from "react-redux";
 import Reviews from "../../components/Reviews";
 import ReviewModal from "../../components/Modal/ReviewModal";
+import axios from "axios";
+
 function Profile() {
-  const [width, setWidth] = useState(window.innerWidth);
-  const [postReview, setPostReview] = useState(false);
+  const [ width, setWidth ] = useState(window.innerWidth);
+  const [ postReview, setPostReview ] = useState(false);
+  const [ reviews, setReviews ] = useState(null);
+  const {
+    id,
+    about,
+    first_name,
+    last_name,
+    profilePic,
+    skills,
+    mission,
+  } = useSelector(state => state.user);
+  console.log(reviews);
+  useEffect(
+    () => {
+      function handleResize() {
+        setWidth(window.innerWidth);
+      }
+      window.addEventListener("resize", handleResize);
+      return () => {
+        window.removeEventListener("resize", handleResize);
+      };
+    },
+    [ width ]
+  );
 
-  useEffect(() => {
-    function handleResize() {
-      setWidth(window.innerWidth);
-    }
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [width]);
+  useEffect(
+    () => {
+      if (postReview) {
+        window.document.body.style.overflow = "hidden";
+      } else if (!postReview) {
+        window.document.body.style.overflow = "unset";
+      }
+    },
+    [ postReview ]
+  );
 
-  useEffect(() => {
-    if (postReview) {
-      window.document.body.style.overflow = "hidden";
-    } else if (!postReview) {
-      window.document.body.style.overflow = "unset";
-    }
-  }, [postReview]);
+  useEffect(
+    () => {
+      if (id) {
+        async function getReviews() {
+          const results = await axios.get(
+            `${import.meta.env.VITE_SERVER}user/review/${id}`
+          );
+          setReviews(results.data);
+        }
+        getReviews();
+      }
+    },
+    [ id ]
+  );
 
   const handleClick = e => {
     e.stopPropagation();
@@ -51,14 +84,18 @@ function Profile() {
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between ">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
-            <h2 className="font-title font-bold text-primary text-3xl mb-8">
-              Hi, I'm David 👋
+            <h2 className="font-title font-bold capitalize text-primary text-3xl mb-8">
+              Hi, I'm {first_name} 👋
             </h2>
             <div className="bg-baby h-32 w-32 rounded-full flex justify-center relative">
-              <img src={avatar} alt="" />
+              <img
+                className="rounded-full object-cover w-full"
+                src={profilePic}
+                alt="image of user"
+              />
             </div>
-            <h4 className="font-bold text-grotto-100 text-xl mt-6">
-              David Mark
+            <h4 className="font-bold capitalize text-grotto-100 text-xl mt-6">
+              {first_name} {last_name}
             </h4>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center text-2xl">
@@ -84,9 +121,7 @@ function Profile() {
                   Skills offered
                 </h3>
               </div>
-              <span className="skill-set  text-grotto-100 mt-4">
-                JavaScript, Python, UI/UX
-              </span>
+              <span className="skill-set  text-grotto-100 mt-4">{skills}</span>
             </div>
             <div className="flex flex-col items-center my-4">
               <div className="flex">
@@ -106,12 +141,7 @@ function Profile() {
                 Misson Statement
               </h3>
               <span className="skill-set text-grotto-100 p-4 text-justify">
-                I want to learn how to speak German better, as I will be
-                travelling in Germany next year. I’d also like to improve my
-                mathematice as I’ll be studying for a masters next year. <br />{" "}
-                <br /> I am currently a software engineer and owuld be happy to
-                meet anyone wanting to improve their skills, pick up a computer
-                programming language, or who wants advice on breaking into tech.
+                {mission}
               </span>
             </div>
           </div>
@@ -137,12 +167,9 @@ function Profile() {
                 <FaBookOpen size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">
-                I’m David Mark from Argentina. I’m looking to trade my computer
-                coding skills in order to learn German and Math
-              </BioDetails>
-              <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Subject"></BioDetails>
+              <BioDetails title="About">{about}</BioDetails>
+              <BioDetails title="Education" />
+              <BioDetails title="Subject" />
             </div>
           )}
         </section>
@@ -153,12 +180,9 @@ function Profile() {
                 <img src={bio} alt="" className="w-6" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">
-                I’m David Mark from Argentina. I’m looking to trade my computer
-                coding skills in order to learn German and Math
-              </BioDetails>
-              <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Subject"></BioDetails>
+              <BioDetails title="About">{about}</BioDetails>
+              <BioDetails title="Education" />
+              <BioDetails title="Subject" />
             </div>
           ) : (
             <a
@@ -212,17 +236,20 @@ function Profile() {
           </div>
           <div className="card px-4 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <h3 className="mt-2 md:text-start lg:w-full lg:ml-16 lg:my-4 text-primary font-bold text-xl">
-              4 Reviews
+              {reviews && reviews.length}{" "}
+              {reviews && reviews.length > 1 ? "Reviews" : "Review"}
             </h3>
-            <Reviews avatar={avatar} name="James Smith">
-              It was a pleasure to teach David German, he’s been a great
-              student, a friendly guy and he has helped me get started with
-              Python!. Thanks David!
-            </Reviews>
-            <Reviews avatar={avatar} name="Eric Bojangles">
-              Great tutor, so patient, would definitely recommend trading skills
-              with David!
-            </Reviews>
+            {reviews &&
+              reviews.map(r => (
+                <Reviews
+                  reviewers={reviews}
+                  key={r.id}
+                  avatar={r.profilePic}
+                  stars={r.stars}
+                >
+                  {r.review}
+                </Reviews>
+              ))}
             <div className="flex gap-4 p-4">
               <a
                 href="#"

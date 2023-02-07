@@ -1,28 +1,51 @@
 import React from "react";
 import pic from "../../assets/signup/questions_nobg.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { notPostSignUp } from "../../features/signup/signup-slice";
 import { ifAuthenticated } from "../../features/login-logout/login-logout-slice";
+import axios from "axios";
+
 const PostSignup = () => {
-  const options = ["Online only", "Online & In-person", "In-person only"];
+  const { id } = useSelector(state => state.user);
+  const options = [ "Online only", "Online & In-person", "In-person only" ];
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async e => {
     e.preventDefault();
-    const { wantToTeach, wantToLearn, connectingFrom, selector } =
-      e.target.elements;
+    const {
+      wantToTeach,
+      wantToLearn,
+      connectingFrom,
+      occupation,
+      selector,
+    } = e.target.elements;
     const postData = {
       teaching: wantToTeach.value ? wantToTeach.value : null,
       learning: wantToLearn.value ? wantToLearn.value : null,
       location: connectingFrom.value,
+      job: occupation.value,
       method: selector.value,
     };
+
     dispatch(notPostSignUp());
     dispatch(ifAuthenticated());
     // make a put request to add the postData to the user's profile data in the DB.
     // then if post is successful redirect to the dashboard
+    const { teaching, learning, location, job } = postData;
+    try {
+      id &&
+        (await axios.put(`${import.meta.env.VITE_SERVER}user/info/`, {
+          id: id,
+          skills: teaching,
+          learning: learning,
+          occupation: job,
+          location: location,
+        }));
+    } catch (e) {
+      return new Error(e);
+    }
     navigate("/dashboard");
   };
 
@@ -81,6 +104,19 @@ const PostSignup = () => {
             required
           />
 
+          <label htmlFor="occupation">
+            <h3 className="text-sm text-center -mb-3">
+              What is your occupation?
+            </h3>
+          </label>
+          <input
+            type="text"
+            id="occupation"
+            name="occupation"
+            className="input-field"
+            required
+          />
+
           <label htmlFor="selector">
             <h3 className="text-sm text-center -mb-3">
               How are you looking to connect?
@@ -88,7 +124,7 @@ const PostSignup = () => {
           </label>
           <select name="selector" id="selector" className="input-field">
             {options.map((option, i) => (
-              <option key={i} value={option} label={option}></option>
+              <option key={i} value={option} label={option} />
             ))}
           </select>
 
