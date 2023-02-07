@@ -1,14 +1,202 @@
-# voyage-tasks
+<!--
+Hey, thanks for using the awesome-readme-template template.  
+If you have any enhancements, then fork this project and create a pull request 
+or just open an issue with the label "enhancement".
 
-Your project's `readme` is as important to success as your code. For 
-this reason you should put as much care into its creation and maintenance
-as you would any other component of the application.
+Don't forget to give this project a star for additional support ;)
+Maybe you can mention me or this repo in the acknowledgements too
+-->
 
-If you are unsure of what should go into the `readme` let this article,
-written by an experienced Chingu, be your starting point - 
-[Keys to a well written README](https://tinyurl.com/yk3wubft).
+<!--
+This README is a slimmed down version of the original one.
+Removed sections:
+- Screenshots
+- Running Test
+- Deployment
+- FAQ
+-->
 
-And before we go there's "one more thing"! Once you decide what to include
-in your `readme` feel free to replace the text we've provided here.
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/64617718/217233022-dd6c8c67-25cc-4949-88ce-806647c19c08.png" alt="logo" width="200" height="auto" />
+  <h1>Empowering Individuals, Building Communities</h1>
+  
+   
+<h2>
+    <a href="https://chingu.io">View Demo</a>
+  </h2>
+</div>
 
-> Own it & Make it your Own!
+<br />
+
+<!-- Table of Contents -->
+# :notebook_with_decorative_cover: Table of Contents
+
+- [About the Project](#star2-about-the-project)
+  * [Tech Stack](#space_invader-tech-stack)
+  * [Features](#dart-features)
+  * [Color Reference](#art-color-reference)
+  * [Environment Variables](#key-environment-variables)
+- [Getting Started](#toolbox-getting-started)
+  * [Prerequisites](#bangbang-prerequisites)
+  * [Installation](#gear-installation)
+  * [Run Locally](#running-run-locally)
+- [Contributing](#wave-contributing)
+- [Contact](#handshake-contact)
+- [Acknowledgements](#gem-acknowledgements)
+  
+
+<!-- About the Project -->
+## :star2: About the Project
+
+<div align="center"> 
+  <img src="https://user-images.githubusercontent.com/64617718/217234398-2e2671f8-41ee-452c-91f2-a6048a466938.png" alt="screenshot" />
+</div>
+
+
+<!-- TechStack -->
+### :space_invader: Tech Stack
+
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+    <li><a href="https://redux-toolkit.js.org">Redux Toolkit</a></li>
+    <li><a href="https://reactrouter.com/en/main">React Router</a></li>
+    <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
+    <li><a href="https://axios-http.com/docs/intro">Axios</a></li>
+    
+    
+  </ul>
+</details>
+
+<details>
+  <summary>Server</summary>
+  <ul>
+    <li><a href="https://expressjs.com/">Express.js</a></li>
+  </ul>
+</details>
+
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://supabase.com/">Supabase</a></li>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+  </ul>
+</details>
+
+<!-- Features -->
+### :dart: Features
+
+- Search and browse for mentors 
+- Ability to create/update account
+- Messaging capability
+- Scheduling sessions via Calendly
+
+<!-- Color Reference -->
+### :art: Color Reference
+
+| Color             | Hex                                                                |
+| ----------------- | ------------------------------------------------------------------ |
+| Primary Color | ![#265B8B](https://via.placeholder.com/10/265B8B?text=+) #265B8B |
+| Secondary Color | ![#1181C8](https://via.placeholder.com/10/1181C8?text=+) #1181C8 |
+| Accent Color | ![#84C7F2](https://via.placeholder.com/10/84C7F2?text=+) #84C7F2 |
+| Text Color | ![#23445B](https://via.placeholder.com/10/23445B?text=+) #23445B |
+| Background Color | ![#ECECEB](https://via.placeholder.com/10/ECECEB?text=+) #ECECEB |
+
+<!-- Env Variables -->
+### :key: Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`API_KEY`
+
+`ANOTHER_API_KEY`
+
+<!-- Getting Started -->
+## 	:toolbox: Getting Started
+
+<!-- Prerequisites -->
+### :bangbang: Prerequisites
+
+This project uses NPM as package manager
+
+```bash
+ npm install
+```
+
+<!-- Installation -->
+### :gear: Installation
+
+Install my-project with npm
+
+```bash
+  npm install
+```
+
+
+<!-- Run Locally -->
+### :running: Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/chingu-voyages/UpSkill.git
+```
+
+Go to the client directory
+
+```bash
+  cd client
+  npm install
+  npm run dev
+```
+
+```
+Go to the server directory
+
+```bash
+  cd server
+  npm install
+  node index
+```
+
+<!-- Usage -->
+## :eyes: Usage
+
+Use this space to tell a little more about your project and how it can be used. Show additional screenshots, code samples, demos or link to other resources.
+
+
+```javascript
+import Component from 'my-project'
+
+function App() {
+  return <Component />
+}
+```
+
+<!-- Contributing -->
+## :wave: Contributing
+
+<a href="https://github.com/chingu-voyages/UpSkill/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=chingu-voyages/UpSkill" />
+</a>
+
+Go Chingu Bears 29!
+
+<!-- Contact -->
+## :handshake: Contact
+
+Pictured from 👈 Left to Right 👉
+Mark 
+Mario
+Michael
+Jim
+Dana
+
+Project Link: [N/A]([https://github.com/Louis3797/awesome-readme-template](https://www.chingu.io/))
+
+<!-- Acknowledgments -->
+## :gem: Acknowledgements
+
+Thank you to Jim and the [Chingu](https://www.chingu.io/) team for helping us Upskill!
+
