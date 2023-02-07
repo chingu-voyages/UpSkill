@@ -26,13 +26,13 @@ const NavDropDown = () => {
     };
   }, [clickRef]);
 
-  const toggleDropDown = e => {
+  const toggleDropDown = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setLoggedInMenuHidden(state => !state);
+    setLoggedInMenuHidden((state) => !state);
   };
 
-  const handleLogout = e => {
+  const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logOut());
   };
@@ -42,7 +42,7 @@ const NavDropDown = () => {
         src={user.profilePic || avatar}
         alt=""
         className="h-14 w-14 cursor-pointer border-2 border-baby rounded-full object-cover"
-        onClick={e => toggleDropDown(e)}
+        onClick={(e) => toggleDropDown(e)}
       />
       <ul
         className={
@@ -70,10 +70,11 @@ const NavDropDown = () => {
           direction={"/messages"}
           setClicker={setClick}
           clicker={click}
+          setLoggedInMenuHidden={setLoggedInMenuHidden}
         />
 
         <div
-          onClick={e => {
+          onClick={(e) => {
             handleLogout(e);
           }}
         >
