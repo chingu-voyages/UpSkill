@@ -36,8 +36,8 @@ const ProtectedRoutes = ({ condition, redirection = "/" }) => {
 };
 
 function App() {
-  const auth = useSelector((state) => state.auth);
-  const currentUserId = useSelector((state) => state.user.id);
+  const auth = useSelector(state => state.auth);
+  const currentUserId = useSelector(state => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
 
@@ -80,7 +80,7 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/messages" element={<Messaging />} />
         </Route>
       </Routes>
