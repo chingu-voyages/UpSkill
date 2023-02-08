@@ -16,12 +16,12 @@ function Search() {
     location?.state?.skill
   );
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setSearchForm(e.target.value);
   };
 
   // Handle submit for native search bar
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     setSkill(searchForm);
     setSearchForm("");
@@ -34,7 +34,6 @@ function Search() {
     } else if (inputFromHeroLg) {
       setSkill(inputFromHeroLg);
     }
-    // console.log(location);
   };
 
   // Track if form input coming from landing pages
@@ -50,7 +49,7 @@ function Search() {
       try {
         if (skill) {
           const res = await axios.get(
-            `http://localhost:3000/user/skills?skill=${skill}`
+            `${import.meta.env.VITE_SERVER}/user/skills?skill=${skill}`
           );
           setMentorData(res.data.users);
           if (res) {
@@ -111,19 +110,19 @@ function Search() {
 
       {!error &&
         mentorData &&
-        mentorData.map((mentor) => (
+        mentorData.map(mentor => (
           <SearchProfileCard
-            key={mentor.userId}
+            key={mentor?.userId}
             avatar={mentor.profilePic || noUserImg}
-            name={`${mentor.first_name} ${mentor.last_name}`}
-            skills={mentor.skills}
-            id={mentor.userId}
+            name={mentor ? `${mentor.first_name} ${mentor.last_name}` : ""}
+            skills={mentor ? mentor.skills : ""}
+            id={mentor?.userId}
             bio={{
-              job: `${mentor.occupation}`,
-              location: `${mentor.location}`,
+              job: `${mentor ? mentor?.occupation : ""}`,
+              location: `${mentor ? mentor?.location : ""}`,
             }}
           >
-            {mentor.about}
+            {mentor ? mentor?.about : ""}
           </SearchProfileCard>
         ))}
     </main>

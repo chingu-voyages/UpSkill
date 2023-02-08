@@ -10,7 +10,7 @@ function Reviews({ stars, children, id }) {
     if (id) {
       const fetchReviewer = async () => {
         const res = await axios.get(
-          `${import.meta.env.VITE_SERVER}user/id/${id}`
+          `${import.meta.env.VITE_SERVER}/user/id/${id}`
         );
         setReviewer(res.data);
       };

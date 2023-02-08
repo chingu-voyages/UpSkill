@@ -41,7 +41,7 @@ const PhotoModal = ({ setCalendar }) => {
         setError(false);
         setClicked(true);
 
-        const res = await axios.put(`${server}user/calendar`, {
+        const res = await axios.put(`${server}/user/calendar`, {
           id: user.id,
           calendly: calendly.value,
         });

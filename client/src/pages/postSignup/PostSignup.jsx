@@ -36,7 +36,7 @@ const PostSignup = () => {
     const { teaching, learning, location, job } = postData;
     try {
       id &&
-        (await axios.put(`${import.meta.env.VITE_SERVER}user/info/`, {
+        (await axios.put(`${import.meta.env.VITE_SERVER}/user/info/`, {
           id: id,
           skills: teaching,
           learning: learning,
