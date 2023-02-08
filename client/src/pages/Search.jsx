@@ -16,12 +16,12 @@ function Search() {
     location?.state?.skill
   );
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     setSearchForm(e.target.value);
   };
 
   // Handle submit for native search bar
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
     setSkill(searchForm);
     setSearchForm("");
@@ -50,7 +50,7 @@ function Search() {
       try {
         if (skill) {
           const res = await axios.get(
-            `http://localhost:3000/user/skills?skill=${skill}`
+            `${import.meta.env.VITE_SERVER}/user/skills?skill=${skill}`
           );
           setMentorData(res.data.users);
           if (res) {
@@ -111,7 +111,7 @@ function Search() {
 
       {!error &&
         mentorData &&
-        mentorData.map((mentor) => (
+        mentorData.map(mentor => (
           <SearchProfileCard
             key={mentor.userId}
             avatar={mentor.profilePic || noUserImg}
