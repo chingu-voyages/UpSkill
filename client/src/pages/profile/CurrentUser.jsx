@@ -51,8 +51,8 @@ function CurrentUser() {
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
-            <h2 className="font-title font-bold text-primary text-3xl mb-8">
-              Hi, I'm {user ? user?.first_name : ""} 👋
+            <h2 className="font-title font-bold text-primary text-3xl mb-8 capitalize">
+              Hi, I'm {user?.first_name} 👋
             </h2>
             <div>
               <img
@@ -61,8 +61,8 @@ function CurrentUser() {
                 className="h-32 w-32 rounded-full object-cover border-2 border-baby"
               />
             </div>
-            <h4 className="font-bold text-grotto-100 text-xl mt-6">
-              {user ? `${user?.first_name} ${user?.last_name}` : ""}
+            <h4 className="font-bold text-grotto-100 text-xl mt-6 capitalize">
+              {user?.first_name} {user?.last_name}
             </h4>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center text-2xl">
@@ -169,7 +169,9 @@ function CurrentUser() {
           <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <div className="flex mt-4">
               <img src={stats} alt="" />
-              <h3 className="ml-2 text-primary font-bold">David Statistics</h3>
+              <h3 className="ml-2 text-primary font-bold w-full">
+                {user ? `${user?.first_name}'s` : "User's"} Statistics
+              </h3>
             </div>
 
             <div className="flex max-[550px]:flex-col justify-between w-full p-8 max-[490px]:px-4">
@@ -218,7 +220,7 @@ function CurrentUser() {
             <div className="flex gap-4 p-4">
               <a
                 href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
+                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline border-2 border-grotto-100"
               >
                 See more
               </a>

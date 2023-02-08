@@ -202,7 +202,9 @@ function ViewUser({ id }) {
           <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <div className="flex mt-4">
               <img src={stats} alt="" />
-              <h3 className="ml-2 text-primary font-bold">David Statistics</h3>
+              <h3 className="ml-2 text-primary font-bold w-full">
+                {user ? `${user?.first_name}'s` : "User's"} Statistics
+              </h3>
             </div>
 
             <div className="flex max-[550px]:flex-col justify-between w-full p-8 max-[490px]:px-4">
@@ -251,13 +253,13 @@ function ViewUser({ id }) {
             <div className="flex gap-4 p-4">
               <a
                 href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
+                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
               >
                 See more
               </a>
               <button
                 onClick={handleClick}
-                className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-primary"
+                className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-primary"
               >
                 Leave a review
               </button>
