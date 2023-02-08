@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import avatar from "../../assets/dashboard/avatar.svg";
+import { useEffect, useState } from "react";
+import noUserImg from "../../assets/dashboard/noUser.png";
 import bio from "../../assets/dashboard/bio.svg";
 import stats from "../../assets/dashboard/statistics.svg";
 import session from "../../assets/dashboard/sessions.svg";
@@ -89,7 +89,7 @@ function ViewUser({ id }) {
             </h2>
             <div>
               <img
-                src={user?.profilePic || avatar}
+                src={user?.profilePic || noUserImg}
                 alt=""
                 className=" border-2 border-baby object-cover h-32 w-32 rounded-full flex"
               />
