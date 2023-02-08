@@ -16,12 +16,12 @@ function Search() {
     location?.state?.skill
   );
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setSearchForm(e.target.value);
   };
 
   // Handle submit for native search bar
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setSkill(searchForm);
     setSearchForm("");
@@ -78,6 +78,7 @@ function Search() {
             <input
               className="border border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
               name="search"
+              value={searchForm}
               id="search"
               type="text"
               placeholder="Search skills"
@@ -110,7 +111,7 @@ function Search() {
 
       {!error &&
         mentorData &&
-        mentorData.map(mentor => (
+        mentorData.map((mentor) => (
           <SearchProfileCard
             key={mentor.userId}
             avatar={mentor.profilePic || noUserImg}

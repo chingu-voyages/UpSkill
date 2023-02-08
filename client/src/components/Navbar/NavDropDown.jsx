@@ -43,12 +43,11 @@ const NavDropDown = () => {
         onClick={(e) => toggleDropDown(e)}
       >
         <img
-          src={user.profilePic || avatar}
+          src={user.profilePic || noUserImg}
           alt=""
           className="h-14 w-14 border-2 border-baby rounded-full object-cover"
         />
       </div>
-
 
       <ul
         className={
