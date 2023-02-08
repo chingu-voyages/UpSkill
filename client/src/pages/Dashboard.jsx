@@ -239,12 +239,12 @@ const Dashboard = () => {
             <div className="text-start w-full flex gap-4">
               <a
                 href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
+                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
               >
                 See more
               </a>
               <button
-                className="px-6 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full outline outline-2 border-none outline-grotto-100"
+                className="px-6 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full border-2 border-grotto-100"
                 onClick={() => {
                   navigate("/q");
                 }}
