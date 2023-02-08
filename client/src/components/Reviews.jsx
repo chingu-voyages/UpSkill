@@ -33,7 +33,9 @@ function Reviews({ stars, children, id }) {
           <div className="md:col-span-4 md:my-4 md:w-full">
             <div className="flex items-center gap-4 px-4 md:p-0">
               <h3 className="font-bold md:my-2 md:text-lg text-primary md:text-start text-center text-xl">
-                {reviewer?.first_name} {reviewer?.last_name}
+                {reviewer
+                  ? `${reviewer?.first_name} ${reviewer?.last_name}`
+                  : ""}
               </h3>
               <div className="flex items-center gap-1">
                 <span className="text">{stars && stars}</span>

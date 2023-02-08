@@ -32,7 +32,7 @@ const BioModal = ({ setPostReview, postReview, receiverId }) => {
     setClicked(false);
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setClicked(true);
 
@@ -42,11 +42,9 @@ const BioModal = ({ setPostReview, postReview, receiverId }) => {
     } else {
       setError(false);
 
-      const res = axios.post(`${server}/user/review`, {
-        //TODO: get receiverId dynamically
-        // Dispatch change of state on review upalod
+      const res = await axios.post(`${server}/user/review`, {
         recevierId: receiverId,
-        reviewerId: `${user.id}`,
+        reviewerId: user.id,
         review: reviewInput.current.value,
         starRating: selectStar + 1,
       });
