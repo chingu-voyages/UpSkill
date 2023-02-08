@@ -4,7 +4,7 @@ import stats from "../assets/dashboard/statistics.svg";
 import session from "../assets/dashboard/sessions.svg";
 import teach from "../assets/dashboard/teaching.svg";
 import learn from "../assets/dashboard/learner.svg";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaPen,
   FaBookOpen,
@@ -25,7 +25,7 @@ import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const navigate = useNavigate();
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   const [editPhoto, setEditPhoto] = useState(false);
   const [editSkills, setEditSkills] = useState(false);
@@ -41,14 +41,14 @@ const Dashboard = () => {
   }, [editPhoto, editSkills, editBio, calendar]);
 
   return (
-    <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen">
+    <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen capitalize">
       {editPhoto && <PhotoModal setEditPhoto={setEditPhoto} />}
       {editSkills && <SkillsModal setEditSkills={setEditSkills} />}
       {editBio && <BioModal setEditBio={setEditBio} />}
       {calendar && <LinkCalendarModal setCalendar={setCalendar} />}
 
-      <div className="flex gap-spaceBtwbioXScheduledLssn max-[1000px]:flex-col">
-        <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center">
+      <div className="flex gap-spaceBtwbioXScheduledLssn max-[1000px]:flex-col w-full m-auto">
+        <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center ">
           <div className="flex items-center flex-col">
             <h2 className="font-title font-bold text-primary text-3xl mb-8">
               Welcome, {user.first_name}
@@ -63,7 +63,7 @@ const Dashboard = () => {
                 size={20}
                 className="absolute right-0 top-1 cursor-pointer hover:text-grotto-100"
                 onClick={() => {
-                  setEditPhoto(prev => !prev);
+                  setEditPhoto((prev) => !prev);
                 }}
               />
             </div>
@@ -77,7 +77,7 @@ const Dashboard = () => {
               size={25}
               className="absolute top-2 right-2 cursor-pointer hover:text-grotto-100"
               onClick={() => {
-                setEditSkills(prev => !prev);
+                setEditSkills((prev) => !prev);
               }}
             />
             <div className="flex flex-col items-center gap-2">
@@ -114,7 +114,7 @@ const Dashboard = () => {
               size={25}
               className="absolute top-2 right-2 cursor-pointer hover:text-grotto-100"
               onClick={() => {
-                setEditBio(prev => !prev);
+                setEditBio((prev) => !prev);
               }}
             />
 
@@ -129,12 +129,12 @@ const Dashboard = () => {
             </div>
 
             <div className="text-start w-full pt-6">
-              <a
-                href="#"
+              <Link
+                to={`/profile/${user.id}`}
                 className="btn filled bg-grotto-100 text-white px-8 py-1 rounded-2xl"
               >
                 View Profile
-              </a>
+              </Link>
             </div>
           </div>
           <div
@@ -173,13 +173,13 @@ const Dashboard = () => {
                 <tr>
                   <td>Maths - Calculus</td>
                   <td>
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center text-sm">
                       <span>05/01/2023</span>
                       <span>4pm</span>
                     </div>
                   </td>
                   <td>
-                    <div className="flex flex-col items-center">
+                    <div className="flex flex-col items-center text-sm">
                       <img src={placeholder} alt="" width={"25"} />
                       <span>John Luke</span>
                     </div>
@@ -187,7 +187,7 @@ const Dashboard = () => {
                   <td>
                     <a
                       href="#"
-                      className="bg-grotto-100 text-white max-[550px]:px-2 px-6 py-2 rounded-full hover:bg-primary"
+                      className="bg-grotto-100 text-white max-[550px]:px-2 px-2 py-2 rounded-full hover:bg-primary"
                     >
                       Message
                     </a>
@@ -195,7 +195,7 @@ const Dashboard = () => {
                   <td>
                     <a
                       href="#"
-                      className="bg-primary text-white px-6 py-2 max-[550px]:px-2 rounded-full hover:bg-grotto-100"
+                      className="bg-primary text-white px-2 py-2 max-[550px]:px-2 rounded-full hover:bg-grotto-100"
                     >
                       Cancel
                     </a>
@@ -219,7 +219,7 @@ const Dashboard = () => {
                   <td>
                     <a
                       href="#"
-                      className="bg-grotto-100 text-white px-6 max-[550px]:px-2 py-2 rounded-full hover:bg-primary"
+                      className="bg-grotto-100 text-white px-2 max-[550px]:px-2 py-2 rounded-full hover:bg-primary"
                     >
                       Message
                     </a>
@@ -227,7 +227,7 @@ const Dashboard = () => {
                   <td>
                     <a
                       href="#"
-                      className="bg-primary text-white px-6 max-[550px]:px-2 py-2 rounded-full hover:bg-grotto-100"
+                      className="bg-primary text-white px-2 max-[550px]:px-2 py-2 rounded-full hover:bg-grotto-100"
                     >
                       Cancel
                     </a>
@@ -239,12 +239,12 @@ const Dashboard = () => {
             <div className="text-start w-full flex gap-4">
               <a
                 href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
+                className="bg-grotto-100 hover:bg-primary px-2 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
               >
                 See more
               </a>
               <button
-                className="px-6 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full outline outline-2 border-none outline-grotto-100"
+                className="px-2 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full outline outline-2 border-none outline-grotto-100"
                 onClick={() => {
                   navigate("/q");
                 }}
