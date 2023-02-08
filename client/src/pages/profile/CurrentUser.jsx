@@ -21,9 +21,8 @@ import ReviewModal from "../../components/Modal/ReviewModal";
 import axios from "axios";
 function CurrentUser() {
   const [width, setWidth] = useState(window.innerWidth);
-  const [postReview, setPostReview] = useState(false);
   const [reviews, setReviews] = useState(null);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     function handleResize() {
@@ -36,23 +35,10 @@ function CurrentUser() {
   }, [width]);
 
   useEffect(() => {
-    if (postReview) {
-      window.document.body.style.overflow = "hidden";
-    } else if (!postReview) {
-      window.document.body.style.overflow = "unset";
-    }
-  }, [postReview]);
-
-  const handleClick = e => {
-    e.stopPropagation();
-    setPostReview(true);
-  };
-
-  useEffect(() => {
     const fetchReviews = async () => {
       if (user.id) {
         const res = await axios.get(
-          `${import.meta.env.VITE_SERVER}user/review/${user.id}`
+          `${import.meta.env.VITE_SERVER}/user/review/${user.id}`
         );
         setReviews(res.data);
       }
@@ -62,13 +48,6 @@ function CurrentUser() {
 
   return (
     <main className="text-primary">
-      {postReview && (
-        <ReviewModal
-          postReview={postReview}
-          setPostReview={setPostReview}
-          receiverId={user.id}
-        />
-      )}
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
@@ -243,12 +222,6 @@ function CurrentUser() {
               >
                 See more
               </a>
-              <button
-                onClick={handleClick}
-                className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-primary"
-              >
-                Leave a review
-              </button>
             </div>
           </div>
         </section>

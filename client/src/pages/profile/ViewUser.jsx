@@ -28,7 +28,7 @@ function ViewUser({ id }) {
     if (id) {
       const fetchUser = async () => {
         const res = await axios.get(
-          `${import.meta.env.VITE_SERVER}user/id/${id}`
+          `${import.meta.env.VITE_SERVER}/user/id/${id}`
         );
         setUser(res.data);
       };
@@ -41,7 +41,7 @@ function ViewUser({ id }) {
     const fetchReviews = async () => {
       if (id) {
         const res = await axios.get(
-          `${import.meta.env.VITE_SERVER}user/review/${id}`
+          `${import.meta.env.VITE_SERVER}/user/review/${id}`
         );
         setReviews(res.data);
       }
@@ -67,7 +67,7 @@ function ViewUser({ id }) {
     }
   }, [postReview]);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.stopPropagation();
     setPostReview(true);
   };
