@@ -34,7 +34,6 @@ function Search() {
     } else if (inputFromHeroLg) {
       setSkill(inputFromHeroLg);
     }
-    // console.log(location);
   };
 
   // Track if form input coming from landing pages
@@ -113,17 +112,17 @@ function Search() {
         mentorData &&
         mentorData.map(mentor => (
           <SearchProfileCard
-            key={mentor.userId}
+            key={mentor?.userId}
             avatar={mentor.profilePic || noUserImg}
-            name={`${mentor.first_name} ${mentor.last_name}`}
-            skills={mentor.skills}
-            id={mentor.userId}
+            name={mentor ? `${mentor.first_name} ${mentor.last_name}` : ""}
+            skills={mentor ? mentor.skills : ""}
+            id={mentor?.userId}
             bio={{
-              job: `${mentor.occupation}`,
-              location: `${mentor.location}`,
+              job: `${mentor ? mentor?.occupation : ""}`,
+              location: `${mentor ? mentor?.location : ""}`,
             }}
           >
-            {mentor.about}
+            {mentor ? mentor?.about : ""}
           </SearchProfileCard>
         ))}
     </main>

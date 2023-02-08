@@ -1,6 +1,5 @@
 import { BsFillStarFill } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
-
 function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
   const navigate = useNavigate();
   const handleClick = () => {
@@ -26,10 +25,12 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
         </div>
       </div>
       <div className="col-span-6 leading-normal lg:mt-4 lg:ml-2 ml-4">
-        <h3 className="font-bold lg:text-2xl pl-4 text-primary">{name}</h3>
+        <h3 className="font-bold lg:text-2xl pl-4 text-primary">
+          {name ? name : ""}
+        </h3>
         <div className="text-[10px] font-normal lg:text-[14px] pl-4 text-grotto-100">
-          <div>{bio?.job}</div>
-          <div>{bio?.location}</div>
+          <div>{bio ? bio?.job : ""} </div>
+          <div>{bio ? bio?.location : ""}</div>
         </div>
       </div>
       <div className="col-span-4   flex flex-col lg:m-4 lg:flex-row lg:col-span-12 lg:justify-end lg:order-last">
