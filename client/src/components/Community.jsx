@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import community from "../assets/landing/community_nobg.png";
 
 const Community = () => {
@@ -21,9 +22,11 @@ const Community = () => {
               experience of our community.
             </p>
             <div className="flex justify-center w-full mt-8">
-              <button className="min-w-[250px] text-slate-100 rounded-lg p-2 bg-grotto-100">
-                Join the community
-              </button>
+              <Link to="/auth">
+                <button className="min-w-[250px] text-slate-100 rounded-lg p-2 bg-grotto-100">
+                  Join the community
+                </button>
+              </Link>
             </div>
           </div>
         </div>

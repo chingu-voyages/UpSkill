@@ -7,7 +7,7 @@ import noUserImg from "../../assets/dashboard/noUser.png";
 import NavItem from "./NavItem";
 
 const NavDropDown = () => {
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const [loggedInMenuHidden, setLoggedInMenuHidden] = useState(false);
@@ -38,12 +38,18 @@ const NavDropDown = () => {
   };
   return (
     <div className="flex flex-col relative" ref={clickRef}>
-      <img
-        src={user.profilePic || noUserImg}
-        alt=""
-        className="h-14 w-14 cursor-pointer border-2 border-baby rounded-full object-cover"
+      <div
+        className="flex items-center cursor-pointer"
         onClick={(e) => toggleDropDown(e)}
-      />
+      >
+        <img
+          src={user.profilePic || avatar}
+          alt=""
+          className="h-14 w-14 border-2 border-baby rounded-full object-cover"
+        />
+      </div>
+
+
       <ul
         className={
           loggedInMenuHidden
