@@ -42,7 +42,7 @@ const BioModal = ({ setPostReview, postReview, receiverId }) => {
     } else {
       setError(false);
 
-      const res = axios.post(`${server}user/review`, {
+      const res = axios.post(`${server}/user/review`, {
         //TODO: get receiverId dynamically
         // Dispatch change of state on review upalod
         recevierId: receiverId,
