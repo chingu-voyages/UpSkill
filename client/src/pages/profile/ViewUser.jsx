@@ -202,7 +202,9 @@ function ViewUser({ id }) {
           <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <div className="flex mt-4">
               <img src={stats} alt="" />
-              <h3 className="ml-2 text-primary font-bold">David Statistics</h3>
+              <h3 className="ml-2 text-primary font-bold w-full">
+                {user ? `${user?.first_name}'s` : "User's"} Statistics
+              </h3>
             </div>
 
             <div className="flex max-[550px]:flex-col justify-between w-full p-8 max-[490px]:px-4">
