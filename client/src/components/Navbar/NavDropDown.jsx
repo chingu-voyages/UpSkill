@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../features/login-logout/login-logout-slice";
 import avatar from "../../assets/dashboard/avatar.svg";
-import { IoMdArrowDropdown } from "react-icons/io";
 
 import NavItem from "./NavItem";
 
@@ -48,7 +47,6 @@ const NavDropDown = () => {
           alt=""
           className="h-14 w-14 border-2 border-baby rounded-full object-cover"
         />
-        <IoMdArrowDropdown className="text-xl" />
       </div>
 
       <ul
