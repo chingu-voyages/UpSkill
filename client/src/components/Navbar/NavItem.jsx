@@ -12,7 +12,9 @@ const NavItem = ({
     if (clicker) {
       setClicker(!clicker);
     }
-    setLoggedInMenuHidden(false);
+    if (setLoggedInMenuHidden) {
+      setLoggedInMenuHidden(false);
+    }
   };
 
   if (clicker) {

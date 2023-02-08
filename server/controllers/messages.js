@@ -1,11 +1,11 @@
 const { supabase } = require("../config/supabase");
 const { validationResult } = require("express-validator");
 
-const sendMessage = async ({ messages_id, sender, content }) => {
+const sendMessage = async ({ relation_id, sender, content }) => {
   return supabase
     .from("Messages")
     .insert({
-      messages_id,
+      relation_id,
       sender,
       content,
     })
@@ -72,7 +72,7 @@ const postAMessage = async (req, res) => {
         if (error) return res.status(400).json(error);
 
         const { data: Message, error: MessageError } = await sendMessage({
-          messages_id: data[0].id,
+          relation_id: data[0].id,
           sender,
           content,
         });
@@ -83,7 +83,7 @@ const postAMessage = async (req, res) => {
       }
 
       const { data: Message, error: MessageError } = await sendMessage({
-        messages_id: Check[0].id,
+        relation_id: Check[0].id,
         sender,
         content,
       });
@@ -93,15 +93,37 @@ const postAMessage = async (req, res) => {
     }
 
     const { data: Messages, error: MessagesError } = await sendMessage({
-      messages_id: User_relation[0].id,
+      relation_id: User_relation[0].id,
       sender,
       content,
     });
 
     return MessagesError
-      ? res.status(400).json(error)
+      ? res.status(400).json(MessagesError)
       : res.status(201).json(Messages);
-  } catch (e) {
+  } catch (error) {
+    return res.status(500).json({ error, message: "Verify the URL" });
+  }
+};
+
+const getAllConversation = async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+    const { userId } = req.params;
+
+    const { data, error } = await supabase
+      .from("User_relation")
+      .select(`*`)
+      .or(`user1_id.eq.${userId},user2_id.eq.${userId}`);
+
+    if (!data.length)
+      return res.status(404).json({ message: "No conversation found." });
+
+    return error ? res.status(400).json(error) : res.status(200).json(data);
+  } catch (error) {
     return res.status(500).json({ error, message: "Verify the URL" });
   }
 };
@@ -119,11 +141,13 @@ const getAllMessage = async (req, res) => {
      */
     const { data: Messages, error: MessagesError } = await supabase
       .from("Messages")
-      .select(`*, User(*)`)
-      .eq("messages_id", relationId);
+      .select(`*`)
+      .eq("relation_id", relationId)
+      .order("created_at", { ascending: true })
+      .limit(30);
 
     return MessagesError
-      ? res.status(400).json(error)
+      ? res.status(400).json(MessagesError)
       : res.status(200).json(Messages);
   } catch (error) {
     return res.status(500).json({ error, message: "Verify the URL" });
@@ -192,6 +216,7 @@ const deleteAMessage = async (req, res) => {
 module.exports = {
   postAMessage,
   getAllMessage,
+  getAllConversation,
   updateAMessage,
   deleteAMessage,
 };

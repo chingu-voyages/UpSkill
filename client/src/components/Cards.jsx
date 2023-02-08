@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import bookBoy from "../assets/landing/boy_book_nobg.png";
 import rocket from "../assets/landing/rocket.png";
 
@@ -39,9 +40,11 @@ const Cards = () => {
           Sign up, join the community and learn what you’ve always wanted to!
         </p>
         <div className="flex justify-center">
-          <button className="font-bold bg-baby py-2 px-4 rounded-lg text-primary">
-            Search for tutors
-          </button>
+          <Link to="/q">
+            <button className="font-bold bg-baby py-2 px-4 rounded-lg text-primary">
+              Search for tutors
+            </button>
+          </Link>
         </div>
       </div>
     </div>

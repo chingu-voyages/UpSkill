@@ -1,4 +1,4 @@
-import avatar from "../assets/dashboard/avatar.svg";
+import noUserImg from "../assets/dashboard/noUser.png";
 import { FaSearch } from "react-icons/fa";
 import SearchProfileCard from "../components/SearchProfileCard";
 import { useState, useEffect } from "react";
@@ -7,25 +7,24 @@ import axios from "axios";
 
 function Search() {
   const location = useLocation();
-  const [ searchForm, setSearchForm ] = useState("");
-  const [ skill, setSkill ] = useState(null);
-  const [ mentorData, setMentorData ] = useState(null);
-  const [ error, setError ] = useState(false);
-  const [ inputFromHero, setInputFromHero ] = useState(location.state.skill);
-  const [ inputFromHeroLg, setInputFromHeroLg ] = useState(
-    location.state.skill
+  const [searchForm, setSearchForm] = useState(location?.state?.skill);
+  const [skill, setSkill] = useState(null);
+  const [mentorData, setMentorData] = useState(null);
+  const [error, setError] = useState(false);
+  const [inputFromHero, setInputFromHero] = useState(location?.state?.skill);
+  const [inputFromHeroLg, setInputFromHeroLg] = useState(
+    location?.state?.skill
   );
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setSearchForm(e.target.value);
   };
 
   // Handle submit for native search bar
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setSkill(searchForm);
     setSearchForm("");
-    console.log(location);
   };
 
   // Handle submit for landing pages
@@ -35,40 +34,35 @@ function Search() {
     } else if (inputFromHeroLg) {
       setSkill(inputFromHeroLg);
     }
+    // console.log(location);
   };
 
   // Track if form input coming from landing pages
-  useEffect(
-    () => {
-      // Auto submit if form inputs from landing page detected
-      handleSubmitHero();
-      setInputFromHero(null);
-      setInputFromHeroLg(null);
-    },
-    [ inputFromHeroLg, inputFromHero ]
-  );
+  useEffect(() => {
+    // Auto submit if form inputs from landing page detected
+    handleSubmitHero();
+    setInputFromHero(null);
+    setInputFromHeroLg(null);
+  }, [inputFromHeroLg, inputFromHero]);
 
-  useEffect(
-    () => {
-      async function getMentorBySkill() {
-        try {
-          if (skill) {
-            const res = await axios.get(
-              `http://localhost:3000/user/skills?skill=${skill}`
-            );
-            setMentorData(res.data.users);
-            if (res) {
-              setError(false);
-            }
+  useEffect(() => {
+    async function getMentorBySkill() {
+      try {
+        if (skill) {
+          const res = await axios.get(
+            `http://localhost:3000/user/skills?skill=${skill}`
+          );
+          setMentorData(res.data.users);
+          if (res) {
+            setError(false);
           }
-        } catch (error) {
-          setError(true);
         }
+      } catch (error) {
+        setError(true);
       }
-      getMentorBySkill();
-    },
-    [ skill ]
-  );
+    }
+    getMentorBySkill();
+  }, [skill]);
 
   return (
     <main className="lg:text-xl min-h-screen">
@@ -117,12 +111,13 @@ function Search() {
 
       {!error &&
         mentorData &&
-        mentorData.map(mentor => (
+        mentorData.map((mentor) => (
           <SearchProfileCard
             key={mentor.userId}
-            avatar={mentor.profilePic || avatar}
+            avatar={mentor.profilePic || noUserImg}
             name={`${mentor.first_name} ${mentor.last_name}`}
             skills={mentor.skills}
+            id={mentor.userId}
             bio={{
               job: `${mentor.occupation}`,
               location: `${mentor.location}`,

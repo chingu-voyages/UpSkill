@@ -2,14 +2,12 @@ import "./navbar.css";
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../features/login-logout/login-logout-slice";
-
-import avatar from "../../assets/dashboard/avatar.svg";
+import noUserImg from "../../assets/dashboard/noUser.png";
 
 import NavItem from "./NavItem";
 
 const NavDropDown = () => {
   const user = useSelector(state => state.user);
-
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const [loggedInMenuHidden, setLoggedInMenuHidden] = useState(false);
@@ -40,12 +38,17 @@ const NavDropDown = () => {
   };
   return (
     <div className="flex flex-col relative" ref={clickRef}>
-      <img
-        src={user.profilePic || avatar}
-        alt=""
-        className="h-14 w-14 cursor-pointer border-2 border-baby rounded-full object-cover"
+      <div
+        className="flex items-center cursor-pointer"
         onClick={e => toggleDropDown(e)}
-      />
+      >
+        <img
+          src={user.profilePic || noUserImg}
+          alt=""
+          className="h-14 w-14 border-2 border-baby rounded-full object-cover"
+        />
+      </div>
+
       <ul
         className={
           loggedInMenuHidden
@@ -55,7 +58,7 @@ const NavDropDown = () => {
       >
         <NavItem
           output={"Profile"}
-          direction={"/profile"}
+          direction={`/profile/${user.id}`}
           setClicker={setClick}
           clicker={click}
           setLoggedInMenuHidden={setLoggedInMenuHidden}
@@ -72,6 +75,7 @@ const NavDropDown = () => {
           direction={"/messages"}
           setClicker={setClick}
           clicker={click}
+          setLoggedInMenuHidden={setLoggedInMenuHidden}
         />
 
         <div

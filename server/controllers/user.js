@@ -75,8 +75,18 @@ const updateUserAcc = async (req, res) => {
 //Update the user info/data
 const updateUserInfo = async (req, res) => {
   try {
-    const { id, profilePic, skills, about, hobbies, mission, tokens } =
-      req.body;
+    const {
+      id,
+      profilePic,
+      skills,
+      about,
+      hobbies,
+      mission,
+      tokens,
+      learning,
+      occupation,
+      location,
+    } = req.body;
 
     if (!id) return res.status(400).json("User ID Missing");
 
@@ -88,6 +98,10 @@ const updateUserInfo = async (req, res) => {
         hobbies,
         mission,
         tokens,
+        profilePic,
+        learning,
+        occupation,
+        location,
       })
       .eq("userId", id);
 
@@ -183,7 +197,6 @@ const postUserReview = async (req, res) => {
   console.log("received");
   try {
     const { recevierId, reviewerId, starRating, review } = req.body;
-    console.log(recevierId, reviewerId, starRating, review);
     if (!reviewerId || !recevierId) {
       return res.status(400).json("User ID Missing");
     }
@@ -193,7 +206,7 @@ const postUserReview = async (req, res) => {
 
     const { data, error } = await supabase
       .from("Reviews")
-      .insert([{ userId: recevierId, reviewerId, review, stars: starRating }])
+      .insert([ { userId: recevierId, reviewerId, review, stars: starRating } ])
       .select();
 
     if (!error) {
@@ -213,7 +226,8 @@ const getUserReviews = async (req, res) => {
 
     let { data: Reviews, error } = await supabase
       .from("Reviews")
-      .select(" reviewerId, review, stars, created_at ");
+      .select(" reviewerId, review, stars, created_at ")
+      .eq("userId", id);
 
     if (Reviews) {
       return res.status(200).json(Reviews);

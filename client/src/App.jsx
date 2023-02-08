@@ -36,24 +36,26 @@ const ProtectedRoutes = ({ condition, redirection = "/" }) => {
 };
 
 function App() {
-  const auth = useSelector(state => state.auth);
-  const currentUserId = useSelector(state => state.user.id);
-  const userData = useSelector(state => state.user);
+  const auth = useSelector((state) => state.auth);
+  const currentUserId = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
 
-  useEffect(() => {
-    dispatch(ifAuthenticated());
-    dispatch(setUser(decoded));
+  useEffect(
+    () => {
+      dispatch(ifAuthenticated());
+      dispatch(setUser(decoded));
 
-    if (currentUserId) {
-      const fetch = async () => {
-        const fetchData = await getUserInfo(currentUserId);
-        dispatch(setUserData(fetchData.data));
-      };
-      fetch();
-    }
-  }, [auth]);
+      if (currentUserId) {
+        const fetch = async () => {
+          const fetchData = await getUserInfo(currentUserId);
+          dispatch(setUserData(fetchData.data));
+        };
+        fetch();
+      }
+    },
+    [ auth ]
+  );
 
   return (
     <Router>
@@ -81,7 +83,7 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/messages" element={<Messaging />} />
         </Route>
       </Routes>
