@@ -85,7 +85,7 @@ function ViewUser({ id }) {
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
             <h2 className="font-title font-bold text-primary text-3xl mb-8">
-              Hi, I'm {user?.first_name} 👋
+              Hi, I'm {user ? user?.first_name : ""} 👋
             </h2>
             <div>
               <img
@@ -95,7 +95,7 @@ function ViewUser({ id }) {
               />
             </div>
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
-              David Mark
+              {user ? `${user?.first_name} ${user?.last_name}` : ""}
             </h4>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row items-center text-2xl">
