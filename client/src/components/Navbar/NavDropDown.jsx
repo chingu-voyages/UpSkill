@@ -7,7 +7,7 @@ import noUserImg from "../../assets/dashboard/noUser.png";
 import NavItem from "./NavItem";
 
 const NavDropDown = () => {
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
   const [click, setClick] = useState(false);
   const [loggedInMenuHidden, setLoggedInMenuHidden] = useState(false);
@@ -26,13 +26,13 @@ const NavDropDown = () => {
     };
   }, [clickRef]);
 
-  const toggleDropDown = (e) => {
+  const toggleDropDown = e => {
     e.preventDefault();
     e.stopPropagation();
-    setLoggedInMenuHidden((state) => !state);
+    setLoggedInMenuHidden(state => !state);
   };
 
-  const handleLogout = (e) => {
+  const handleLogout = e => {
     e.preventDefault();
     dispatch(logOut());
   };
@@ -40,7 +40,7 @@ const NavDropDown = () => {
     <div className="flex flex-col relative" ref={clickRef}>
       <div
         className="flex items-center cursor-pointer"
-        onClick={(e) => toggleDropDown(e)}
+        onClick={e => toggleDropDown(e)}
       >
         <img
           src={user.profilePic || noUserImg}
@@ -79,7 +79,7 @@ const NavDropDown = () => {
         />
 
         <div
-          onClick={(e) => {
+          onClick={e => {
             handleLogout(e);
           }}
         >
