@@ -23,7 +23,7 @@ function CurrentUser() {
   const [width, setWidth] = useState(window.innerWidth);
   const [postReview, setPostReview] = useState(false);
   const [reviews, setReviews] = useState(null);
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     function handleResize() {
@@ -43,7 +43,7 @@ function CurrentUser() {
     }
   }, [postReview]);
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.stopPropagation();
     setPostReview(true);
   };
@@ -72,7 +72,6 @@ function CurrentUser() {
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
-
             <h2 className="font-title font-bold text-primary text-3xl mb-8 capitalize">
               Hi, I'm {user?.first_name} 👋
             </h2>
@@ -191,7 +190,9 @@ function CurrentUser() {
           <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <div className="flex mt-4">
               <img src={stats} alt="" />
-              <h3 className="ml-2 text-primary font-bold">David Statistics</h3>
+              <h3 className="ml-2 text-primary font-bold w-full">
+                {user ? `${user?.first_name}'s` : "User's"} Statistics
+              </h3>
             </div>
 
             <div className="flex max-[550px]:flex-col justify-between w-full p-8 max-[490px]:px-4">
