@@ -51,7 +51,7 @@ const Dashboard = () => {
         <section className="max-w-dashSKillsSection w-full text-center flex flex-col items-center ">
           <div className="flex items-center flex-col">
             <h2 className="font-title font-bold text-primary text-3xl mb-8">
-              Welcome, {user.first_name}
+              Welcome, {user ? user?.first_name : ""}
             </h2>
             <div className="h-32 w-32 rounded-full relative">
               <img
@@ -69,7 +69,7 @@ const Dashboard = () => {
             </div>
 
             <h4 className="font-bold text-grotto-100 text-xl mt-6">
-              {user ? `${user.first_name} ${user.last_name}` : " "}
+              {user ? `${user.first_name} ${user.last_name}` : ""}
             </h4>
           </div>
           <div className="card p-8 max-[490px]:px-2 w-full flex flex-col items-center justify-between gap-8 relative mt-2">
@@ -86,14 +86,16 @@ const Dashboard = () => {
                 <h3 className="font-bold ml-2 text-primary text-xl">Skills</h3>
               </div>
 
-              <span className="skill-set  text-grotto-100">{user.skills}</span>
+              <span className="skill-set  text-grotto-100">
+                {user?.skills ? user?.skills : ""}
+              </span>
             </div>
             <div className="flex flex-col items-center gap-4">
               <div className="flex items-center gap-2">
                 <FaCoins className="text-yellow-400" size={20} />
                 <h3 className="text-primary text-xl font-bold">Tokens</h3>
                 <span className=" bg-tokebgColor text-white w-6 h-6 rounded-full ">
-                  {user.tokens ? user.tokens : 0}
+                  {user.tokens ? user?.tokens : 0}
                 </span>
               </div>
               <a
@@ -120,12 +122,12 @@ const Dashboard = () => {
 
             <div className="text-start">
               <h4 className="font-semibold text-grotto-100">About</h4>
-              <p className="text-grotto-100">{user.about}</p>
+              <p className="text-grotto-100">{user ? user?.about : ""}</p>
               <br />
 
               <h4 className="font-semibold text-grotto-100">Hobbies</h4>
 
-              <p className="text-grotto-100">{user.hobbies}</p>
+              <p className="text-grotto-100">{user ? user?.hobbies : ""}</p>
             </div>
 
             <div className="text-start w-full pt-6">
@@ -239,12 +241,13 @@ const Dashboard = () => {
             <div className="text-start w-full flex gap-4">
               <a
                 href="#"
-                className="bg-grotto-100 hover:bg-primary px-2 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
+                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
               >
                 See more
               </a>
               <button
-                className="px-2 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full outline outline-2 border-none outline-grotto-100"
+
+                className="px-6 max-[399px]:px-2 py-1 hover:bg-grotto-100 hover:text-white rounded-full border-2 border-grotto-100"
                 onClick={() => {
                   navigate("/q");
                 }}
