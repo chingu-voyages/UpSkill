@@ -36,23 +36,26 @@ const ProtectedRoutes = ({ condition, redirection = "/" }) => {
 };
 
 function App() {
-  const auth = useSelector(state => state.auth);
-  const currentUserId = useSelector(state => state.user.id);
+  const auth = useSelector((state) => state.auth);
+  const currentUserId = useSelector((state) => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
 
-  useEffect(() => {
-    dispatch(ifAuthenticated());
-    dispatch(setUser(decoded));
+  useEffect(
+    () => {
+      dispatch(ifAuthenticated());
+      dispatch(setUser(decoded));
 
-    if (currentUserId) {
-      const fetch = async () => {
-        const fetchData = await getUserInfo(currentUserId);
-        dispatch(setUserData(fetchData.data));
-      };
-      fetch();
-    }
-  }, [auth]);
+      if (currentUserId) {
+        const fetch = async () => {
+          const fetchData = await getUserInfo(currentUserId);
+          dispatch(setUserData(fetchData.data));
+        };
+        fetch();
+      }
+    },
+    [ auth ]
+  );
 
   return (
     <Router>

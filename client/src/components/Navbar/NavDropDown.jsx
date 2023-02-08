@@ -2,7 +2,7 @@ import "./navbar.css";
 import { useState, useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "../../features/login-logout/login-logout-slice";
-import avatar from "../../assets/dashboard/avatar.svg";
+import noUserImg from "../../assets/dashboard/noUser.png";
 
 import NavItem from "./NavItem";
 
@@ -49,6 +49,7 @@ const NavDropDown = () => {
         />
       </div>
 
+
       <ul
         className={
           loggedInMenuHidden
@@ -75,6 +76,7 @@ const NavDropDown = () => {
           direction={"/messages"}
           setClicker={setClick}
           clicker={click}
+          setLoggedInMenuHidden={setLoggedInMenuHidden}
         />
 
         <div

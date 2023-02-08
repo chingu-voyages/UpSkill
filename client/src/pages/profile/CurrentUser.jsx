@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import avatar from "../../assets/dashboard/avatar.svg";
+import { useEffect, useState } from "react";
+import noUserImg from "../../assets/dashboard/noUser.png";
 import bio from "../../assets/dashboard/bio.svg";
 import stats from "../../assets/dashboard/statistics.svg";
 import session from "../../assets/dashboard/sessions.svg";
@@ -72,12 +72,13 @@ function CurrentUser() {
       <div className="lg:flex lg:h-max lg:flex-row lg:justify-between">
         <section className="lg:ml-8 lg:w-1/3">
           <div className="flex items-center flex-col lg:h-auto lg:my-12">
+
             <h2 className="font-title font-bold text-primary text-3xl mb-8 capitalize">
               Hi, I'm {user?.first_name} 👋
             </h2>
             <div>
               <img
-                src={user?.profilePic || avatar}
+                src={user?.profilePic || noUserImg}
                 alt=""
                 className="h-32 w-32 rounded-full object-cover border-2 border-baby"
               />

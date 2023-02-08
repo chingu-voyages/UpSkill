@@ -8,6 +8,7 @@ import postReviewReducer from "../features/post-reviews/post-review-slice";
 import searchReducer from "../features/search/search-slice";
 import signUpReducer from "../features/signup/signup-slice";
 import userStateReducer from "../features/user/user-slice";
+import messagesReducer from "../features/messages/messages-slice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     postReview: postReviewReducer,
     searchSkill: searchReducer,
     signUp: signUpReducer,
+    messages: messagesReducer,
   },
 });
