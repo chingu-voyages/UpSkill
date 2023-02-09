@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getMessages } from "../../api";
+import Alert from "../Alert";
 import SendMessage from "./SendMessage";
 
 const Conversations = ({ conversationId, openMsg, socket, correspondance }) => {
@@ -27,8 +28,12 @@ const Conversations = ({ conversationId, openMsg, socket, correspondance }) => {
   useEffect(() => {
     const fetchMessages = async () => {
       if (conversationId !== undefined) {
-        const response = await getMessages(conversationId);
-        setMessages(response.data);
+        try {
+          const response = await getMessages(conversationId);
+          setMessages(response.data);
+        } catch (error) {
+          console.log(error);
+        }
       }
     };
     fetchMessages();
