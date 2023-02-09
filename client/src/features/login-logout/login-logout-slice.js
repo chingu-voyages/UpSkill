@@ -23,6 +23,7 @@ const authSlice = createSlice({
     isAuthenticated: false,
     token: null,
     error: null,
+    loading: false,
   },
   reducers: {
     logOut(state) {
@@ -50,9 +51,14 @@ const authSlice = createSlice({
         state.token = action.payload;
         state.error = null;
         state.isAuthenticated = true;
+        state.loading = false;
+      })
+      .addCase(login.pending, (state, action) => {
+        state.loading = true;
       })
       .addCase(login.rejected, (state, action) => {
         state.error = JSON.parse(action.error.message).Error;
+        state.loading = false;
       });
   },
 });

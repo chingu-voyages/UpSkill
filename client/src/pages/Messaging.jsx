@@ -6,22 +6,32 @@ import { io } from "socket.io-client";
 import Conversations from "../components/messages/Conversations";
 import { conversations } from "../features/messages/messages-slice";
 import { useDispatch, useSelector } from "react-redux";
+import Alert from "../components/Alert";
 
 const Messaging = () => {
   const [openMsg, setOpenMsg] = useState(false);
   const [seeMessages, setSeeMessages] = useState({});
   const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [isConnected, setIsConnected] = useState(true);
   const user = useSelector((state) => state.user);
   const conversationList = useSelector((state) => state.messages.conversations);
   const socket = useRef();
   const dispatch = useDispatch();
+
   useEffect(() => {
-    socket.current = io(import.meta.env.VITE_SERVER);
-    socket.current?.on("connect", () => {});
+    if (isConnected) {
+      socket.current = io(import.meta.env.VITE_SERVER);
+      socket.current.on("connect", () => {
+        setIsConnected(true);
+      });
+      socket.current.on("connect_error", () => {
+        setIsConnected(false);
+      });
+    }
     return () => {
       socket.current.disconnect();
     };
-  }, []);
+  }, [isConnected]);
 
   useEffect(() => {
     if (user.id !== null) {
@@ -154,6 +164,7 @@ const Messaging = () => {
           </div>
         </div>
       )}
+      {!isConnected && <Alert color="yellow">Something wrong. Reload</Alert>}
     </>
   );
 };

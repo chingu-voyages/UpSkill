@@ -16,7 +16,12 @@ export const signup = createAsyncThunk(
 
 export const signUpSlice = createSlice({
   name: "signUp",
-  initialState: { registered: false, error: null, isSignup: false },
+  initialState: {
+    registered: false,
+    error: null,
+    isSignup: false,
+    loading: false,
+  },
   reducers: {
     setErrorSignup(state, action) {
       state.error = action.payload;
@@ -36,14 +41,22 @@ export const signUpSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         sessionStorage.setItem("U-connect", action.payload?.token);
         state.registered = true;
+        state.loading = false;
+      })
+      .addCase(signup.pending, (state) => {
+        state.loading = true;
       })
       .addCase(signup.rejected, (state, action) => {
         state.error = JSON.parse(action.error.message).Error;
+        state.loading = false;
       });
   },
 });
 
-export const { setErrorSignup, setIsSignup, notPostSignUp } =
-  signUpSlice.actions;
+export const {
+  setErrorSignup,
+  setIsSignup,
+  notPostSignUp,
+} = signUpSlice.actions;
 
 export default signUpSlice.reducer;
