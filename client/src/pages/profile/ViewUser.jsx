@@ -146,7 +146,7 @@ function ViewUser({ id }) {
             <a
               className="card p-6 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
               href={user?.calendly_link || "#"}
-              target="_blank"
+              target={user?.calendly_link ? "_blank" : ""}
             >
               <div className="flex p-2  justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
@@ -189,7 +189,7 @@ function ViewUser({ id }) {
             <a
               className="card lg:my-12 p-6 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
               href={user?.calendly_link || "#"}
-              target="_blank"
+              target={user?.calendly_link ? "_blank" : ""}
             >
               <div className="flex w-full justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
@@ -238,7 +238,7 @@ function ViewUser({ id }) {
             </div>
           </div>
           <div className="card px-4 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
-            <h3 className="mt-2 md:text-start lg:w-full lg:ml-16 lg:my-4 text-primary font-bold text-xl">
+            <h3 className="mt-2 lg:my-4 text-primary font-bold text-xl">
               {reviews?.length === 1
                 ? `${reviews?.length} Review`
                 : `${reviews?.length} Reviews`}
