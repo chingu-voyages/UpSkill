@@ -22,7 +22,7 @@ Removed sections:
   
    
 <h2>
-    <a href="https://chingu.io">View Demo</a>
+    <a href="https://upskill-client.onrender.com/">View Demo</a>
   </h2>
 </div>
 
