@@ -35,7 +35,6 @@ function ViewUser({ id }) {
       fetchUser();
     }
   }, [id]);
-
   // fetch the reviews for the user's profile
   useEffect(() => {
     const fetchReviews = async () => {
@@ -67,7 +66,7 @@ function ViewUser({ id }) {
     }
   }, [postReview]);
 
-  const handleClick = (e) => {
+  const handleClick = e => {
     e.stopPropagation();
     setPostReview(true);
   };
@@ -118,7 +117,7 @@ function ViewUser({ id }) {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                {user?.skills}
+                {user?.skills || ""}
               </span>
             </div>
             <div className="flex flex-col items-center my-4">
@@ -129,7 +128,7 @@ function ViewUser({ id }) {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                TODO: ADD TO DB
+                {user?.learning || ""}
               </span>
             </div>
           </div>
@@ -139,19 +138,19 @@ function ViewUser({ id }) {
                 Misson Statement
               </h3>
               <span className="skill-set text-grotto-100 p-4 text-justify">
-                {user?.mission}
+                {user?.mission || ""}
               </span>
             </div>
           </div>
           {width >= 1024 ? (
             <a
               className="card p-6 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link}
+              href={user?.calendly_link || "#"}
               target="_blank"
             >
               <div className="flex p-2  justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
-                  Book a session with David
+                  Book a session with {user?.first_name || ""}
                 </h3>
                 <FaCalendarAlt
                   size={25}
@@ -165,9 +164,11 @@ function ViewUser({ id }) {
                 <FaBookOpen size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">{user?.about}</BioDetails>
+              <BioDetails title="About">{user?.about || ""}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
+              <BioDetails title="Occupation">
+                {user?.occupation || ""}
+              </BioDetails>
             </div>
           )}
         </section>
@@ -178,19 +179,21 @@ function ViewUser({ id }) {
                 <img src={bio} alt="" className="w-6" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">{user?.about}</BioDetails>
+              <BioDetails title="About">{user?.about || ""}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
+              <BioDetails title="Occupation">
+                {user?.occupation || ""}
+              </BioDetails>
             </div>
           ) : (
             <a
               className="card lg:my-12 p-6 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link}
+              href={user?.calendly_link || "#"}
               target="_blank"
             >
               <div className="flex w-full justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
-                  Book a session with David
+                  Book a session with {user?.first_name || ""}
                 </h3>
                 <FaCalendarAlt
                   size={25}

@@ -20,6 +20,7 @@ const initialState = {
   about: null,
   hobbies: null,
   mission: null,
+  learning: null,
   tokens: null,
   profilePic: null,
   profilePicId: null,
@@ -48,6 +49,7 @@ export const userSlice = createSlice({
           (state.hobbies = null),
           (state.mission = null),
           (state.tokens = null),
+          (state.learning = null),
           (state.profilePic = null),
           (state.profilePicId = null),
           (state.calendly_link = null),
@@ -60,6 +62,7 @@ export const userSlice = createSlice({
           (state.about = action.payload?.about),
           (state.hobbies = action.payload?.hobbies),
           (state.mission = action.payload?.mission),
+          (state.learning = action.payload?.learning),
           (state.tokens = action.payload?.tokens),
           (state.profilePic = action.payload?.profilePic),
           (state.profilePicId = action.payload?.profilePicId),
@@ -89,9 +92,12 @@ export const userSlice = createSlice({
       if (action.payload?.error) {
         return { ...state };
       } else {
-        state.skills = action.payload.skills
+        (state.skills = action.payload.skills
           ? action.payload.skills
-          : state.skills;
+          : state.skills),
+          (state.learning = action.payload.learning
+            ? action.payload.learning
+            : state.learning);
       }
     },
     setPhoto(state, action) {
