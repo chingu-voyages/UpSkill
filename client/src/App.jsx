@@ -23,7 +23,7 @@ import { getUserInfo } from "./api";
 
 export const jwtFuncDecode = () => {
   try {
-    return jwtDecode(sessionStorage.getItem("U-connect"));
+    return jwtDecode(localStorage.getItem("U-connect"));
   } catch (e) {
     return { error: true };
   }
@@ -36,8 +36,8 @@ const ProtectedRoutes = ({ condition, redirection = "/" }) => {
 };
 
 function App() {
-  const auth = useSelector((state) => state.auth);
-  const currentUserId = useSelector((state) => state.user.id);
+  const auth = useSelector(state => state.auth);
+  const currentUserId = useSelector(state => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
 
