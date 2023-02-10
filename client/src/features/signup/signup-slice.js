@@ -39,11 +39,11 @@ export const signUpSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(signup.fulfilled, (state, action) => {
-        sessionStorage.setItem("U-connect", action.payload?.token);
+        localStorage.setItem("U-connect", action.payload?.token);
         state.registered = true;
         state.loading = false;
       })
-      .addCase(signup.pending, (state) => {
+      .addCase(signup.pending, state => {
         state.loading = true;
       })
       .addCase(signup.rejected, (state, action) => {
@@ -53,10 +53,7 @@ export const signUpSlice = createSlice({
   },
 });
 
-export const {
-  setErrorSignup,
-  setIsSignup,
-  notPostSignUp,
-} = signUpSlice.actions;
+export const { setErrorSignup, setIsSignup, notPostSignUp } =
+  signUpSlice.actions;
 
 export default signUpSlice.reducer;
