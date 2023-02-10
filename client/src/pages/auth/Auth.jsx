@@ -9,6 +9,7 @@ import "./index.css";
 import {
   ifAuthenticated,
   login,
+  setErrortoNull,
 } from "../../features/login-logout/login-logout-slice";
 import {
   setErrorSignup,
@@ -52,6 +53,15 @@ function Auth() {
     //linkedIn authentification
   };
 
+  useEffect(
+    () => () => {
+      dispatch(setErrorSignup(""));
+      dispatch(setIsSignup(false));
+      dispatch(setErrortoNull());
+    },
+    []
+  );
+  console.log(isSignUp);
   useEffect(() => {
     if (signupState.registered) {
       navigate("/post-signup");
@@ -65,6 +75,7 @@ function Auth() {
   const switchAuth = () => {
     dispatch(setErrorSignup(""));
     dispatch(setIsSignup());
+    dispatch(setErrortoNull());
     dataRef.password.current.value = "";
     dataRef.email.current.value = "";
     if (isSignUp) {
@@ -167,7 +178,7 @@ function Auth() {
                 {isSignUp ? "Sign Up" : "Login"}
               </h1>
               {(auth.error || signupState.error) && (
-                <span className="text-white text-sm my-4 font-bold bg-red-400 border-red-700 border-2 p-2 rounded-lg shadow-lg">
+                <span className="flex text-white text-sm my-4 font-bold bg-red-400 border-red-700 border-2 p-2 rounded-lg shadow-lg">
                   {" "}
                   {auth.error || signupState.error}{" "}
                 </span>
