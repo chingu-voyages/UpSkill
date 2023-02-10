@@ -16,6 +16,7 @@ import {
   signup,
 } from "../../features/signup/signup-slice";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 /**
  * this is the interface for the login and sign up
@@ -32,6 +33,7 @@ function Auth() {
     password: useRef(null),
     confirmPassword: useRef(null),
   };
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
   const signupState = useSelector((state) => state.signUp);
   const isSignUp = signupState.isSignup;
   const auth = useSelector((state) => state.auth);
@@ -59,6 +61,27 @@ function Auth() {
       navigate("/dashboard");
     }
   }, [auth.isAuthenticated, signupState.registered]);
+
+  const switchAuth = () => {
+    dispatch(setErrorSignup(""));
+    dispatch(setIsSignup());
+    dataRef.password.current.value = "";
+    dataRef.email.current.value = "";
+    if (isSignUp) {
+      dataRef.firstName.current.value = "";
+      dataRef.lastName.current.value = "";
+    }
+  };
+
+  useEffect(() => {
+    function handleResize() {
+      setScreenSize(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [screenSize]);
   /**
    * this function processes sending data
    * that the user has to enter manually
@@ -85,7 +108,7 @@ function Auth() {
       if (
         dataRef.password.current.value !== dataRef.confirmPassword.current.value
       ) {
-        dispatch(setErrorSignup("password should equal to re-type password"));
+        dispatch(setErrorSignup("password and re-type password not match."));
         return;
       }
       dispatch(
@@ -114,7 +137,7 @@ function Auth() {
   };
 
   return (
-    <div className="container h-full flex justify-center content-center items-center mx-auto text-center">
+    <div className="container sm:h-full flex justify-center md:content-center md:items-center mx-auto text-center">
       <div className="md:grid md:grid-cols-2">
         <div className="md:flex-auto md:content-center md:justify-center ">
           <div className="">
@@ -135,23 +158,23 @@ function Auth() {
             className="bg-ivory-100 m-4 p-4 rounded-lg drop-shadow-lg md:h-full md:w-3/4 
           md:flex md:justify-center md:content-center md:items-center"
           >
-            <div className="md:w-full md:h-full">
+            <div className="md:w-full md:h-full ">
               <h1
-                className={`text-grotto-100 font-sans ${
-                  !isSignUp ? "md:text-4xl md:h-16 md:mt-4" : "text-2xl"
+                className={`text-grotto-100 font-sans my-2 ${
+                  !isSignUp ? "md:text-4xl md:h-16 md:mt-4" : "text-2xl "
                 }`}
               >
                 {isSignUp ? "Sign Up" : "Login"}
               </h1>
               {(auth.error || signupState.error) && (
-                <span className="text-red-600">
+                <span className="text-white text-sm my-4 font-bold bg-red-400 border-red-700 border-2 p-2 rounded-lg shadow-lg">
                   {" "}
                   {auth.error || signupState.error}{" "}
                 </span>
               )}
               <form action="" onSubmit={handleSubmit}>
                 {isSignUp && (
-                  <div className="flex ">
+                  <div className={`${screenSize <= 640 ? "flex-col" : "flex"}`}>
                     <Input
                       type="text"
                       name="firstName"
@@ -197,7 +220,10 @@ function Auth() {
                   </Input>
                 )}
                 <br />
-                <ButtonPrimary type={"submit"}>
+                <ButtonPrimary
+                  type={"submit"}
+                  loading={isSignUp ? signupState.loading : auth.loading}
+                >
                   {isSignUp ? "Sign up" : "Login"}
                 </ButtonPrimary>
               </form>
@@ -208,10 +234,7 @@ function Auth() {
                   : "Don't have an account yet?"}{" "}
                 <span
                   className="cursor-pointer hover:text-grotto-100"
-                  onClick={() => {
-                    dispatch(setErrorSignup(null));
-                    dispatch(setIsSignup());
-                  }}
+                  onClick={switchAuth}
                 >
                   Click here!
                 </span>{" "}

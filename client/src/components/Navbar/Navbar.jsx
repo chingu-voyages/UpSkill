@@ -46,7 +46,12 @@ const Navbar = () => {
       onClick={e => e.stopPropagation()}
     >
       <div className="flex items-center justify-between max-w-[1440px] h-[4rem] px-6 md:px-10 lg:px-14 text-primary">
-        <Link to="/">
+        <Link
+          to="/"
+          onClick={() => {
+            setClick(false);
+          }}
+        >
           <h3 className="font-bold font-title text-2xl">UpSkill</h3>
         </Link>
         <div className="menu">
@@ -75,7 +80,7 @@ const Navbar = () => {
             <ul className={click ? "nav-menu active" : "nav-menu"}>
               <NavItem
                 output={"Profile"}
-                direction={"/profile"}
+                direction={`/profile/${userId}`}
                 setClicker={setClick}
                 clicker={click}
               />

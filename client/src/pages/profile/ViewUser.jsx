@@ -28,20 +28,19 @@ function ViewUser({ id }) {
     if (id) {
       const fetchUser = async () => {
         const res = await axios.get(
-          `${import.meta.env.VITE_SERVER}user/id/${id}`
+          `${import.meta.env.VITE_SERVER}/user/id/${id}`
         );
         setUser(res.data);
       };
       fetchUser();
     }
   }, [id]);
-
   // fetch the reviews for the user's profile
   useEffect(() => {
     const fetchReviews = async () => {
       if (id) {
         const res = await axios.get(
-          `${import.meta.env.VITE_SERVER}user/review/${id}`
+          `${import.meta.env.VITE_SERVER}/user/review/${id}`
         );
         setReviews(res.data);
       }
@@ -118,7 +117,7 @@ function ViewUser({ id }) {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                {user?.skills}
+                {user?.skills || ""}
               </span>
             </div>
             <div className="flex flex-col items-center my-4">
@@ -129,7 +128,7 @@ function ViewUser({ id }) {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                TODO: ADD TO DB
+                {user?.learning || ""}
               </span>
             </div>
           </div>
@@ -139,19 +138,19 @@ function ViewUser({ id }) {
                 Misson Statement
               </h3>
               <span className="skill-set text-grotto-100 p-4 text-justify">
-                {user?.mission}
+                {user?.mission || ""}
               </span>
             </div>
           </div>
           {width >= 1024 ? (
             <a
               className="card p-6 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link}
-              target="_blank"
+              href={user?.calendly_link || "#"}
+              target={user?.calendly_link ? "_blank" : ""}
             >
               <div className="flex p-2  justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
-                  Book a session with David
+                  Book a session with {user?.first_name || ""}
                 </h3>
                 <FaCalendarAlt
                   size={25}
@@ -165,9 +164,11 @@ function ViewUser({ id }) {
                 <FaBookOpen size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">{user?.about}</BioDetails>
+              <BioDetails title="About">{user?.about || ""}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
+              <BioDetails title="Occupation">
+                {user?.occupation || ""}
+              </BioDetails>
             </div>
           )}
         </section>
@@ -178,19 +179,21 @@ function ViewUser({ id }) {
                 <img src={bio} alt="" className="w-6" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">{user?.about}</BioDetails>
+              <BioDetails title="About">{user?.about || ""}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
+              <BioDetails title="Occupation">
+                {user?.occupation || ""}
+              </BioDetails>
             </div>
           ) : (
             <a
               className="card lg:my-12 p-6 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link}
-              target="_blank"
+              href={user?.calendly_link || "#"}
+              target={user?.calendly_link ? "_blank" : ""}
             >
               <div className="flex w-full justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
-                  Book a session with David
+                  Book a session with {user?.first_name || ""}
                 </h3>
                 <FaCalendarAlt
                   size={25}
@@ -202,7 +205,9 @@ function ViewUser({ id }) {
           <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <div className="flex mt-4">
               <img src={stats} alt="" />
-              <h3 className="ml-2 text-primary font-bold">David Statistics</h3>
+              <h3 className="ml-2 text-primary font-bold w-full">
+                {user ? `${user?.first_name}'s` : "User's"} Statistics
+              </h3>
             </div>
 
             <div className="flex max-[550px]:flex-col justify-between w-full p-8 max-[490px]:px-4">
@@ -233,7 +238,7 @@ function ViewUser({ id }) {
             </div>
           </div>
           <div className="card px-4 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
-            <h3 className="mt-2 md:text-start lg:w-full lg:ml-16 lg:my-4 text-primary font-bold text-xl">
+            <h3 className="mt-2 lg:my-4 text-primary font-bold text-xl">
               {reviews?.length === 1
                 ? `${reviews?.length} Review`
                 : `${reviews?.length} Reviews`}
@@ -251,13 +256,13 @@ function ViewUser({ id }) {
             <div className="flex gap-4 p-4">
               <a
                 href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-grotto-100"
+                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
               >
                 See more
               </a>
               <button
                 onClick={handleClick}
-                className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline outline-2 border-none outline-primary"
+                className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-primary"
               >
                 Leave a review
               </button>

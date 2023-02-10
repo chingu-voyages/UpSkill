@@ -22,7 +22,10 @@ export const conversations = createAsyncThunk(
       );
       return conversationList;
     } catch (error) {
-      throw new Error(JSON.stringify(error.response?.data));
+      if (error.response) {
+        throw new Error(JSON.stringify(error.response?.data));
+      }
+      throw new Error(JSON.stringify({ Error: "Network error!" }));
     }
   }
 );
@@ -40,7 +43,7 @@ const messageSlice = createSlice({
         state.conversations = action.payload;
       })
       .addCase(conversations.rejected, (state, action) => {
-        state.error = JSON.parse(action.error.message).Error;
+        state.error = JSON.parse(action.error.message)?.Error;
       });
   },
 });

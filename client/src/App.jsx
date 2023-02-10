@@ -23,7 +23,7 @@ import { getUserInfo } from "./api";
 
 export const jwtFuncDecode = () => {
   try {
-    return jwtDecode(sessionStorage.getItem("U-connect"));
+    return jwtDecode(localStorage.getItem("U-connect"));
   } catch (e) {
     return { error: true };
   }
@@ -40,21 +40,20 @@ function App() {
   const currentUserId = useSelector(state => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
+  
   useEffect(
     () => {
       dispatch(ifAuthenticated());
       dispatch(setUser(decoded));
 
-      if (currentUserId) {
-        const fetch = async () => {
-          const fetchData = await getUserInfo(currentUserId);
-          dispatch(setUserData(fetchData.data));
-        };
-        fetch();
-      }
-    },
-    [ auth ]
-  );
+    if (currentUserId) {
+      const fetch = async () => {
+        const fetchData = await getUserInfo(currentUserId);
+        dispatch(setUserData(fetchData.data));
+      };
+      fetch();
+    }
+  }, [auth.isAuthenticated, currentUserId]);
 
   return (
     <Router>

@@ -27,7 +27,7 @@ module.exports = {
       },
       width: {
         dashSKillsSection: "24.625rem",
-        dashScheduleSection: "46.125rem",
+        dashScheduleSection: "55.125rem",
         smalldashsch: "22.125rem",
       },
       gap: {

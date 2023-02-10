@@ -29,7 +29,7 @@ const getUsersBySkill = async (req, res) => {
     const { data } = await supabase
       .from("User_data")
       .select(
-        "first_name, last_name, userId, skills, about, mission, profilePic, hobbies, occupation, location"
+        "first_name, last_name, userId, skills, about, mission, profilePic, hobbies, learning, occupation, location"
       )
       .ilike("skills", `%${skill}%`);
 
@@ -111,7 +111,6 @@ const updateUserInfo = async (req, res) => {
       return res.status(500).json({ Error_Updating_User: error });
     }
   } catch (error) {
-    console.log("caught: ", error);
     return res.status(500).json({ Error_updating_user_data: error });
   }
 };
@@ -194,7 +193,6 @@ const setUserCalendlyLink = async (req, res) => {
 };
 
 const postUserReview = async (req, res) => {
-  console.log("received");
   try {
     const { recevierId, reviewerId, starRating, review } = req.body;
     if (!reviewerId || !recevierId) {
@@ -206,7 +204,7 @@ const postUserReview = async (req, res) => {
 
     const { data, error } = await supabase
       .from("Reviews")
-      .insert([ { userId: recevierId, reviewerId, review, stars: starRating } ])
+      .insert([{ userId: recevierId, reviewerId, review, stars: starRating }])
       .select();
 
     if (!error) {

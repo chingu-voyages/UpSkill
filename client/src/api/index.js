@@ -19,6 +19,7 @@ export const getConversation = userid =>
 
 export const getMessages = relationId => instance.get(`messages/${relationId}`);
 
+
 export const postAMessage = (relationId, credentials) =>
   instance.post(`/messages/q/${relationId}`, credentials);
 

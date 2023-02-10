@@ -1,16 +1,15 @@
+import { Link } from "react-router-dom";
 import community from "../assets/landing/community_nobg.png";
 
 const Community = () => {
   return (
-    <div className="flex flex-col w-full h-screen justify-center bg-baby">
+    <div className="flex flex-col mt-[10rem] min-[350px]:mt-4 h-screen justify-center bg-baby">
       <div className="lg:flex lg:flex-row">
-        <div className="w-1/2 min-w-[600px] m-auto lg:w-2/3">
-          <img
-            className="-mt-20 p-5 lg:w-full m:w-full"
-            src={community}
-            alt="community"
-          />
-        </div>
+        <img
+          className="-mt-20 lg:w-full m:w-full min-w-[300px] overflow-hidden"
+          src={community}
+          alt="community"
+        />
         <div className="flex flex-col w-full justify-center m-auto lg:w-1/3 lg:mr-40">
           <div className="-mt-10 p-5">
             <h1 className="text-xl text-primary text-center font-bold mb-5 lg:text-4xl">
@@ -23,9 +22,11 @@ const Community = () => {
               experience of our community.
             </p>
             <div className="flex justify-center w-full mt-8">
-              <button className="min-w-[250px] text-slate-100 rounded-lg p-2 bg-grotto-100">
-                Join the community
-              </button>
+              <Link to="/auth">
+                <button className="min-w-[250px] text-slate-100 rounded-lg p-2 bg-grotto-100">
+                  Join the community
+                </button>
+              </Link>
             </div>
           </div>
         </div>

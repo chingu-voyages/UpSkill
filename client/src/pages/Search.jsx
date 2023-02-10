@@ -34,7 +34,6 @@ function Search() {
     } else if (inputFromHeroLg) {
       setSkill(inputFromHeroLg);
     }
-    // console.log(location);
   };
 
   // Track if form input coming from landing pages
@@ -50,7 +49,7 @@ function Search() {
       try {
         if (skill) {
           const res = await axios.get(
-            `http://localhost:3000/user/skills?skill=${skill}`
+            `${import.meta.env.VITE_SERVER}/user/skills?skill=${skill}`
           );
           setMentorData(res.data.users);
           if (res) {
@@ -76,8 +75,9 @@ function Search() {
         <form onSubmit={handleSubmit} className="my-4 col-span-7 w-full">
           <div className="flex">
             <input
-              className="border border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
+              className="border border-solid rounded-tl-lg p-2 rounded-bl-lg outline-none text-sm w-full"
               name="search"
+              value={searchForm}
               id="search"
               type="text"
               placeholder="Search skills"
@@ -112,17 +112,17 @@ function Search() {
         mentorData &&
         mentorData.map(mentor => (
           <SearchProfileCard
-            key={mentor.userId}
+            key={mentor?.userId}
             avatar={mentor.profilePic || noUserImg}
-            name={`${mentor.first_name} ${mentor.last_name}`}
-            skills={mentor.skills}
-            id={mentor.userId}
+            name={mentor ? `${mentor.first_name} ${mentor.last_name}` : ""}
+            skills={mentor ? mentor.skills : ""}
+            id={mentor?.userId}
             bio={{
-              job: `${mentor.occupation}`,
-              location: `${mentor.location}`,
+              job: `${mentor ? mentor?.occupation : ""}`,
+              location: `${mentor ? mentor?.location : ""}`,
             }}
           >
-            {mentor.about}
+            {mentor ? mentor?.about : ""}
           </SearchProfileCard>
         ))}
     </main>

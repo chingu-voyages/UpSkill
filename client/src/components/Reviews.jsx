@@ -10,7 +10,7 @@ function Reviews({ stars, children, id }) {
     if (id) {
       const fetchReviewer = async () => {
         const res = await axios.get(
-          `${import.meta.env.VITE_SERVER}user/id/${id}`
+          `${import.meta.env.VITE_SERVER}/user/id/${id}`
         );
         setReviewer(res.data);
       };
@@ -20,7 +20,7 @@ function Reviews({ stars, children, id }) {
   return (
     <>
       {id && (
-        <div className="grid justify-items-center md:pr-4 md:border-y-2 md:w-full md:border-ivory-50 md:grid-cols-5">
+        <div className="grid justify-items-center md:pr-4 border-y-2 w-full md:border-ivory-50 md:grid-cols-5">
           <div className="self-center">
             <img
               src={reviewer?.profilePic || noUserImg}
@@ -33,7 +33,9 @@ function Reviews({ stars, children, id }) {
           <div className="md:col-span-4 md:my-4 md:w-full">
             <div className="flex items-center gap-4 px-4 md:p-0">
               <h3 className="font-bold md:my-2 md:text-lg text-primary md:text-start text-center text-xl">
-                {reviewer?.first_name} {reviewer?.last_name}
+                {reviewer
+                  ? `${reviewer?.first_name} ${reviewer?.last_name}`
+                  : ""}
               </h3>
               <div className="flex items-center gap-1">
                 <span className="text">{stars && stars}</span>
