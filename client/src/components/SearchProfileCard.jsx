@@ -3,6 +3,8 @@ import { BsFillStarFill, BsCheck2All } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { ImAttachment } from "react-icons/im";
 import { RxCrossCircled } from "react-icons/rx";
+import { FiSend } from "react-icons/fi";
+import { MdCancelScheduleSend } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { postAMessage } from "../api";
@@ -15,6 +17,17 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const user = useSelector((state) => state.user);
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+
+  useEffect(() => {
+    function handleResize() {
+      setScreenSize(window.innerWidth);
+    }
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [screenSize]);
 
   const handleClick = () => {
     navigate(`/profile/${id}`);
@@ -89,28 +102,39 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
           <div>{bio ? bio?.location : ""}</div>
         </div>
       </div>
-      <div className="col-span-4   flex flex-col lg:m-4 lg:flex-row lg:col-span-12 lg:justify-end lg:order-last">
+      <div
+        className={`flex ${
+          screenSize <= 500 && state
+            ? "col-span-12 flex-row order-last"
+            : "flex-col col-span-4"
+        } lg:m-4 lg:flex-row lg:col-span-12 lg:justify-end lg:order-last`}
+      >
         {state ? (
           <div className="flex items-center w-full overflow-x-hidden bg-slate-50 p-2">
             <ImAttachment color="#265B8B" className="mr-2" />
-            <form className="w-full flex bg-slate-50" onSubmit={HandleSubmit}>
+            <form
+              className="w-full flex items-center bg-slate-50"
+              onSubmit={HandleSubmit}
+            >
               <input
                 type="text"
                 placeholder="Type a message"
-                className="border border-solid rounded-lg p-2 outline-none text-sm w-full"
+                className={`border border-solid rounded-lg px-2 ${
+                  screenSize <= 500 ? "h-[30px]" : "py-2"
+                } outline-none text-sm w-full`}
                 ref={inputRef}
               />
-              <button className="search-btn font-bold" type="submit">
-                send
+              <button className="search-btn font-bold m-2" type="submit">
+                {screenSize <= 500 ? <FiSend /> : "send"}
               </button>
             </form>
             <button
-              className="search-btn bg-red-400 border-red-400 hover:bg-rose-800 font-bold"
+              className="search-btn bg-red-400 border-red-400 hover:bg-rose-800 font-bold m-0"
               onClick={() => {
                 setState(false);
               }}
             >
-              cancel
+              {screenSize <= 500 ? <MdCancelScheduleSend /> : "cancel"}
             </button>
           </div>
         ) : (
@@ -126,19 +150,23 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
           </>
         )}
       </div>
-      <div
-        className="
+      {screenSize <= 500 && state ? null : (
+        <div
+          className="
       text-[10px] lg:text-base font-semibold leading-normal col-span-8 text-grotto-100 flex gap-60"
-      >
-        {children}
-      </div>
+        >
+          {children}
+        </div>
+      )}
       {send === true ? (
         <Alert color="#2d9a2dd9" position="top-0 right-0">
-          Messsage send <BsCheck2All className="ml-2" size={15} />
+          {screenSize >= 500 ? "Messsage send" : null}
+          <BsCheck2All className="ml-2" size={15} />
         </Alert>
       ) : send === false ? (
         <Alert color="#e50e0ee3" position="top-0 right-0">
-          Message not send. Retry <RxCrossCircled className="ml-2" size={15} />
+          {screenSize >= 500 ? "Message not send. Retry " : null}
+          <RxCrossCircled className="ml-2" size={15} />
         </Alert>
       ) : null}
     </div>
