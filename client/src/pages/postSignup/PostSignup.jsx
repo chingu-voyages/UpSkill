@@ -8,19 +8,14 @@ import axios from "axios";
 
 const PostSignup = () => {
   const { id } = useSelector(state => state.user);
-  const options = [ "Online only", "Online & In-person", "In-person only" ];
+  const options = ["Online only", "Online & In-person", "In-person only"];
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleSubmit = async e => {
     e.preventDefault();
-    const {
-      wantToTeach,
-      wantToLearn,
-      connectingFrom,
-      occupation,
-      selector,
-    } = e.target.elements;
+    const { wantToTeach, wantToLearn, connectingFrom, occupation, selector } =
+      e.target.elements;
+
     const postData = {
       teaching: wantToTeach.value ? wantToTeach.value : null,
       learning: wantToLearn.value ? wantToLearn.value : null,
@@ -31,22 +26,25 @@ const PostSignup = () => {
 
     dispatch(notPostSignUp());
     dispatch(ifAuthenticated());
-    // make a put request to add the postData to the user's profile data in the DB.
-    // then if post is successful redirect to the dashboard
-    const { teaching, learning, location, job } = postData;
     try {
-      id &&
-        (await axios.put(`${import.meta.env.VITE_SERVER}/user/info/`, {
-          id: id,
-          skills: teaching,
-          learning: learning,
-          occupation: job,
-          location: location,
-        }));
+      if (id) {
+        const res = await axios.put(
+          `${import.meta.env.VITE_SERVER}/user/info/`,
+          {
+            id: id,
+            skills: postData.teaching,
+            learning: postData.learning,
+            occupation: postData.job,
+            location: postData.location,
+          }
+        );
+        if (res) {
+          navigate("/dashboard");
+        }
+      }
     } catch (e) {
       return new Error(e);
     }
-    navigate("/dashboard");
   };
 
   return (

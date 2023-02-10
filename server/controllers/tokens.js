@@ -33,7 +33,6 @@ const sendTokens = async (req, res) => {
         return res.status(404).json({ Sending_User_Not_Found: sendErr });
       }
       const senderTokens = Number(Sender[0].tokens);
-      console.log("senderToken before: ", senderTokens);
 
       // Get Recipient User's current Token count
       const { data: Receiver, receiverErr } = await supabase
@@ -46,7 +45,6 @@ const sendTokens = async (req, res) => {
         return res.status(404).json({ Receiving_User_Not_Found: receiverErr });
       }
       const receiverTokens = Number(Receiver[0].tokens);
-      console.log("receiverTokens before: ", receiverTokens);
 
       if (senderTokens < tokensSent) {
         return res

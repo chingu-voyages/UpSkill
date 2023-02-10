@@ -7,22 +7,16 @@ import teach from "../../assets/dashboard/teaching.svg";
 import learn from "../../assets/dashboard/learner.svg";
 import { BsFillStarFill } from "react-icons/bs";
 import BioDetails from "../../components/BioDetails";
-import {
-  FaBookOpen,
-  FaBookReader,
-  FaBrain,
-  FaCalendarAlt,
-} from "react-icons/fa";
+import { FaBookOpen, FaBookReader, FaBrain } from "react-icons/fa";
 
 import { useSelector } from "react-redux";
 
 import Reviews from "../../components/Reviews";
-import ReviewModal from "../../components/Modal/ReviewModal";
 import axios from "axios";
 function CurrentUser() {
   const [width, setWidth] = useState(window.innerWidth);
   const [reviews, setReviews] = useState(null);
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
 
   useEffect(() => {
     function handleResize() {
@@ -33,7 +27,6 @@ function CurrentUser() {
       window.removeEventListener("resize", handleResize);
     };
   }, [width]);
-
   useEffect(() => {
     const fetchReviews = async () => {
       if (user.id) {
@@ -85,7 +78,7 @@ function CurrentUser() {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                {user?.skills}
+                {user?.skills || ""}
               </span>
             </div>
             <div className="flex flex-col items-center my-4">
@@ -96,7 +89,7 @@ function CurrentUser() {
                 </h3>
               </div>
               <span className="skill-set  text-grotto-100 mt-4">
-                TODO: ADD TO DB
+                {user?.learning || ""}
               </span>
             </div>
           </div>
@@ -106,65 +99,37 @@ function CurrentUser() {
                 Misson Statement
               </h3>
               <span className="skill-set text-grotto-100 p-4 text-justify">
-                {user?.mission}
+                {user?.mission || ""}
               </span>
             </div>
           </div>
-          {width >= 1024 ? (
-            <a
-              className="card p-6 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link}
-              target="_blank"
-            >
-              <div className="flex p-2  justify-center">
-                <h3 className="font-bold mr-2 text-primary text-xl">
-                  Book a session with David
-                </h3>
-                <FaCalendarAlt
-                  size={25}
-                  className="text-grotto-100 hover:text-primary"
-                />
-              </div>
-            </a>
-          ) : (
+          {width >= 1024 && (
             <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
               <div className="flex w-full p-4 justify-center border-b-2 border-ivory-50">
                 <FaBookOpen size={25} className="text-grotto-100" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">{user?.about}</BioDetails>
+              <BioDetails title="About">{user?.about || ""}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
+              <BioDetails title="Occupation">
+                {user?.occupation || ""}
+              </BioDetails>
             </div>
           )}
         </section>
         <section className="lg:mr-8 lg:w-1/2 lg:flex lg:flex-col lg:content-center  ">
-          {width >= 1024 ? (
+          {width >= 1024 && (
             <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
               <div className="flex w-full p-4 justify-center border-b-2 border-ivory-50">
                 <img src={bio} alt="" className="w-6" />
                 <h3 className="font-bold ml-2 text-primary text-xl">Bio</h3>
               </div>
-              <BioDetails title="About">{user?.about}</BioDetails>
+              <BioDetails title="About">{user?.about || ""}</BioDetails>
               <BioDetails title="Education"></BioDetails>
-              <BioDetails title="Occupation">{user?.occupation}</BioDetails>
+              <BioDetails title="Occupation">
+                {user?.occupation || ""}
+              </BioDetails>
             </div>
-          ) : (
-            <a
-              className="card lg:my-12 p-6 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link}
-              target="_blank"
-            >
-              <div className="flex w-full justify-center">
-                <h3 className="font-bold mr-2 text-primary text-xl">
-                  Book a session with David
-                </h3>
-                <FaCalendarAlt
-                  size={25}
-                  className="text-grotto-100 hover:text-primary"
-                />
-              </div>
-            </a>
           )}
           <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
             <div className="flex mt-4">
@@ -202,7 +167,7 @@ function CurrentUser() {
             </div>
           </div>
           <div className="card px-4 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
-            <h3 className="mt-2 md:text-start lg:w-full lg:ml-16 lg:my-4 text-primary font-bold text-xl">
+            <h3 className="mt-2 lg:my-4 text-primary font-bold text-xl">
               {reviews?.length === 1
                 ? `${reviews?.length} Review`
                 : `${reviews?.length} Reviews`}
@@ -220,7 +185,7 @@ function CurrentUser() {
             <div className="flex gap-4 p-4">
               <a
                 href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  outline border-2 border-grotto-100"
+                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
               >
                 See more
               </a>

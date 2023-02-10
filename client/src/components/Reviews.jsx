@@ -20,7 +20,7 @@ function Reviews({ stars, children, id }) {
   return (
     <>
       {id && (
-        <div className="grid justify-items-center md:pr-4 md:border-y-2 md:w-full md:border-ivory-50 md:grid-cols-5">
+        <div className="grid justify-items-center md:pr-4 border-y-2 w-full md:border-ivory-50 md:grid-cols-5">
           <div className="self-center">
             <img
               src={reviewer?.profilePic || noUserImg}
