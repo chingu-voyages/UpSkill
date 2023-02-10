@@ -42,8 +42,6 @@ const SkillsModal = ({ setEditSkills }) => {
       setError(false);
 
       const res = await updateSkills(user.id, skills.value, auth.token);
-      console.log(auth);
-      console.log(user);
       if (res) {
         //TODO: Make dispatch call for state change
         dispatch(setSkills({ skills: skills.value }));
