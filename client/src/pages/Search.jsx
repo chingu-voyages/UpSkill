@@ -75,7 +75,7 @@ function Search() {
         <form onSubmit={handleSubmit} className="my-4 col-span-7 w-full">
           <div className="flex">
             <input
-              className="border border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
+              className="border border-solid rounded-tl-lg p-2 rounded-bl-lg outline-none text-sm w-full"
               name="search"
               value={searchForm}
               id="search"

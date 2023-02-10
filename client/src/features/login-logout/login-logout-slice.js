@@ -27,7 +27,7 @@ const authSlice = createSlice({
   },
   reducers: {
     logOut(state) {
-      sessionStorage.clear();
+      localStorage.clear();
       state.token = null;
       state.error = null;
       state.isAuthenticated = false;
@@ -39,7 +39,7 @@ const authSlice = createSlice({
         state.isAuthenticated = false;
       } else {
         state.error = null;
-        state.token = sessionStorage.getItem("U-connect");
+        state.token = localStorage.getItem("U-connect");
         state.isAuthenticated = true;
       }
     },
@@ -47,7 +47,7 @@ const authSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        sessionStorage.setItem("U-connect", action.payload?.token);
+        localStorage.setItem("U-connect", action.payload?.token);
         state.token = action.payload;
         state.error = null;
         state.isAuthenticated = true;
