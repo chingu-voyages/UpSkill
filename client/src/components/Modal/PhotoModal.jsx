@@ -8,23 +8,26 @@ import { updatePhoto } from "../../api";
 
 const PhotoModal = ({ setEditPhoto }) => {
   const user = useSelector(state => state.user);
+  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
-
   const clickRef = useRef(null);
-  const [clicked, setClicked] = useState(false);
-  const [error, setError] = useState(false);
+  const [ clicked, setClicked ] = useState(false);
+  const [ error, setError ] = useState(false);
 
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (!clickRef.current.contains(e.target)) {
-        closeModal();
+  useEffect(
+    () => {
+      function handleClickOutside(e) {
+        if (!clickRef.current.contains(e.target)) {
+          closeModal();
+        }
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [clickRef]);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    },
+    [ clickRef ]
+  );
 
   const closeModal = () => {
     setEditPhoto(false);
@@ -44,7 +47,7 @@ const PhotoModal = ({ setEditPhoto }) => {
       const formData = new FormData();
       formData.append("profilePic", photo.files[0]);
       formData.append("id", `${user.id}`);
-      const res = await updatePhoto(formData);
+      const res = await updatePhoto(formData, auth.token);
       const newPhoto = res.data.Photo_updated;
 
       if (res) {

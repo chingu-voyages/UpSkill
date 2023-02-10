@@ -7,22 +7,26 @@ import { setBio } from "../../features/user/user-slice";
 
 const BioModal = ({ setEditBio }) => {
   const user = useSelector(state => state.user);
+  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const clickRef = useRef(null);
-  const [clicked, setClicked] = useState(false);
-  const [error, setError] = useState(false);
+  const [ clicked, setClicked ] = useState(false);
+  const [ error, setError ] = useState(false);
 
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (!clickRef.current.contains(e.target)) {
-        closeModal();
+  useEffect(
+    () => {
+      function handleClickOutside(e) {
+        if (!clickRef.current.contains(e.target)) {
+          closeModal();
+        }
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [clickRef]);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    },
+    [ clickRef ]
+  );
 
   const closeModal = () => {
     setEditBio(false);
@@ -51,7 +55,13 @@ const BioModal = ({ setEditBio }) => {
     } else {
       setError(false);
 
-      const res = await updateBio(user.id, aboutData, hobbiesData, missionData);
+      const res = await updateBio(
+        user.id,
+        aboutData,
+        hobbiesData,
+        missionData,
+        auth.token
+      );
 
       if (res) {
         closeModal();

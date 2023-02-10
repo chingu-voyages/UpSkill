@@ -26,19 +26,21 @@ import { useSelector } from "react-redux";
 const Dashboard = () => {
   const navigate = useNavigate();
   const user = useSelector(state => state.user);
+  const [ editPhoto, setEditPhoto ] = useState(false);
+  const [ editSkills, setEditSkills ] = useState(false);
+  const [ editBio, setEditBio ] = useState(false);
+  const [ calendar, setCalendar ] = useState(false);
 
-  const [editPhoto, setEditPhoto] = useState(false);
-  const [editSkills, setEditSkills] = useState(false);
-  const [editBio, setEditBio] = useState(false);
-  const [calendar, setCalendar] = useState(false);
-
-  useEffect(() => {
-    if (editPhoto || editSkills || editBio || calendar) {
-      window.document.body.style.overflow = "hidden";
-    } else if (!editPhoto && !editSkills && !editBio && !calendar) {
-      window.document.body.style.overflow = "unset";
-    }
-  }, [editPhoto, editSkills, editBio, calendar]);
+  useEffect(
+    () => {
+      if (editPhoto || editSkills || editBio || calendar) {
+        window.document.body.style.overflow = "hidden";
+      } else if (!editPhoto && !editSkills && !editBio && !calendar) {
+        window.document.body.style.overflow = "unset";
+      }
+    },
+    [ editPhoto, editSkills, editBio, calendar ]
+  );
 
   return (
     <main className="text-primary max-w-screen-xl m-auto flex items-center justify-between max-[1000px]:m-auto p-4 min-h-screen">
@@ -164,8 +166,8 @@ const Dashboard = () => {
                   <th>Session</th>
                   <th>When</th>
                   <th>Who</th>
-                  <th></th>
-                  <th></th>
+                  <th />
+                  <th />
                 </tr>
               </thead>
 

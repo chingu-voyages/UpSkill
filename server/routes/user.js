@@ -10,7 +10,7 @@ const {
   postUserReview,
   getUserReviews,
 } = require("../controllers/user");
-
+const { ensureLoggedIn } = require("../helpers/jwt");
 const upload = require("../middleware/multer");
 
 //Get user info
@@ -23,16 +23,21 @@ router.get("/skills", getUsersBySkill);
 router.put("/acc", updateUserAcc);
 
 //Update user info/data
-router.put("/info", updateUserInfo);
+router.put("/info", ensureLoggedIn, updateUserInfo);
 
 //Update user photo
-router.put("/photo", upload.single("profilePic"), updateUserPhoto);
+router.put(
+  "/photo",
+  ensureLoggedIn,
+  upload.single("profilePic"),
+  updateUserPhoto
+);
 
 //Update user calendly link
 router.put("/calendar", setUserCalendlyLink);
 
 //Post review about user
-router.post("/review", postUserReview);
+router.post("/review", ensureLoggedIn, postUserReview);
 
 //Get a user's reviews
 router.get("/review/:id", getUserReviews);
