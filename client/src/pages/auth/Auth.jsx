@@ -61,7 +61,7 @@ function Auth() {
     },
     []
   );
-  console.log(isSignUp);
+
   useEffect(() => {
     if (signupState.registered) {
       navigate("/post-signup");
