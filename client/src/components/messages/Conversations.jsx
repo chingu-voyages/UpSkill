@@ -8,15 +8,15 @@ import SendMessage from "./SendMessage";
 const Conversations = ({ conversationId, openMsg, socket, correspondance }) => {
   const [messages, setMessages] = useState([]);
   const [arrivalMessages, setArrivalMessages] = useState(null);
-  const userId = useSelector((state) => state.user.id);
+  const userId = useSelector(state => state.user.id);
   useEffect(() => {
     if (arrivalMessages !== null) {
-      setMessages((sms) => [...sms, arrivalMessages]);
+      setMessages(sms => [...sms, arrivalMessages]);
     }
   }, [arrivalMessages]);
 
   useEffect(() => {
-    socket.current?.on("getMessage", (data) => {
+    socket.current?.on("getMessage", data => {
       data.correspondance === correspondance &&
         setArrivalMessages({
           sender: data.correspondance,
@@ -43,8 +43,8 @@ const Conversations = ({ conversationId, openMsg, socket, correspondance }) => {
     <div className="overflow-x-hidden w-full relative text-primary">
       {openMsg ? (
         <>
-          <div className="bg-slate-50  flex flex-col px-4 pt-8 mb-12 overflow-x-hidden h-chatScreenHeight">
-            {messages?.map((value) => {
+          <div className="bg-slate-50  flex flex-col px-4 pt-8 mb-12 h-chatScreenHeight">
+            {messages?.map(value => {
               if (value.sender !== userId) {
                 return (
                   <div
@@ -77,6 +77,7 @@ const Conversations = ({ conversationId, openMsg, socket, correspondance }) => {
             correspondance={correspondance}
             userId={userId}
             socket={socket}
+            className="absolute"
           />
         </>
       ) : (

@@ -9,7 +9,7 @@ const ChatSearchInput = ({ text, placeholder }) => {
   };
   return (
     <div className=" flex items-center w-full">
-      <div className="relative flex items-center rounded-lg  bg-slate-100 w-full ">
+      <div className="relative flex items-center rounded-lg bg-slate-100 w-full">
         <input
           type={text}
           placeholder={placeholder}

@@ -1,8 +1,16 @@
-const Alert = ({ children, color }) => {
+import { useEffect, useState } from "react";
+
+const Alert = ({
+  children,
+  color,
+  position,
+  font = "semibold",
+  size = "xs",
+}) => {
   return (
     <div
-      className={`fixed z-[999] bottom-0 left-0 m-3 p-3 bg-${color}-500 
-      text-white rounded-lg shadow-lg font-semibold`}
+      style={{ backgroundColor: `${color}` }}
+      className={`flex fixed ${position} m-3 p-3 text-white text-${size} rounded-lg shadow-lg font-${font}`}
     >
       {children}
     </div>

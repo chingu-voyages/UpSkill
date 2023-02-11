@@ -53,6 +53,10 @@ th {
   }
 }
 
+.searchPageHeight {
+  min-height: calc(100vh - 300px);
+}
+
 @layer components {
   .card {
     @apply shadow-cardSh rounded-lg bg-cardBg;
