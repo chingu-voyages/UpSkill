@@ -34,7 +34,7 @@ router.put(
 );
 
 //Update user calendly link
-router.put("/calendar", setUserCalendlyLink);
+router.put("/calendar", ensureLoggedIn, setUserCalendlyLink);
 
 //Post review about user
 router.post("/review", ensureLoggedIn, postUserReview);

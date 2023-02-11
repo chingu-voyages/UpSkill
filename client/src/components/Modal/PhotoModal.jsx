@@ -13,7 +13,6 @@ const PhotoModal = ({ setEditPhoto }) => {
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
-  console.log(auth.token);
   useEffect(() => {
     function handleClickOutside(e) {
       if (!clickRef.current.contains(e.target)) {

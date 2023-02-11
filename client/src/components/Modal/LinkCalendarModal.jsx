@@ -1,13 +1,15 @@
 import "./modal.css";
 import { RxCross2 } from "react-icons/rx";
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+
 import axios from "axios";
 
 const server = import.meta.env.VITE_SERVER;
-import { useSelector } from "react-redux";
 
 const PhotoModal = ({ setCalendar }) => {
   const user = useSelector(state => state.user);
+  const auth = useSelector(state => state.auth);
 
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
@@ -40,10 +42,10 @@ const PhotoModal = ({ setCalendar }) => {
       if (calendly.value.match(/calendly.com\/\w*\/\w*/gm)) {
         setError(false);
         setClicked(true);
-
         const res = await axios.put(`${server}/user/calendar`, {
           id: user.id,
           calendly: calendly.value,
+          token: auth.token,
         });
         if (res) {
           closeModal();
