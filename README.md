@@ -52,6 +52,8 @@ Removed sections:
   <img src="https://user-images.githubusercontent.com/64617718/217234398-2e2671f8-41ee-452c-91f2-a6048a466938.png" alt="screenshot" />
 </div>
 
+### What is UpSkill? 
+A social platform designed to bring people together and forge communities based around co-working, co-learning and skill sharing. In our first iteration we have delivered an MVP to enable people to meet others from across the world, message and connect, share skills, teach and learn. Beyond the scope of our MVP is an aim to build a fully integrated skills sharing ecosystem with tokenised lessons, where people can trade their skills for tokens they can exchange elsewhere on the site to expand their own skills. 
 
 <!-- TechStack -->
 ### :space_invader: Tech Stack
