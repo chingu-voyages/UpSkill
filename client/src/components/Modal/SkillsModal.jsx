@@ -8,22 +8,24 @@ import { useSelector, useDispatch } from "react-redux";
 const SkillsModal = ({ setEditSkills }) => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
-
   const clickRef = useRef(null);
-  const [clicked, setClicked] = useState(false);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (!clickRef.current.contains(e.target)) {
-        closeModal();
+  const [ clicked, setClicked ] = useState(false);
+  const [ error, setError ] = useState(false);
+  const auth = useSelector(state => state.auth);
+  useEffect(
+    () => {
+      function handleClickOutside(e) {
+        if (!clickRef.current.contains(e.target)) {
+          closeModal();
+        }
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [clickRef]);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    },
+    [ clickRef ]
+  );
 
   const closeModal = () => {
     setEditSkills(false);
@@ -39,8 +41,7 @@ const SkillsModal = ({ setEditSkills }) => {
     } else {
       setError(false);
 
-      const res = await updateSkills(user.id, skills.value);
-
+      const res = await updateSkills(user.id, skills.value, auth.token);
       if (res) {
         //TODO: Make dispatch call for state change
         dispatch(setSkills({ skills: skills.value }));

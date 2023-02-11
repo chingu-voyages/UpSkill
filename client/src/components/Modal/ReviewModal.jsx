@@ -8,24 +8,27 @@ import { useSelector } from "react-redux";
 const server = import.meta.env.VITE_SERVER;
 const BioModal = ({ setPostReview, postReview, receiverId }) => {
   const user = useSelector(state => state.user);
-
+  const auth = useSelector(state => state.auth);
   const clickRef = useRef(null);
   const reviewInput = useRef(null);
-  const [selectStar, setSelectStar] = useState(0);
-  const [clicked, setClicked] = useState(false);
-  const [error, setError] = useState(false);
+  const [ selectStar, setSelectStar ] = useState(0);
+  const [ clicked, setClicked ] = useState(false);
+  const [ error, setError ] = useState(false);
 
-  useEffect(() => {
-    function handleClickOutside(e) {
-      if (!clickRef.current.contains(e.target)) {
-        closeModal();
+  useEffect(
+    () => {
+      function handleClickOutside(e) {
+        if (!clickRef.current.contains(e.target)) {
+          closeModal();
+        }
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [clickRef]);
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    },
+    [ clickRef ]
+  );
 
   const closeModal = () => {
     setPostReview(false);
@@ -47,6 +50,7 @@ const BioModal = ({ setPostReview, postReview, receiverId }) => {
         reviewerId: user.id,
         review: reviewInput.current.value,
         starRating: selectStar + 1,
+        token: auth.token,
       });
       if (res) {
         closeModal();
@@ -89,7 +93,7 @@ const BioModal = ({ setPostReview, postReview, receiverId }) => {
                 name="review"
                 id="review"
                 className="input-field resize-y max-h-[200px] min-h-[100px] py-1"
-              ></textarea>
+              />
             </div>
           </div>
         </div>

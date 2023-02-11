@@ -8,12 +8,11 @@ import { updatePhoto } from "../../api";
 
 const PhotoModal = ({ setEditPhoto }) => {
   const user = useSelector(state => state.user);
+  const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
-
   const clickRef = useRef(null);
   const [clicked, setClicked] = useState(false);
   const [error, setError] = useState(false);
-
   useEffect(() => {
     function handleClickOutside(e) {
       if (!clickRef.current.contains(e.target)) {
@@ -35,7 +34,6 @@ const PhotoModal = ({ setEditPhoto }) => {
 
     //userId needed from state after auth
     const { photo } = e.target.elements;
-
     if (!photo.files[0]) {
       return setError(true);
     } else {
@@ -44,6 +42,7 @@ const PhotoModal = ({ setEditPhoto }) => {
       const formData = new FormData();
       formData.append("profilePic", photo.files[0]);
       formData.append("id", `${user.id}`);
+      formData.append("token", auth.token);
       const res = await updatePhoto(formData);
       const newPhoto = res.data.Photo_updated;
 
