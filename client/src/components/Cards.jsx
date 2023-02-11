@@ -39,13 +39,13 @@ const Cards = () => {
           Come on in and see what skills people are sharing. Like what you see?
           Sign up, join the community and learn what you’ve always wanted to!
         </p>
-        <div className="flex justify-center">
-          <Link to="/q">
+        <Link to="/q">
+          <div className="flex justify-center">
             <button className="font-bold bg-baby py-2 px-4 rounded-lg text-primary">
               Search for tutors
             </button>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
     </div>
   );

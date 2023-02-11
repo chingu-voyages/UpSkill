@@ -1,8 +1,14 @@
 import { Link } from "react-router-dom";
 import { BsGithub, BsLinkedin, BsGoogle } from "react-icons/bs";
+import { useEffect, useRef } from "react";
 const Footer = () => {
+  const footerRef = useRef(null);
+  useEffect(() => {
+    const h = footerRef.current.offsetHeight;
+    console.log(h);
+  }, []);
   return (
-    <footer className="bg-grotto-100 text-ivory-100 p-4">
+    <footer ref={footerRef} className="bg-grotto-100 text-ivory-100 p-4">
       <div className="flex">
         <Link to="/">
           <h3 className="font-title sm:text-5xl text-xl font-bold">Upskill</h3>
