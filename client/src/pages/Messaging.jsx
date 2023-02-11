@@ -28,6 +28,7 @@ const Messaging = () => {
         setIsConnected(false);
       });
     }
+
     return () => {
       socket.current.disconnect();
     };
@@ -164,7 +165,11 @@ const Messaging = () => {
           </div>
         </div>
       )}
-      {!isConnected && <Alert color="yellow">Something wrong. Reload</Alert>}
+      {!isConnected && (
+        <Alert color="yellow" position="bottom-0 left-0">
+          Something wrong. Reload
+        </Alert>
+      )}
     </>
   );
 };

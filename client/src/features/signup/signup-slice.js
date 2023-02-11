@@ -26,8 +26,12 @@ export const signUpSlice = createSlice({
     setErrorSignup(state, action) {
       state.error = action.payload;
     },
-    setIsSignup(state) {
-      state.isSignup = !state.isSignup;
+    setIsSignup(state, action) {
+      if (action.payload !== undefined) {
+        state.isSignup = action.payload;
+      } else {
+        state.isSignup = !state.isSignup;
+      }
     },
     notPostSignUp(state) {
       state.registered = false;
