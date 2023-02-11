@@ -40,11 +40,10 @@ function App() {
   const currentUserId = useSelector(state => state.user.id);
   const dispatch = useDispatch();
   const decoded = jwtFuncDecode();
-  
-  useEffect(
-    () => {
-      dispatch(ifAuthenticated());
-      dispatch(setUser(decoded));
+
+  useEffect(() => {
+    dispatch(ifAuthenticated());
+    dispatch(setUser(decoded));
 
     if (currentUserId) {
       const fetch = async () => {
@@ -81,9 +80,9 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/messages" element={<Messaging />} />
         </Route>
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
       <Footer />
     </Router>
