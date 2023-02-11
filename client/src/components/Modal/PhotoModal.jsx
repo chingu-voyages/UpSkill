@@ -11,23 +11,20 @@ const PhotoModal = ({ setEditPhoto }) => {
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const clickRef = useRef(null);
-  const [ clicked, setClicked ] = useState(false);
-  const [ error, setError ] = useState(false);
-
-  useEffect(
-    () => {
-      function handleClickOutside(e) {
-        if (!clickRef.current.contains(e.target)) {
-          closeModal();
-        }
+  const [clicked, setClicked] = useState(false);
+  const [error, setError] = useState(false);
+  console.log(auth.token);
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (!clickRef.current.contains(e.target)) {
+        closeModal();
       }
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    },
-    [ clickRef ]
-  );
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [clickRef]);
 
   const closeModal = () => {
     setEditPhoto(false);
@@ -38,7 +35,6 @@ const PhotoModal = ({ setEditPhoto }) => {
 
     //userId needed from state after auth
     const { photo } = e.target.elements;
-
     if (!photo.files[0]) {
       return setError(true);
     } else {
@@ -47,7 +43,8 @@ const PhotoModal = ({ setEditPhoto }) => {
       const formData = new FormData();
       formData.append("profilePic", photo.files[0]);
       formData.append("id", `${user.id}`);
-      const res = await updatePhoto(formData, auth.token);
+      formData.append("token", auth.token);
+      const res = await updatePhoto(formData);
       const newPhoto = res.data.Photo_updated;
 
       if (res) {

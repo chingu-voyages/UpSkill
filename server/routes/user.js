@@ -28,8 +28,8 @@ router.put("/info", ensureLoggedIn, updateUserInfo);
 //Update user photo
 router.put(
   "/photo",
-  ensureLoggedIn,
   upload.single("profilePic"),
+  ensureLoggedIn,
   updateUserPhoto
 );
 

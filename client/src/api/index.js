@@ -19,7 +19,6 @@ export const getConversation = userid =>
 
 export const getMessages = relationId => instance.get(`messages/${relationId}`);
 
-
 export const postAMessage = (relationId, credentials) =>
   instance.post(`/messages/q/${relationId}`, credentials);
 
@@ -41,12 +40,8 @@ export const updateSkills = (id, skills, token) => {
   });
 };
 
-export const updatePhoto = (formData, token) => {
-  return instance.put(
-    "/user/photo",
-    { formData, token },
-    {
-      headers: { "Content-Type": "multipart/form-data" },
-    }
-  );
+export const updatePhoto = formData => {
+  return instance.put("/user/photo", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
 };

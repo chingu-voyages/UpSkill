@@ -14,7 +14,9 @@ function createToken(user) {
 function ensureLoggedIn(req, res, next) {
   try {
     // expect token to be in request body
-    const token = req.body.token;
+
+    const { token } = req.body;
+    console.log("checking token", req.body.formData);
     jwt.verify(token, SECRET_KEY);
     return next();
   } catch (err) {
