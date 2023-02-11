@@ -14,10 +14,13 @@ import {
   FaCalendarAlt,
 } from "react-icons/fa";
 
+import { useSelector } from "react-redux";
+
 import Reviews from "../../components/Reviews";
 import ReviewModal from "../../components/Modal/ReviewModal";
 import axios from "axios";
 function ViewUser({ id }) {
+  const viewerLoggedIn = useSelector(state => state.user.id);
   const [width, setWidth] = useState(window.innerWidth);
   const [postReview, setPostReview] = useState(false);
   const [user, setUser] = useState(null);
@@ -145,8 +148,8 @@ function ViewUser({ id }) {
           {width >= 1024 ? (
             <a
               className="card p-6 lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link || "#"}
-              target={user?.calendly_link ? "_blank" : ""}
+              href={viewerLoggedIn && user ? user?.calendly_link : "#"}
+              target={user?.calendly_link && viewerLoggedIn ? "_blank" : ""}
             >
               <div className="flex p-2  justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
@@ -188,8 +191,8 @@ function ViewUser({ id }) {
           ) : (
             <a
               className="card lg:my-12 p-6 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full cursor-pointer"
-              href={user?.calendly_link || "#"}
-              target={user?.calendly_link ? "_blank" : ""}
+              href={viewerLoggedIn && user ? user?.calendly_link : "#"}
+              target={user?.calendly_link && viewerLoggedIn ? "_blank" : ""}
             >
               <div className="flex w-full justify-center">
                 <h3 className="font-bold mr-2 text-primary text-xl">
@@ -260,12 +263,14 @@ function ViewUser({ id }) {
               >
                 See more
               </a>
-              <button
-                onClick={handleClick}
-                className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-primary"
-              >
-                Leave a review
-              </button>
+              {viewerLoggedIn && (
+                <button
+                  onClick={handleClick}
+                  className="bg-primary hover:bg-grotto-100 px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-primary"
+                >
+                  Leave a review
+                </button>
+              )}
             </div>
           </div>
         </section>

@@ -80,9 +80,9 @@ function App() {
           }
         >
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile/:id" element={<Profile />} />
           <Route path="/messages" element={<Messaging />} />
         </Route>
+        <Route path="/profile/:id" element={<Profile />} />
       </Routes>
       <Footer />
     </Router>
