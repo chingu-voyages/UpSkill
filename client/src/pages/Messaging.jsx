@@ -13,8 +13,8 @@ const Messaging = () => {
   const [seeMessages, setSeeMessages] = useState({});
   const [screenSize, setScreenSize] = useState(window.innerWidth);
   const [isConnected, setIsConnected] = useState(true);
-  const user = useSelector((state) => state.user);
-  const conversationList = useSelector((state) => state.messages.conversations);
+  const user = useSelector(state => state.user);
+  const conversationList = useSelector(state => state.messages.conversations);
   const socket = useRef();
   const dispatch = useDispatch();
 
@@ -61,7 +61,7 @@ const Messaging = () => {
                 Chats
               </h2>
               <ChatSearchInput text="text" placeholder="Search" />
-              {conversationList?.map((value) => {
+              {conversationList?.map(value => {
                 return (
                   <Chats
                     key={value?.user.id}
@@ -70,7 +70,7 @@ const Messaging = () => {
                     name={`${value?.user.first_name} ${value?.user.last_name}`}
                     conversationId={value?.conversation_id}
                     date="Yesterday"
-                    message="Hey David, are you still available for our class at 2pm tomorrow?"
+                    message="View messages"
                     setOpenMsg={setOpenMsg}
                     setSeeMessages={setSeeMessages}
                   />
@@ -79,7 +79,7 @@ const Messaging = () => {
             </div>
           ) : (
             <div className="w-full">
-              <div className="z-10 bg-white max-w-full">
+              <div className="z-10 bg-white">
                 <div className="flex items-center w-44 justify-between p-4">
                   <IoIosArrowBack
                     className="cursor-pointer text-primary text-2xl"
@@ -111,12 +111,12 @@ const Messaging = () => {
         </div>
       ) : (
         <div className="h-chatScreenHeight flex overflow-x-hidden">
-          <div className="px-4 max-w-sm overflow-auto ">
+          <div className="px-4 max-w-sm overflow-auto">
             <h2 className="font-bold font-title text-2xl text-primary pb-2">
               Chats
             </h2>
             <ChatSearchInput text="text" placeholder="Search" />
-            {conversationList?.map((value) => {
+            {conversationList?.map(value => {
               return (
                 <Chats
                   key={value?.user.id}
@@ -125,7 +125,7 @@ const Messaging = () => {
                   name={`${value?.user.first_name} ${value?.user.last_name}`}
                   conversationId={value?.conversation_id}
                   date="Yesterday"
-                  message="Hey David, are you still available for our class at 2pm tomorrow?"
+                  message="View messages"
                   setOpenMsg={setOpenMsg}
                   setSeeMessages={setSeeMessages}
                 />
