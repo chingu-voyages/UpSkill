@@ -22,8 +22,9 @@ Removed sections:
   
    
 <h2>
-    <a href="https://upskill-client.onrender.com/">View Demo</a>
+    <a href="https://upskill-client.onrender.com/">View Demo *</a>
   </h2>
+  *<sub>Note: Our backend server is running on a free tier, which means after 20 minutes of inactivity it spins down. So, please be patient, starting from cold the server can take around 20 seconds to start up and respond.</sub>
 </div>
 
 <br />
