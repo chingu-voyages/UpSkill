@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Chats from "../components/messages/Chats";
+import noUserProfile from "../assets/dashboard/noUser.png";
 import ChatSearchInput from "../components/messages/ChatSearchInput";
 import { IoIosArrowBack } from "react-icons/io";
 import { io } from "socket.io-client";
@@ -66,7 +67,7 @@ const Messaging = () => {
                   <Chats
                     key={value?.user.id}
                     correspondance={value?.user.userId}
-                    avi={`${value?.user.profilePic}`}
+                    avi={`${value?.user.profilePic || noUserProfile}`}
                     name={`${value?.user.first_name} ${value?.user.last_name}`}
                     conversationId={value?.conversation_id}
                     date="Yesterday"
@@ -120,7 +121,7 @@ const Messaging = () => {
               return (
                 <Chats
                   key={value?.user.id}
-                  avi={`${value?.user.profilePic}`}
+                  avi={`${value?.user.profilePic || noUserProfile}`}
                   correspondance={value?.user.userId}
                   name={`${value?.user.first_name} ${value?.user.last_name}`}
                   conversationId={value?.conversation_id}
@@ -166,7 +167,7 @@ const Messaging = () => {
         </div>
       )}
       {!isConnected && (
-        <Alert color="yellow" position="bottom-0 left-0">
+        <Alert color="#f20042" position="bottom-0 left-0">
           Something wrong. Reload
         </Alert>
       )}

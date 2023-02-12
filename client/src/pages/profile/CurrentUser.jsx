@@ -16,7 +16,7 @@ import axios from "axios";
 function CurrentUser() {
   const [width, setWidth] = useState(window.innerWidth);
   const [reviews, setReviews] = useState(null);
-  const user = useSelector(state => state.user);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     function handleResize() {
@@ -183,12 +183,14 @@ function CurrentUser() {
                 </Reviews>
               ))}
             <div className="flex gap-4 p-4">
-              <a
-                href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
-              >
-                See more
-              </a>
+              {reviews?.length > 3 ? (
+                <a
+                  href="#"
+                  className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
+                >
+                  See more
+                </a>
+              ) : null}
             </div>
           </div>
         </section>
