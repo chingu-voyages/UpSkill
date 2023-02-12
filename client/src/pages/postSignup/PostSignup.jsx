@@ -8,6 +8,7 @@ import axios from "axios";
 
 const PostSignup = () => {
   const { id } = useSelector(state => state.user);
+  const { token } = useSelector(state => state.auth);
   const options = ["Online only", "Online & In-person", "In-person only"];
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const PostSignup = () => {
             learning: postData.learning,
             occupation: postData.job,
             location: postData.location,
+            token,
           }
         );
         if (res) {
