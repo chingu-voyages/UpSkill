@@ -13,7 +13,6 @@ import Alert from "./Alert";
 function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
   const [state, setState] = useState(false);
   const [send, setSend] = useState(null);
-  const userId = useSelector((state) => state.user.id);
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const user = useSelector((state) => state.user);
@@ -53,7 +52,7 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
     const sendTheMessage = async (message) => {
       try {
         const response = await postAMessage("", {
-          sender: userId,
+          sender: user.id,
           recever: id,
           content: message,
         });
@@ -139,7 +138,7 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
           </div>
         ) : (
           <>
-            {user.id && (
+            {user.id !== id && (
               <button className="search-btn" onClick={handleMessageClick}>
                 Message
               </button>
@@ -153,7 +152,7 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
       {screenSize <= 500 && state ? null : (
         <div
           className="
-      text-[10px] lg:text-base font-semibold leading-normal col-span-8 text-grotto-100 flex gap-60"
+      text-[10px] lg:text-base lg:ml-4 font-semibold leading-normal col-span-8 text-grotto-100 flex gap-60"
         >
           {children}
         </div>
