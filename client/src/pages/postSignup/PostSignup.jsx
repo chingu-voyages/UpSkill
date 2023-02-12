@@ -5,17 +5,29 @@ import { useSelector, useDispatch } from "react-redux";
 import { notPostSignUp } from "../../features/signup/signup-slice";
 import { ifAuthenticated } from "../../features/login-logout/login-logout-slice";
 import axios from "axios";
+import { getUser } from "../../features/user/user-slice";
+import { useEffect } from "react";
 
 const PostSignup = () => {
-  const { id } = useSelector(state => state.user);
-  const { token } = useSelector(state => state.auth);
+  const { id } = useSelector((state) => state.user);
+  const { token } = useSelector((state) => state.auth);
   const options = ["Online only", "Online & In-person", "In-person only"];
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const handleSubmit = async e => {
+
+  useEffect(() => {
+    dispatch(ifAuthenticated());
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const { wantToTeach, wantToLearn, connectingFrom, occupation, selector } =
-      e.target.elements;
+    const {
+      wantToTeach,
+      wantToLearn,
+      connectingFrom,
+      occupation,
+      selector,
+    } = e.target.elements;
 
     const postData = {
       teaching: wantToTeach.value ? wantToTeach.value : null,
@@ -26,26 +38,31 @@ const PostSignup = () => {
     };
 
     dispatch(notPostSignUp());
-    dispatch(ifAuthenticated());
-    try {
-      if (id) {
-        const res = await axios.put(
-          `${import.meta.env.VITE_SERVER}/user/info/`,
-          {
-            id: id,
-            skills: postData.teaching,
-            learning: postData.learning,
-            occupation: postData.job,
-            location: postData.location,
-            token,
-          }
-        );
-        if (res) {
-          navigate("/dashboard");
+    const sendProfileUpdate = async (userid) => {
+      try {
+        if (userid) {
+          const res = await axios.put(
+            `${import.meta.env.VITE_SERVER}/user/info/`,
+            {
+              id: userid,
+              skills: postData.teaching,
+              learning: postData.learning,
+              occupation: postData.job,
+              location: postData.location,
+              token,
+            }
+          );
+          return res.data;
         }
+        return null;
+      } catch (e) {
+        return null;
       }
-    } catch (e) {
-      return new Error(e);
+    };
+    const res = await sendProfileUpdate(id);
+    if (res) {
+      dispatch(getUser(id));
+      navigate("/dashboard");
     }
   };
 

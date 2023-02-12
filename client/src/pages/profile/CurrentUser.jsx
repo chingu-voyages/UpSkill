@@ -93,17 +93,7 @@ function CurrentUser() {
               </span>
             </div>
           </div>
-          <div className="card p-4 lg:my-12 lg:h-auto mx-4 my-6  flex flex-col items-center m-auto justify-between lg:justify-center h-full relative">
-            <div className="flex flex-col items-center my-4">
-              <h3 className="font-bold ml-2 text-primary text-xl">
-                Misson Statement
-              </h3>
-              <span className="skill-set text-grotto-100 p-4 text-justify">
-                {user?.mission || ""}
-              </span>
-            </div>
-          </div>
-          {width >= 1024 && (
+          {width <= 1024 && (
             <div className="card lg:my-12 mx-4 my-6 flex flex-col items-center justify-between lg:h-auto h-full">
               <div className="flex w-full p-4 justify-center border-b-2 border-ivory-50">
                 <FaBookOpen size={25} className="text-grotto-100" />
@@ -116,6 +106,16 @@ function CurrentUser() {
               </BioDetails>
             </div>
           )}
+          <div className="card p-4 lg:my-12 lg:h-auto mx-4 my-6  flex flex-col items-center m-auto justify-between lg:justify-center h-full relative">
+            <div className="flex flex-col items-center my-4">
+              <h3 className="font-bold ml-2 text-primary text-xl">
+                Misson Statement
+              </h3>
+              <span className="skill-set text-grotto-100 p-4 text-justify">
+                {user?.mission || ""}
+              </span>
+            </div>
+          </div>
         </section>
         <section className="lg:mr-8 lg:w-1/2 lg:flex lg:flex-col lg:content-center  ">
           {width >= 1024 && (
