@@ -6,7 +6,7 @@ const Community = () => {
     <div className="flex flex-col mt-[10rem] min-[350px]:mt-4 h-screen justify-center bg-baby">
       <div className="lg:flex lg:flex-row">
         <img
-          className="-mt-20 lg:w-full m:w-full min-w-[300px] overflow-hidden"
+          className="-mt-20 lg:w-full  m:w-full min-w-[300px] overflow-hidden"
           src={community}
           alt="community"
         />

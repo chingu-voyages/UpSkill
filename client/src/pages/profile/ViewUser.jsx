@@ -69,7 +69,7 @@ function ViewUser({ id }) {
     }
   }, [postReview]);
 
-  const handleClick = e => {
+  const handleClick = (e) => {
     e.stopPropagation();
     setPostReview(true);
   };
@@ -257,12 +257,14 @@ function ViewUser({ id }) {
                 </Reviews>
               ))}
             <div className="flex gap-4 p-4">
-              <a
-                href="#"
-                className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
-              >
-                See more
-              </a>
+              {reviews?.length > 3 ? (
+                <a
+                  href="#"
+                  className="bg-grotto-100 hover:bg-primary px-6 max-[399px]:px-2 py-1 text-white rounded-full  border-2 border-grotto-100"
+                >
+                  See more
+                </a>
+              ) : null}
               {viewerLoggedIn && (
                 <button
                   onClick={handleClick}
