@@ -64,7 +64,7 @@ function Search() {
   }, [skill]);
 
   return (
-    <main className="lg:text-xl min-h-screen">
+    <main className="lg:text-xl searchPageHeight">
       <div className=" md:w-3/4 lg:ml-8 flex lg:grid lg:grid-cols-12 lg:flex-row my-6 bg-cardBg drop-shadow-lg mx-4 rounded-lg p-3">
         <label
           htmlFor="search"

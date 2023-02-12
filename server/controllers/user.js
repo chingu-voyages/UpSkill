@@ -119,7 +119,6 @@ const updateUserInfo = async (req, res) => {
 const updateUserPhoto = async (req, res) => {
   try {
     const { id } = req.body;
-
     if (!id) {
       return res.status(400).json("User ID Missing");
     }

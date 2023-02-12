@@ -32,7 +32,7 @@ function Reviews({ stars, children, id }) {
           </div>
           <div className="md:col-span-4 md:my-4 md:w-full">
             <div className="flex items-center gap-4 px-4 md:p-0">
-              <h3 className="font-bold md:my-2 md:text-lg text-primary md:text-start text-center text-xl">
+              <h3 className="font-bold md:my-2 md:text-lg text-primary md:text-start text-center text-xl capitalize">
                 {reviewer
                   ? `${reviewer?.first_name} ${reviewer?.last_name}`
                   : ""}

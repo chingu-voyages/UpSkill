@@ -15,27 +15,28 @@ export const getUserInfo = id => {
 };
 
 export const getConversation = userid =>
-  instance.get(`/messages/conversation/${userid}`);
+  instance.get(`messages/conversation/${userid}`);
 
-export const getMessages = relationId =>
-  instance.get(`/messages/${relationId}`);
+export const getMessages = relationId => instance.get(`messages/${relationId}`);
 
 export const postAMessage = (relationId, credentials) =>
   instance.post(`/messages/q/${relationId}`, credentials);
 
-export const updateBio = (id, about, hobbies, mission) => {
+export const updateBio = (id, about, hobbies, mission, token) => {
   return instance.put("/user/info", {
     id,
     about,
     hobbies,
     mission,
+    token,
   });
 };
 
-export const updateSkills = (id, skills) => {
+export const updateSkills = (id, skills, token) => {
   return instance.put("/user/info", {
     id,
     skills,
+    token,
   });
 };
 

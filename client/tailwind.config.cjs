@@ -40,7 +40,7 @@ module.exports = {
         cardSh: "2px 2px 7px rgba(0, 0, 0, 0.25)",
       },
       height: {
-        chatScreenHeight: "calc(100vh - 4.9rem)",
+        chatScreenHeight: "calc(100vh - 5rem)",
       },
     },
   },

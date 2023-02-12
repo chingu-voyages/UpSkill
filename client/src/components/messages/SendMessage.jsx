@@ -11,7 +11,7 @@ const SendMessage = ({
   correspondance,
 }) => {
   const inputRef = useRef(null);
-  const HandleSubmit = (e) => {
+  const HandleSubmit = e => {
     e.preventDefault();
     if (inputRef.current.value === "") {
       return;
@@ -22,7 +22,7 @@ const SendMessage = ({
           sender: userId,
           content: inputRef.current.value,
         });
-        setMessages((mes) => [...mes, ...res.data]);
+        setMessages(mes => [...mes, ...res.data]);
       }
     };
     sendTheMessage();
