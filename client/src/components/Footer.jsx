@@ -5,7 +5,6 @@ const Footer = () => {
   const footerRef = useRef(null);
   useEffect(() => {
     const h = footerRef.current.offsetHeight;
-    console.log(h);
   }, []);
   return (
     <footer ref={footerRef} className="bg-grotto-100 text-ivory-100 p-4">

@@ -60,7 +60,6 @@ const PostSignup = () => {
       }
     };
     const res = await sendProfileUpdate(id);
-    console.log(id);
     if (res) {
       dispatch(getUser(id));
       navigate("/dashboard");
