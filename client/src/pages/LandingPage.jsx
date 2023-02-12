@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 
 const LandingPage = () => {
-  const [smallscreen, setSmallscreen] = useState(false);
+  const [screen, setScreen] = useState(false);
   useEffect(() => {
     function switchHero() {
-      window.innerWidth > 770 ? setSmallscreen(false) : setSmallscreen(true);
+      setScreen(() => window.innerWidth);
     }
     window.addEventListener("resize", switchHero);
     return () => {
@@ -18,7 +18,7 @@ const LandingPage = () => {
   }, [window.innerWidth]);
   return (
     <div>
-      {smallscreen ? <Hero /> : <HeroLarge />}
+      {screen < 770 ? <Hero /> : <HeroLarge />}
       <Community />
       <HowItWorks />
       <Cards />
