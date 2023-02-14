@@ -67,8 +67,7 @@ A social platform designed to bring people together and forge communities based 
     <li><a href="https://reactrouter.com/en/main">React Router</a></li>
     <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
     <li><a href="https://axios-http.com/docs/intro">Axios</a></li>
-    
-    
+    <li><a href="https://www.figma.com/">Figma</a></li>
   </ul>
 </details>
 
