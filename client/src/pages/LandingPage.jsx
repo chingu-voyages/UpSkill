@@ -15,7 +15,7 @@ const LandingPage = () => {
     return () => {
       window.removeEventListener("resize", switchHero);
     };
-  }, [window.innerWidth]);
+  }, [screen]);
   return (
     <div>
       {screen < 770 ? <Hero /> : <HeroLarge />}
