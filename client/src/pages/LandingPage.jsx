@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import Cards from "../components/Cards";
 
 const LandingPage = () => {
-  const [screen, setScreen] = useState(false);
+  const [screen, setScreen] = useState(window.innerWidth);
   useEffect(() => {
     function switchHero() {
       setScreen(() => window.innerWidth);
