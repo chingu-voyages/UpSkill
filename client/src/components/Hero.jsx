@@ -7,14 +7,15 @@ import { useSelector, useDispatch } from "react-redux";
 const Hero = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const searchQuery = useSelector((state) => state.searchSkill.searchQuery);
+  const searchQuery = useSelector(state => state.searchSkill.searchQuery);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     dispatch(searchSkills(e.target.value));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
+    dispatch(searchSkills(""));
     navigate("/q", { state: { skill: `${searchQuery}` } });
   };
 
@@ -42,7 +43,7 @@ const Hero = () => {
           <form onSubmit={handleSubmit}>
             <div className="flex mt-2">
               <input
-                className="border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full"
+                className="border-solid rounded-tl-lg p-2 rounded-bl-lg text-sm w-full focus:outline-none"
                 name="search"
                 value={searchQuery}
                 type="text"

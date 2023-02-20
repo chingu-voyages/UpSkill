@@ -15,7 +15,7 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
   const [send, setSend] = useState(null);
   const navigate = useNavigate();
   const inputRef = useRef(null);
-  const user = useSelector((state) => state.user);
+  const user = useSelector(state => state.user);
   const [screenSize, setScreenSize] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -44,12 +44,12 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
     };
   }, [send]);
 
-  const HandleSubmit = async (e) => {
+  const HandleSubmit = async e => {
     e.preventDefault();
     if (inputRef.current.value === "") {
       return;
     }
-    const sendTheMessage = async (message) => {
+    const sendTheMessage = async message => {
       try {
         const response = await postAMessage("", {
           sender: user.id,
@@ -159,12 +159,12 @@ function SearchProfileCard({ children, id, avatar, name, bio, skills }) {
       )}
       {send === true ? (
         <Alert color="#2d9a2dd9" position="top-0 right-0">
-          {screenSize >= 500 ? "Messsage send" : null}
+          {screenSize >= 500 ? "Messsage sent" : null}
           <BsCheck2All className="ml-2" size={15} />
         </Alert>
       ) : send === false ? (
         <Alert color="#e50e0ee3" position="top-0 right-0">
-          {screenSize >= 500 ? "Message not send. Retry " : null}
+          {screenSize >= 500 ? "Message not sent. Retry " : null}
           <RxCrossCircled className="ml-2" size={15} />
         </Alert>
       ) : null}
