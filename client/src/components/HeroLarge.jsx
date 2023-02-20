@@ -1,5 +1,6 @@
 import collabImg from "../assets/landing/collab_learning.jpg";
 import { FaSearch } from "react-icons/fa";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { searchSkills } from "../features/search/search-slice";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,14 +8,15 @@ import { useSelector, useDispatch } from "react-redux";
 const HeroLarge = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const searchQuery = useSelector((state) => state.searchSkill.searchQuery);
+  const searchQuery = useSelector(state => state.searchSkill.searchQuery);
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     dispatch(searchSkills(e.target.value));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
+    dispatch(searchSkills(""));
     navigate("/q", { state: { skill: `${searchQuery}` } });
   };
 
